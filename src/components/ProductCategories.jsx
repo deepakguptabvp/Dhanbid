@@ -3,7 +3,7 @@ import productCategory from "../data/product_Category.json";
 
 const ProductCategories = () => {
   return (
-    <div className="container mx-auto p-20 bg-gray-50">
+    <div className="container mx-auto p-10 md:px-20 md:py-10 bg-gray-100">
       <h1 className="text-3xl font-bold text-center mb-12 text-gray-800">
         Popular Product Categories
       </h1>
@@ -56,7 +56,7 @@ const ProductCategories = () => {
       <div className="flex flex-row mx-auto items-center justify-center mt-2 p-8">
         <button
           type="button"
-          class="text-white bg-gradient-to-r from-blue-500 via-blue-600 
+          className="text-white bg-gradient-to-r from-blue-500 via-blue-600 
         to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none 
          dark:focus:ring-blue-800 font-medium rounded-full text-md px-5 py-2.5 text-center me-2 mb-2"
         >
