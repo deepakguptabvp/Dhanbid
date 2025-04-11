@@ -1,0 +1,40 @@
+{
+    "popularProductCategories": [
+        {
+            "id": 1,
+            "title": "Oxygen Gas & Accessories",
+            "description": "Oxygen Concentrator Oxygen Flow Meter Compressed oxygen IS:309 O2 Gas Cylinders - Steel HF Nasal O2 Therapy Unit",
+            "image": "/product_images/OxygenGas.jpg"
+        },
+        {
+            "id": 2,
+            "title": "Medical",
+            "description": "Hand Sanitizers, Air Pollution Mask, Surgical Gloves, Covid-19 Kit, etc.",
+            "image": "/product_images/Medical.png"
+        },
+        {
+            "id": 3,
+            "title": "Saras Collection",
+            "description": "Handicrafts, Handloom Texti.., Personal Care.., Accessories",
+            "image": "/product_images/Handicrafts.png"
+        },
+        {
+            "id": 4,
+            "title": "Furniture",
+            "description": "Office Chair, Computer Desk, Lounge Chair, Storage Rack, etc.",
+            "image": "/product_images/Furniture.png"
+        },
+        {
+            "id": 5,
+            "title": "Fire Safety",
+            "description": "Fire Extinguishers, Sprinklers, Smoke, Detectors Fire, Alarms",
+            "image": "/product_images/FireSafety.png"
+        },
+        {
+            "id": 6,
+            "title": "Computers",
+            "description": "Desktop PC, Monitor, PC Software, Printers & MFDs",
+            "image": "/product_images/computers.png"
+        }
+    ]
+}
