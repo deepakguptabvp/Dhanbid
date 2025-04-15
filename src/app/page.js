@@ -1,6 +1,5 @@
 import Body from "@/components/Body";
 import Footer from "@/components/Footer";
-import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 
 export default function Home() {
@@ -10,8 +9,7 @@ export default function Home() {
     dark:bg-grid-small-white/[0.1] bg-grid-small-black/[0.1] "
     >
       <Navbar />
-      <Body/>
-   
+      <Body />
       <Footer />
     </main>
   );

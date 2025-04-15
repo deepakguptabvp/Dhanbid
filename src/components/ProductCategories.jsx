@@ -1,5 +1,5 @@
 import React from "react";
-import productCategory from "../data/product_Category.json";
+import productCategoryData from './../data/productCategoryData.json'
 
 const ProductCategories = () => {
   return (
@@ -8,7 +8,7 @@ const ProductCategories = () => {
         Popular Product Categories
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {productCategory.popularProductCategories.map((item) => {
+        {productCategoryData.popularProductCategories.map((item) => {
           return (
             <div
               key={item.id}

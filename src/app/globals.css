@@ -28,3 +28,7 @@ body {
 /* popularService{
   background-color: "linear-gradient(to bottom, #125db8, #1f4691 70%, #f8f8f8 30%, #f8f8f8)";
 } */
+
+customgradient {
+  background-image: linear-gradient(to bottom, #f97316 50%, #16a34a 50%);
+}

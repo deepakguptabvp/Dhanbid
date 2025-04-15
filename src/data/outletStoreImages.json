@@ -1,0 +1,44 @@
+{
+    "outletImages": [
+        {
+            "id": 1,
+            "title": "The Saras Collection",
+            "image": "/outlet_stores/saras-collection.png"
+        },
+        {
+            "id": 2,
+            "title": "ODOP",
+            "image": "/outlet_stores/odop.jpg"
+        },
+        {
+            "id": 3,
+            "title": "Startup Runway",
+            "image": "/outlet_stores/startup-runway.png"
+        },
+        {
+            "id": 4,
+            "title": "Abhaar Collection",
+            "image": "/outlet_stores/abhaar-collection.jpg"
+        },
+        {
+            "id": 5,
+            "title": "Indian Handloom",
+            "image": "/outlet_stores/indian-handloom.png"
+        },
+        {
+            "id": 6,
+            "title": "Indian Handicraft",
+            "image": "/outlet_stores/indian-handicraft.png"
+        },
+        {
+            "id": 7,
+            "title": "Woomaniya",
+            "image": "/outlet_stores/woomaniya.png"
+        },
+        {
+            "id": 8,
+            "title": "Millets",
+            "image": "/outlet_stores/millets.jpg"
+        }
+    ]
+}

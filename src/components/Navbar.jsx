@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" bg-white dark:bg-gray-900 text-gray-800 dark:text-white shadow-md p-4 transition-colors duration-200">
+    <div className=" bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-white shadow-md p-4 transition-colors duration-200">
       <div className="mb-4 -mt-2 flex justify-center gap-4 text-xs text-gray-900 dark:text-gray-100">
         <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
           English
