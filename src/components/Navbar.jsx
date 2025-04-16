@@ -1,18 +1,24 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
-    <div className=" bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-white shadow-md p-4 transition-colors duration-200">
-      <div className="mb-4 -mt-2 flex justify-center gap-4 text-xs text-gray-900 dark:text-gray-100">
+    <div className="min-w-fit bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-white shadow-md p-4 transition-colors duration-200">
+      {/* Top bar - hide on mobile */}
+      <div className="hidden md:flex mb-4 -mt-2 justify-center gap-4 text-xs text-gray-900 dark:text-gray-100">
         <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
           English
         </span>
@@ -45,24 +51,45 @@ const Navbar = () => {
         </span>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-evenly items-center gap-2">
-        <div className="flex items-center gap-4">
-          <img src="/Dhanbid.jpg" alt="Dhanbid logo" className="h-18" />
-          <div>
-            <div className="text-xl font-bold text-blue-900 dark:text-blue-100">
-              Dhanbid
-            </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">
-              Dhanbid
-            </div>
-            <div className="text-[10px] text-gray-400 dark:text-gray-500">
-              Efficient • Transparent • Inclusive
+      {/* Main navbar */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        {/* Logo and brand */}
+        <div className="flex items-center gap-4 w-full md:w-auto justify-between">
+          <div className="flex items-center gap-4">
+            <img
+              src="/Dhanbid.jpg"
+              alt="Dhanbid logo"
+              className="h-16 md:h-18"
+            />
+            <div>
+              <div className="text-xl font-bold text-blue-900 dark:text-blue-100">
+                Dhanbid
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                Dhanbid
+              </div>
+              <div className="text-[10px] text-gray-400 dark:text-gray-500">
+                Efficient • Transparent • Inclusive
+              </div>
             </div>
           </div>
+
+          {/* Mobile menu toggle */}
+          <button
+            className="md:hidden text-2xl p-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700"
+            onClick={toggleMobileMenu}
+          >
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-2 w-full md:w-auto">
-          <div className="flex gap-3 text-sm font-medium">
+        {/* Navigation links and search - hidden on mobile when menu is closed */}
+        <div
+          className={`${
+            mobileMenuOpen ? "flex" : "hidden"
+          } md:flex flex-col md:flex-row md:items-center gap-4 w-full md:w-auto`}
+        >
+          <div className="flex flex-col md:flex-row gap-3 text-sm font-medium">
             <span className="hover:underline rounded-lg shadow-2xl p-2 cursor-pointer dark:hover:text-blue-400">
               Products
             </span>
@@ -80,7 +107,7 @@ const Navbar = () => {
             </span>
           </div>
 
-          <div className="relative w-full">
+          <div className="relative w-full md:w-auto">
             <input
               type="text"
               placeholder="Search Dhanbid..."
@@ -90,27 +117,19 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-2 w-full md:w-auto text-sm">
+        {/* Action buttons - hidden on mobile when menu is closed */}
+        <div
+          className={`${
+            mobileMenuOpen ? "flex" : "hidden"
+          } md:flex flex-col md:flex-row md:items-center gap-2 md:gap-2 w-full md:w-auto text-sm`}
+        >
           <span className="hover:underline p-2 rounded-lg cursor-pointer dark:hover:text-blue-400">
             Forward Auction
           </span>
           <span className="hover:underline p-2 rounded-lg cursor-pointer dark:hover:text-blue-400">
             Bids
           </span>
-          <button
-            type="button"
-            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br 
-            focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg 
-            text-sm p-3 text-center me-2 mb-2"
-          >
-            Sign up
-          </button>
-          <button
-            type="button"
-            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br 
-            focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg 
-            text-sm p-3 text-center me-2 mb-2"
-          >
+          <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
             Login
           </button>
         </div>

@@ -3,8 +3,8 @@ import productCategoryData from './../data/productCategoryData.json'
 
 const ProductCategories = () => {
   return (
-    <div className="container mx-auto p-10 md:px-20 md:py-10 bg-gray-100">
-      <h1 className="text-3xl font-bold text-center mb-12 text-gray-800">
+    <div className="container mx-auto p-10 md:px-20 md:py-10 bg-white">
+      <h1 className="text-xl md:text-3xl font-bold text-center mb-8 text-gray-800 underline">
         Popular Product Categories
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
