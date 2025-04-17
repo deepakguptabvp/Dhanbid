@@ -130,9 +130,12 @@ const Navbar = () => {
           <span className="hover:underline p-2 rounded-lg cursor-pointer dark:hover:text-blue-400">
             Bids
           </span>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
+          <Link href="/login"> 
+          <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200 cursor-pointer">
             Login
           </button>
+          </Link>
+         
         </div>
       </div>
     </div>
