@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 
@@ -16,37 +17,37 @@ const Navbar = () => {
   };
 
   return (
-    <div className="min-w-fit bg-gray-200 dark:bg-gray-900 text-gray-800 dark:text-white shadow-md p-4 transition-colors duration-200">
+    <div className="min-w-fit  bg-gray-900  text-white shadow-md p-4 transition-colors duration-200">
       {/* Top bar - hide on mobile */}
-      <div className="hidden md:flex mb-4 -mt-2 justify-center gap-4 text-xs text-gray-900 dark:text-gray-100">
-        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
+      <div className="hidden md:flex mb-4 -mt-2 justify-center gap-4 text-xs  ">
+        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600">
           English
         </span>
         <span
           onClick={toggleDarkMode}
-          className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600 flex items-center gap-1"
+          className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600 flex items-center gap-1"
         >
           {/* {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"} */}
           {darkMode ? " Light Mode" : " Dark Mode"}
         </span>
 
         <span className="p-2">Font Size</span>
-        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
+        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600">
           | A- |
         </span>
-        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
+        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600">
           | A |
         </span>
-        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
+        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600">
           | A+ |
         </span>
-        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
+        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600">
           Skip to Main Content
         </span>
-        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
+        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600">
           Raise a Ticket
         </span>
-        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-300 dark:hover:bg-amber-600">
+        <span className="p-2 rounded-lg cursor-pointer hover:bg-amber-500 dark:hover:bg-amber-600">
           Need Help?
         </span>
       </div>
@@ -55,24 +56,24 @@ const Navbar = () => {
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         {/* Logo and brand */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between">
-          <div className="flex items-center gap-4">
+          <Link href="/" className="flex items-center gap-4 cursor-pointer">
             <img
               src="/Dhanbid.jpg"
               alt="Dhanbid logo"
-              className="h-16 md:h-18"
+              className="h-16 md:h-18 rounded-full"
             />
             <div>
-              <div className="text-xl font-bold text-blue-900 dark:text-blue-100">
+              <div className="text-xl font-bold text-blue-600 dark:text-blue-100">
                 Dhanbid
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">
+              <div className="text-xs text-gray-400 dark:text-gray-400">
                 Dhanbid
               </div>
-              <div className="text-[10px] text-gray-400 dark:text-gray-500">
+              <div className="text-[12px] text-gray-400 dark:text-gray-500">
                 Efficient • Transparent • Inclusive
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Mobile menu toggle */}
           <button

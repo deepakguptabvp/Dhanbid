@@ -3,7 +3,7 @@ import productCategoryData from './../data/productCategoryData.json'
 
 const ProductCategories = () => {
   return (
-    <div className="container mx-auto p-10 md:px-20 md:py-10 bg-white">
+    <div className="container mx-auto p-2 md:px-20 md:py-10 bg-white">
       <h1 className="text-xl md:text-3xl font-bold text-center mb-8 text-gray-800 underline">
         Popular Product Categories
       </h1>
@@ -14,11 +14,11 @@ const ProductCategories = () => {
               key={item.id}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-3 border border-gray-100"
             >
-              <div className="h-48 w-full overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center transform transition-transform duration-300 hover:scale-125">
+              <div className="h-48 w-full overflow-hidden bg-gradient-to-br  flex items-center justify-center transform transition-transform duration-300 hover:scale-125">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-32 h-32 object-cover"
+                  className="w-44 h-40 object-fill"
                 />
               </div>
               <div className="p-6">
