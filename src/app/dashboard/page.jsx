@@ -1,6 +1,10 @@
 "use client";
 import React, { useState } from "react";
-// import Sidebar from "./../components/Sidebar";
+import { TbLayoutDashboardFilled } from "react-icons/tb";
+import { CgNotes, CgTimelapse } from "react-icons/cg";
+import Tender from "./../../components/Tender";
+import Dashboard from "./../../components/Dashboard";
+import Report from "./../../components/Report";
 
 const page = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -8,18 +12,18 @@ const page = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "dashboard":
-        return <div>Welcome to your Dashboard 👋</div>;
+        return <Dashboard />;
       case "tenders":
-        return <div>Here are the Tenders 📄</div>;
+        return <Tender />;
       case "reports":
-        return <div>Reports Section 📊</div>;
+        return <Report />;
       default:
         return <div>Select an option from the sidebar.</div>;
     }
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen w-full dark:text-black ">
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-md p-4">
         <h1 className="text-xl font-bold mb-4">Dhanbid Portal</h1>
@@ -30,7 +34,10 @@ const page = () => {
               activeSection === "dashboard" ? "bg-gray-200" : ""
             }`}
           >
-            <i className="bi bi-speedometer2 mr-2"></i> Dashboard
+            <div className="inline-flex items-center justify-center">
+              <TbLayoutDashboardFilled size={20} className="m-1" />
+              <span className="m-1">Dashboard</span>
+            </div>
           </button>
           <button
             onClick={() => setActiveSection("tenders")}
@@ -38,7 +45,10 @@ const page = () => {
               activeSection === "tenders" ? "bg-gray-200" : ""
             }`}
           >
-            <i className="bi bi-file-earmark-text mr-2"></i> Tenders
+            <div className="inline-flex items-center justify-center">
+              <CgNotes size={20} className="m-1" />
+              <span className="m-1">Tenders</span>
+            </div>
           </button>
           <button
             onClick={() => setActiveSection("reports")}
@@ -46,7 +56,10 @@ const page = () => {
               activeSection === "reports" ? "bg-gray-200" : ""
             }`}
           >
-            <i className="bi bi-bar-chart-line mr-2"></i> Reports
+            <div className="inline-flex items-center justify-center">
+              <CgTimelapse size={20} className="m-1" />
+              <span className="m-1">Reports</span>
+            </div>
           </button>
         </div>
       </div>
