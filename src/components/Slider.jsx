@@ -42,7 +42,7 @@ const Slider = () => {
 
   const goToSlide = (index) => {
     setIsTransitioning(true);
-    setCurrentSlide(index);
+    setCurrentSlide(index); 
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
@@ -94,7 +94,7 @@ const Slider = () => {
           <button
             key={index}
             className={`w-2 h-2 rounded-full transition-all duration-300 border-amber-600 ${
-              currentSlide === index ? "bg-white scale-125 border-amber-600" : "bg-white/50"
+              currentSlide === index ? "bg-white scale-125 border border-amber-600" : "bg-white/50"
             }`}
             onClick={() => goToSlide(index)}
             aria-label={`Go to slide ${index + 1}`}
