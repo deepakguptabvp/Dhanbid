@@ -73,7 +73,7 @@ const Slider = () => {
 
       {/* Navigation buttons */}
       <button
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full z-10 transition-all duration-300"
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full z-10 transition-all duration-300 cursor-pointer"
         onClick={goToPrevSlide}
         aria-label="Previous slide"
       >
@@ -81,7 +81,7 @@ const Slider = () => {
       </button>
 
       <button
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full z-10 transition-all duration-300"
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full z-10 transition-all duration-300 cursor-pointer"
         onClick={goToNextSlide}
         aria-label="Next slide"
       >
@@ -89,11 +89,11 @@ const Slider = () => {
       </button>
 
       {/* Indicators */}
-      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-4 z-10 cursor-pointer ">
+      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-4 z-10 ">
         {banners.map((_, index) => (
           <button
             key={index}
-            className={`w-2 h-2 rounded-full transition-all duration-300 border-amber-600 ${
+            className={`w-2 h-2 rounded-full transition-all cursor-pointer duration-300 border-amber-600 ${
               currentSlide === index ? "bg-white scale-125 border border-amber-600" : "bg-white/50"
             }`}
             onClick={() => goToSlide(index)}
