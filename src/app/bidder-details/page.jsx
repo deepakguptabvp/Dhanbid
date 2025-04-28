@@ -1,9 +1,9 @@
 import React from "react";
 
-const SubmitBidPage = () => {
+const page = () => {
   return (
     <div className="flex flex-col max-w-2xl p-4 mx-auto min-h-screen dark:text-white">
-      <div className="w-full bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow-lg border">
+      <div className="w-full bg-gray-50 dark:bg-gray-500 p-6 rounded-xl shadow-lg border">
         <h1 className="text-2xl font-bold py-3 text-center">Submit Bid</h1>
         <form className="space-y-5">
           {/* Tender ID */}
@@ -79,7 +79,7 @@ const SubmitBidPage = () => {
               id="companyProfile"
               type="file"
               accept=".pdf,.doc,.docx"
-              className="border p-2 rounded-md cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
+              className="border p-2  rounded-md cursor-pointer dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
               required
             />
           </div>
@@ -169,4 +169,4 @@ const SubmitBidPage = () => {
   );
 };
 
-export default SubmitBidPage;
+export default page;
