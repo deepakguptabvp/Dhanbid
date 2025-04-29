@@ -23,7 +23,12 @@ const OutletStores = () => {
               duration-300 hover:-translate-y-2 border border-gray-100"
             >
               <div>
-                <img src={item.image} alt={item.title} title={item.title} />
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  title={item.title}
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
           );

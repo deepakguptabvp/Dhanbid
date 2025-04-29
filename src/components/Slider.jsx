@@ -50,7 +50,7 @@ const Slider = () => {
     <div className="relative w-full overflow-hidden rounded-xs shadow-lg lg:my-2">
       {/* Carousel container */}
       <div
-        className="relative h-[300px] sm:h-[300px] md:h-[400px] lg:h-[400px] w-full"
+        className="relative h-[200px] sm:h-[300px] md:h-[400px] lg:h-[400px] w-full"
         style={{
           transition: "transform 0.5s ease-in-out",
           transform: `translateX(-${currentSlide * 100}%)`,
