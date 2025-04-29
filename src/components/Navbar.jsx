@@ -66,10 +66,10 @@ const Navbar = () => {
               <div className="text-xl font-bold text-blue-600 dark:text-blue-100">
                 Dhanbid
               </div>
-              <div className="text-xs text-gray-400 dark:text-gray-400">
+              {/* <div className="text-xs text-gray-400 dark:text-gray-400">
                 Dhanbid
-              </div>
-              <div className="text-[12px] text-gray-400 dark:text-gray-500">
+              </div> */}
+              <div className="text-[10px] md:text-sm text-gray-400 dark:text-gray-500">
                 Efficient • Transparent • Inclusive
               </div>
             </div>

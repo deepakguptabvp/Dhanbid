@@ -3,7 +3,7 @@ import productCategoryData from './../data/productCategoryData.json'
 
 const ProductCategories = () => {
   return (
-    <div className="container mx-auto p-2 md:px-20 md:py-10 bg-white">
+    <div className="container mx-auto p-2 md:px-20 md:py-10 bg-white max-w-7xl">
       <h1 className="text-xl md:text-3xl font-bold text-center mb-8 text-gray-800 underline">
         Popular Product Categories
       </h1>

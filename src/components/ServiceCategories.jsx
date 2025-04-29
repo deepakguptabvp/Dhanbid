@@ -111,7 +111,7 @@ const ServiceCategories = () => {
   ];
 
   return (
-    <div className="container mx-auto bg-white">
+    <div className="container mx-auto bg-white max-w-7xl">
       <div
         className="w-full shadow-2xl"
         style={{
