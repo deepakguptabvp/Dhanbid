@@ -13,7 +13,7 @@ const WhyChooseUs = () => {
       >
         <div className="text-center justify-center p-4 md:p-10">
           <h1 className="text-2xl md:text-3xl lg:text-4xl mb-4 md:mb-6">
-            Why you should choose GeM
+            Why you should choose Dhanbid
           </h1>
           <div className="mx-4 md:mx-18 border-1 transition-opacity border-gray-300 mt-2 md:mt-4 rounded-lg">
             {/* Statistics Data */}
