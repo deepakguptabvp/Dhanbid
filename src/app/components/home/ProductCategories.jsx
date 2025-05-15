@@ -1,5 +1,5 @@
 import React from "react";
-import productCategoryData from './../data/productCategoryData.json'
+import productCategoryData from './../../data/productCategoryData.json';
 
 const ProductCategories = () => {
   return (

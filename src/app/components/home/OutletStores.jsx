@@ -1,5 +1,5 @@
 import React from "react";
-import outletStoreImages from "./../data/outletStoreImages.json";
+import outletStoreImages from "./../../data/outletStoreImages.json";
 
 const OutletStores = () => {
   return (

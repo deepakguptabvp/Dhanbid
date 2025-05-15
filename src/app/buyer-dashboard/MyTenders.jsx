@@ -3,7 +3,7 @@ import { MdEventNote  } from "react-icons/md";
 import { IoMdCloseCircle } from "react-icons/io";
 import { TiTick } from "react-icons/ti";
 
-const Dashboard = () => {
+const MyTenders = () => {
   return (
     <div>
       <div className="grid md:grid-cols-3">
@@ -93,4 +93,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MyTenders;

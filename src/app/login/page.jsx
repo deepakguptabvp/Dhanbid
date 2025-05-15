@@ -14,7 +14,7 @@ function Login() {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="w-full md:w-2/5  px-6 py-12 md:p-12 flex flex-col justify-center rounded-xl">
+        <div className="w-full md:w-2/5 px-12 py-18 md:p-16 flex flex-col justify-center rounded-xl">
           <div className="space-y-8">
             <div className="text-center">
               <h1 className="text-3xl md:text-4xl font-bold text-black mb-2">

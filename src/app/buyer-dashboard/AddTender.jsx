@@ -1,8 +1,8 @@
 import React from "react";
 
-const page = () => {
+const AddTender = () => {
   return (
-    <div className="flex flex-col mx-auto p-4 max-w-2xl min-h-screen">
+    <div className="flex flex-col mx-auto p-4 max-w-2xl min-h-screen text-black">
       <div className="w-full bg-gray-200 p-6 rounded-xl shadow-lg border">
         <h1 className="text-2xl py-3 font-bold text-center">Add New Tender</h1>
         <form className="space-y-5">
@@ -221,4 +221,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AddTender;

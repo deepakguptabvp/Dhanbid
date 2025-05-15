@@ -1,6 +1,6 @@
 import React from "react";
 
-const page = () => {
+const CreateBid = () => {
   return (
     <div className="flex flex-col max-w-2xl p-4 mx-auto min-h-screen dark:text-white">
       <div className="w-full bg-gray-50 dark:bg-gray-500 p-6 rounded-xl shadow-lg border">
@@ -169,4 +169,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CreateBid;

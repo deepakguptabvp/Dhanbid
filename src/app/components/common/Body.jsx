@@ -1,9 +1,9 @@
 import React from "react";
-import Slider from "./Slider";
-import ProductCategories from "./ProductCategories";
-import ServiceCategories from "./ServiceCategories";
-import OutletStores from "./OutletStores";
-import WhyChooseUs from "./WhyChooseUs";
+import Slider from "../home/Slider";
+import ProductCategories from "../home/ProductCategories";
+import ServiceCategories from "../home/ServiceCategories";
+import OutletStores from "../home/OutletStores";
+import WhyChooseUs from "../home/WhyChooseUs";
 
 const Body = () => {
   return (
