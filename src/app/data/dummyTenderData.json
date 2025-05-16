@@ -1,0 +1,154 @@
+{
+    "dummyTenderData": [
+        {
+            "tenderName": "Procurement of 50 Window AC Units",
+            "companyName": "CoolAir Enterprises",
+            "tenderCategory": "Electronics",
+            "tenderDescription": "Supply and installation of energy-efficient window AC units for office buildings.",
+            "bidSubmissionDate": "2025-06-15",
+            "tenderOpeningDate": "2025-06-20",
+            "minimumPrice": 250000,
+            "maximumPrice": 300000
+        },
+        {
+            "tenderName": "Purchase of Laptops for IT Department",
+            "companyName": "Infotech Solutions",
+            "tenderCategory": "IT Equipment",
+            "tenderDescription": "High-end laptops required for software development team.",
+            "bidSubmissionDate": "2025-06-18",
+            "tenderOpeningDate": "2025-06-22",
+            "minimumPrice": 700000,
+            "maximumPrice": 950000
+        },
+        {
+            "tenderName": "Supply of Raw Material for Manufacturing Unit",
+            "companyName": "Rawline Pvt Ltd",
+            "tenderCategory": "Raw Material",
+            "tenderDescription": "Bulk procurement of plastic and metal sheets.",
+            "bidSubmissionDate": "2025-06-10",
+            "tenderOpeningDate": "2025-06-14",
+            "minimumPrice": 500000,
+            "maximumPrice": 600000
+        },
+        {
+            "tenderName": "Medical Equipment Supply",
+            "companyName": "MedicoTech",
+            "tenderCategory": "Healthcare",
+            "tenderDescription": "Supply of hospital beds, monitors, and diagnostic tools.",
+            "bidSubmissionDate": "2025-06-12",
+            "tenderOpeningDate": "2025-06-16",
+            "minimumPrice": 1200000,
+            "maximumPrice": 1500000
+        },
+        {
+            "tenderName": "Procurement of Copper Wires",
+            "companyName": "ElectroFab",
+            "tenderCategory": "Electrical",
+            "tenderDescription": "High-conductivity copper wire reels required for grid upgrade.",
+            "bidSubmissionDate": "2025-06-25",
+            "tenderOpeningDate": "2025-06-29",
+            "minimumPrice": 300000,
+            "maximumPrice": 450000
+        },
+        {
+            "tenderName": "Air Purifiers for Government Buildings",
+            "companyName": "CleanAir Solutions",
+            "tenderCategory": "Electronics",
+            "tenderDescription": "Installation and maintenance of air purifiers in public buildings.",
+            "bidSubmissionDate": "2025-06-08",
+            "tenderOpeningDate": "2025-06-13",
+            "minimumPrice": 150000,
+            "maximumPrice": 200000
+        },
+        {
+            "tenderName": "School Furniture Supply",
+            "companyName": "EduCraft",
+            "tenderCategory": "Furniture",
+            "tenderDescription": "Desks, chairs, and whiteboards for 20 government schools.",
+            "bidSubmissionDate": "2025-06-11",
+            "tenderOpeningDate": "2025-06-17",
+            "minimumPrice": 350000,
+            "maximumPrice": 500000
+        },
+        {
+            "tenderName": "Split AC Installation for City Hospital",
+            "companyName": "PolarCool Systems",
+            "tenderCategory": "Electronics",
+            "tenderDescription": "50 Split AC units to be installed in hospital wards.",
+            "bidSubmissionDate": "2025-06-09",
+            "tenderOpeningDate": "2025-06-14",
+            "minimumPrice": 600000,
+            "maximumPrice": 750000
+        },
+        {
+            "tenderName": "Printer and Scanner Procurement",
+            "companyName": "OfficeTech Inc",
+            "tenderCategory": "IT Equipment",
+            "tenderDescription": "Procurement of 100 printers and 50 scanners for office use.",
+            "bidSubmissionDate": "2025-06-21",
+            "tenderOpeningDate": "2025-06-26",
+            "minimumPrice": 300000,
+            "maximumPrice": 420000
+        },
+        {
+            "tenderName": "Supply of Safety Helmets and Vests",
+            "companyName": "SafeWear Pvt Ltd",
+            "tenderCategory": "Safety Equipment",
+            "tenderDescription": "Safety gear required for on-site construction workers.",
+            "bidSubmissionDate": "2025-06-19",
+            "tenderOpeningDate": "2025-06-23",
+            "minimumPrice": 100000,
+            "maximumPrice": 150000
+        },
+        {
+            "tenderName": "CCTV Camera Installation",
+            "companyName": "SecureVision",
+            "tenderCategory": "Security",
+            "tenderDescription": "Surveillance camera setup in all government offices.",
+            "bidSubmissionDate": "2025-06-17",
+            "tenderOpeningDate": "2025-06-22",
+            "minimumPrice": 400000,
+            "maximumPrice": 520000
+        },
+        {
+            "tenderName": "Raw Cotton Supply for Textile Unit",
+            "companyName": "AgroSpinners",
+            "tenderCategory": "Raw Material",
+            "tenderDescription": "Supply of raw cotton for spinning operations.",
+            "bidSubmissionDate": "2025-06-06",
+            "tenderOpeningDate": "2025-06-11",
+            "minimumPrice": 200000,
+            "maximumPrice": 300000
+        },
+        {
+            "tenderName": "Fire Extinguishers and Fire Safety Equipment",
+            "companyName": "FlameGuard",
+            "tenderCategory": "Safety Equipment",
+            "tenderDescription": "Install fire extinguishers and safety alarms across all departments.",
+            "bidSubmissionDate": "2025-06-27",
+            "tenderOpeningDate": "2025-06-30",
+            "minimumPrice": 180000,
+            "maximumPrice": 250000
+        },
+        {
+            "tenderName": "Office Chairs and Workstations",
+            "companyName": "Furnitech",
+            "tenderCategory": "Furniture",
+            "tenderDescription": "Ergonomic furniture supply for the IT wing.",
+            "bidSubmissionDate": "2025-06-13",
+            "tenderOpeningDate": "2025-06-18",
+            "minimumPrice": 550000,
+            "maximumPrice": 700000
+        },
+        {
+            "tenderName": "Electric Water Coolers",
+            "companyName": "HydroChill Pvt Ltd",
+            "tenderCategory": "Electronics",
+            "tenderDescription": "Installation of 100 water coolers across government offices.",
+            "bidSubmissionDate": "2025-06-10",
+            "tenderOpeningDate": "2025-06-15",
+            "minimumPrice": 300000,
+            "maximumPrice": 400000
+        }
+    ]
+}
