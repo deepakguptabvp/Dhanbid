@@ -16,7 +16,7 @@ export default function BuyerDashboardLayout({ children }) {
           {/* <Sidebar role="seller" /> */}
 
           {/* Main content area */}
-          <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
+          <main className="flex-1 overflow-y-auto">
             {children}
           </main>
         </div>

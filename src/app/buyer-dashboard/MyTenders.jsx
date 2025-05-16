@@ -1,22 +1,95 @@
 import React from "react";
-import { MdEventNote  } from "react-icons/md";
-import { IoMdCloseCircle } from "react-icons/io";
-import { TiTick } from "react-icons/ti";
+import dummyTender from "./../data/dummyTenderData.json";
 
-const MyTenders = () => {
+const MyTenders = ({ emptyArray }) => {
   return (
-    <div>
-      <div className="grid md:grid-cols-3">
-        {/* Status Board */}
+    <div className=" bg-gray-100">
+      <h1 className="text-3xl font-bold text-center mt-2 mb-8 text-blue-800">
+        My Tenders
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 overflow-y-auto max-h-screen">
+        {emptyArray.map((tender, index) => (
+          <div
+            key={index}
+            className="bg-white border rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+          >
+            {/* Logo / Icon placeholder */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-orange-500 font-semibold text-lg">
+                {tender.tenderCategory}
+              </div>
+            </div>
+
+            <h2 className="text-xl font-bold text-gray-800 mb-2">
+              {tender.tenderName}
+            </h2>
+
+            <p className="text-sm mb-1 text-gray-700">
+              <strong>Company:</strong> {tender.companyName}
+            </p>
+            <p className="text-sm mb-1 text-gray-700">
+              <strong>Description:</strong> {tender.tenderDescription}
+            </p>
+
+            <div className="flex justify-between items-center mt-3 text-sm text-gray-600">
+              <p>
+                <strong>Bid Date:</strong>
+                <br />
+                {tender.bidSubmissionDate}
+              </p>
+              <p>
+                <strong>Opening:</strong>
+                <br />
+                {tender.tenderOpeningDate}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between mt-4">
+              <div className="text-md font-bold text-green-600">
+                ₹{tender.minimumPrice} - {tender.maximumPrice}
+              </div>
+              <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">
+                View Details
+              </button>
+            </div>
+
+            <div className="text-xs text-orange-600 mt-3 bg-orange-100 p-2 rounded">
+              🔥 Get up to 10% off on online bids using UPI payment!
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MyTenders;
+
+// import { MdEventNote } from "react-icons/md";
+// import { IoMdCloseCircle } from "react-icons/io";
+// import { TiTick } from "react-icons/ti";
+
+// useEffect
+// const [tenders, setTenders] = useState([]);
+
+//    useEffect(() => {
+//   fetch("/data/dummyTenderData.json")
+//     .then((res) => res.json())
+//     .then((data) => setTenders(data))
+//     .catch((error) => console.error("Error fetching tender data:", error));
+// }, []);
+
+{
+  /* <div className="grid md:grid-cols-3">
         <div className="flex flex-row p-6">
-          <MdEventNote  size={60} className="mx-3" />
+          <MdEventNote size={60} className="mx-3" />
           <div className="flex flex-col">
             <h1 className="text-3xl font-bold">12</h1>
             <span>Open Tenders</span>
           </div>
         </div>
         <div className="flex flex-row p-6">
-          <TiTick  size={60} className="mx-3" />
+          <TiTick size={60} className="mx-3" />
           <div className="flex flex-col">
             <h1 className="text-3xl font-bold">8</h1>
             <span>Submitted Tenders</span>
@@ -88,9 +161,5 @@ const MyTenders = () => {
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
-  );
-};
-
-export default MyTenders;
+      </div> */
+}

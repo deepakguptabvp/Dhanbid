@@ -8,19 +8,27 @@ import AddTender from "./AddTender";
 import MyTenders from "./MyTenders";
 import LiveTender from "./LiveTender";
 import Profile from "./Profile";
+import dummyTender from "./../data/dummyTenderData.json";
 
 // Main component for dashboard page
 const page = () => {
   // State to track which section is currently active
   const [activeSection, setActiveSection] = useState("my-tenders");
+  const [emptyArray, setEmptyArray] = useState(dummyTender.dummyTenderData);
 
   // Function to render the content based on active section
   const renderContent = () => {
     switch (activeSection) {
       case "my-tenders":
-        return <MyTenders />;
+        return <MyTenders emptyArray={emptyArray} />;
       case "create-tender":
-        return <AddTender />;
+        return (
+          <AddTender
+            emptyArray={emptyArray}
+            setEmptyArray={setEmptyArray}
+            setActiveSection={setActiveSection}
+          />
+        );
       case "live-tender":
         return <LiveTender />;
       case "profile":
