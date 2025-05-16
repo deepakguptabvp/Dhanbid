@@ -9,11 +9,13 @@ import MyBiddings from "./MyBiddings";
 import EditProfile from "./EditProfile";
 import Notifications from "./Notifications";
 import CreateBid from "./CreateBid";
+import TendersPage from "./Tenders";
 
 // Main component for dashboard page
 const page = () => {
   // State to track which section is currently active
-  const [activeSection, setActiveSection] = useState("my-biddings");
+  const [activeSection, setActiveSection] = useState("tenders");
+  const [createBid, setCreateBid] = useState(null);
 
   // Function to render the content based on active section
   const renderContent = () => {
@@ -21,7 +23,9 @@ const page = () => {
       case "my-biddings":
         return <MyBiddings />;
       case "create-bid":
-        return <CreateBid />;
+        return <CreateBid createBid={createBid}/>;
+      case "tenders":
+        return <TendersPage setCreateBid={setCreateBid} setActiveSection={setActiveSection}/>;
       case "edit-profile":
         return <EditProfile />;
       case "notifications":
@@ -35,7 +39,7 @@ const page = () => {
     <div className="flex min-h-screen w-full dark:text-black">
       {/* Sidebar navigation panel */}
       <div className="w-64 bg-white shadow-md p-4">
-        <h1 className="text-xl font-bold mb-4">Dhanbid Portal</h1>
+        <h1 className="text-xl text-center font-bold mb-4">Dhanbid Portal</h1>
 
         {/* Sidebar menu items */}
         <div className="space-y-2">
@@ -43,7 +47,7 @@ const page = () => {
           {/* My Biddings button */}
           <button
             onClick={() => setActiveSection("my-biddings")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
+            className={`w-full text-left px-4 cursor-pointer py-2 rounded hover:bg-gray-200 ${
               activeSection === "my-biddings" ? "bg-gray-200" : ""
             }`}
           >
@@ -52,24 +56,23 @@ const page = () => {
               <span className="m-1">My Biddings</span>
             </div>
           </button>
-
-          {/* Create Bid button */}
+          {/* Tenders button */}
           <button
-            onClick={() => setActiveSection("create-bid")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
-              activeSection === "create-bid" ? "bg-gray-200" : ""
+            onClick={() => setActiveSection("tenders")}
+            className={`w-full text-left px-4 cursor-pointer py-2 rounded hover:bg-gray-200 ${
+              activeSection === "tenders" ? "bg-gray-200" : ""
             }`}
           >
             <div className="inline-flex items-center justify-center">
               <TbLayoutDashboardFilled size={20} className="m-1" />
-              <span className="m-1">Create Bid</span>
+              <span className="m-1">Tenders</span>
             </div>
           </button>
 
           {/* Edit Profile button */}
           <button
             onClick={() => setActiveSection("edit-profile")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
+            className={`w-full text-left px-4 cursor-pointer py-2 rounded hover:bg-gray-200 ${
               activeSection === "edit-profile" ? "bg-gray-200" : ""
             }`}
           >
@@ -82,7 +85,7 @@ const page = () => {
           {/* Notifications button */}
           <button
             onClick={() => setActiveSection("notifications")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
+            className={`w-full text-left px-4 cursor-pointer py-2 rounded hover:bg-gray-200 ${
               activeSection === "notifications" ? "bg-gray-200" : ""
             }`}
           >
@@ -95,7 +98,7 @@ const page = () => {
       </div>
 
       {/* Main content area which renders selected section */}
-      <div className="flex-1 p-6 bg-gray-100">
+      <div className="flex-1 max-h-screen  overflow-y-auto py-8 p-3">
         {renderContent()}
       </div>
     </div>
