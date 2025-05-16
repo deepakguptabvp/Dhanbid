@@ -93,7 +93,7 @@ const page = () => {
       </div>
 
       {/* Main content area which renders selected section */}
-      <div className="flex-1 p-6 bg-gray-100">{renderContent()}</div>
+      <div className="flex-1 p-6">{renderContent()}</div>
     </div>
   );
 };
