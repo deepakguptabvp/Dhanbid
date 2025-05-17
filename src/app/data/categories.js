@@ -26,4 +26,78 @@ const businessCategories = [
   { value: "event-management", label: "Event Management" },
   { value: "other", label: "Other" }
 ];
-export {businessCategories};
+const myBids = [
+  // Tender 1 - Plastic Bottles
+  {
+    tenderId: "TND-PLB-0001",
+    name: "Require 10,000 Plastic Bottles",
+    company: "AquaFresh Ltd",
+    bidderName: "ClearPlast Pvt Ltd",
+    amount: 115000,
+    date: "2025-05-13",
+  },
+  {
+    tenderId: "TND-PLB-0001",
+    name: "Require 10,000 Plastic Bottles",
+    company: "AquaFresh Ltd",
+    bidderName: "SmartPackers",
+    amount: 125000,
+    date: "2025-05-15",
+  },
+
+  // Tender 2 - Corrugated Boxes
+  {
+    tenderId: "TND-CBX-0002",
+    name: "Need 5 Tons of Corrugated Boxes",
+    company: "QuickCart Pvt Ltd",
+    bidderName: "BoxBuilders",
+    amount: 160000,
+    date: "2025-05-17",
+  },
+  {
+    tenderId: "TND-CBX-0002",
+    name: "Need 5 Tons of Corrugated Boxes",
+    company: "QuickCart Pvt Ltd",
+    bidderName: "WrapMaster Co.",
+    amount: 170000,
+    date: "2025-05-18",
+  },
+
+  // Tender 3 - Steel Rods
+  {
+    tenderId: "TND-SRD-0003",
+    name: "2000 Steel Rods for Factory Setup",
+    company: "Infratech",
+    bidderName: "BuildStrong Industries",
+    amount: 540000,
+    date: "2025-05-15",
+  },
+  {
+    tenderId: "TND-SRD-0003",
+    name: "2000 Steel Rods for Factory Setup",
+    company: "Infratech",
+    bidderName: "MetroSteel Corp.",
+    amount: 565000,
+    date: "2025-05-16",
+  },
+
+  // Tender 4 - Custom T-Shirts
+  {
+    tenderId: "TND-APT-0004",
+    name: "500 Custom Printed T-Shirts",
+    company: "EventX",
+    bidderName: "UrbanInk",
+    amount: 43000,
+    date: "2025-05-12",
+  },
+  {
+    tenderId: "TND-APT-0004",
+    name: "500 Custom Printed T-Shirts",
+    company: "EventX",
+    bidderName: "Shirtify Co.",
+    amount: 41000,
+    date: "2025-05-13",
+  },
+];
+
+export {businessCategories, myBids};

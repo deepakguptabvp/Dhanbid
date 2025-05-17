@@ -27,7 +27,7 @@ export default function TenderFilters({ filters, setFilters }) {
           onChange={handleChange}
         >
           <option value="">All Categories</option>
-          {businessCategories.map((cat)=><option value={cat.value}>{cat.label}</option>)}
+          {businessCategories.map((cat,idx)=><option key={idx} value={cat.value}>{cat.label}</option>)}
         </select>
 
         {/* Min Price */}
