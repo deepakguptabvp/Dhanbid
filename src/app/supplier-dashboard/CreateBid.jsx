@@ -1,22 +1,43 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
-const CreateBid = ({ createBid: tender }) => {
+const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
   const [bidderName, setBidderName] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
+  const [company, setCompanyName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const bidData = {
-      tenderId: tender?.tenderId,
-      bidderName,
-      amount: parseFloat(amount),
-      description,
-    };
-    console.log("Submitting bid:", bidData);
-    // Send to backend here
-  };
 
+    const confirmed = window.confirm(
+      `Are you sure you want to submit a bid of ₹${amount} for Tender ID: ${tender?.tenderId}?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const bidData = {
+        tenderId: tender?.tenderId,
+        bidderName,
+        company,
+        amount: parseFloat(amount),
+        description,
+      };
+
+      // Update local bids state (demo only)
+      setBids((prev) => [bidData, ...prev]);
+      setActiveSection('my-biddings');
+      toast.success(`Submitted bid for ${tender?.tenderId} at ₹${amount}`);
+
+      // Optionally clear the form
+      setBidderName("");
+      setAmount("");
+      setDescription("");
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div className="flex flex-col max-w-3xl mx-auto p-6 min-h-screen dark:text-white">
       <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -45,7 +66,7 @@ const CreateBid = ({ createBid: tender }) => {
                     key={index}
                     className="bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100 px-3 py-1 rounded-full text-xs font-medium"
                   >
-                    ₹{bid.amount}
+                    ₹{bid.amount.toLocaleString("en-IN")}
                   </span>
                 ))}
               </div>
@@ -66,6 +87,20 @@ const CreateBid = ({ createBid: tender }) => {
                 type="text"
                 value={bidderName}
                 onChange={(e) => setBidderName(e.target.value)}
+                required
+                className="w-full border rounded-md px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="company" className="block text-sm font-medium mb-1">
+                Company Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="company"
+                type="text"
+                value={company}
+                onChange={(e) => setCompanyName(e.target.value)}
                 required
                 className="w-full border rounded-md px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
@@ -107,7 +142,7 @@ const CreateBid = ({ createBid: tender }) => {
             <div className="pt-4 flex justify-end">
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition"
+                className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition"
               >
                 Submit Bid
               </button>

@@ -10,20 +10,22 @@ import EditProfile from "./EditProfile";
 import Notifications from "./Notifications";
 import CreateBid from "./CreateBid";
 import TendersPage from "./Tenders";
+import { myBids } from "../data/categories";
 
 // Main component for dashboard page
 const page = () => {
   // State to track which section is currently active
   const [activeSection, setActiveSection] = useState("tenders");
   const [createBid, setCreateBid] = useState(null);
+  const [bids, setBids] = useState(myBids);
 
   // Function to render the content based on active section
   const renderContent = () => {
     switch (activeSection) {
       case "my-biddings":
-        return <MyBiddings />;
+        return <MyBiddings bids={bids}/>;
       case "create-bid":
-        return <CreateBid createBid={createBid}/>;
+        return <CreateBid setActiveSection={setActiveSection} createBid={createBid} setBids={setBids}/>;
       case "tenders":
         return <TendersPage setCreateBid={setCreateBid} setActiveSection={setActiveSection}/>;
       case "edit-profile":
