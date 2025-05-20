@@ -1,12 +1,22 @@
 import React from "react";
-import dummyTender from "./../data/dummyTenderData.json";
+// import dummyTender from "./../data/dummyTenderData.json";
 
 const MyTenders = ({ emptyArray }) => {
   return (
     <div className=" bg-gray-100">
-      <h1 className="text-3xl font-bold text-center mt-2 mb-8 text-blue-800">
+      {/* <h1 className="text-3xl font-bold text-center mt-2 mb-8 text-blue-800">
         My Tenders
-      </h1>
+      </h1> */}
+
+      {/* Searching and Filtering buttons */}
+      <div className="gap-4">
+        <input
+          type="text"
+          className="bg-gray-200 rounded-xl text-center mt-2 mb-8 p-2 border-gray-300"
+        />
+        <button className=""> Filter </button>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 overflow-y-auto max-h-screen">
         {emptyArray.map((tender, index) => (
           <div
@@ -15,7 +25,7 @@ const MyTenders = ({ emptyArray }) => {
           >
             {/* Logo / Icon placeholder */}
             <div className="flex items-center justify-between mb-3">
-              <div className="text-orange-500 font-semibold text-lg">
+              <div className="text-orange-500 bg-orange-100 p-3 rounded-xl font-semibold text-md">
                 {tender.tenderCategory}
               </div>
             </div>
@@ -44,18 +54,18 @@ const MyTenders = ({ emptyArray }) => {
               </p>
             </div>
 
-            <div className="flex items-center justify-between mt-4">
-              <div className="text-md font-bold text-green-600">
-                ₹{tender.minimumPrice} - {tender.maximumPrice}
+            <div className="flex flex-col mt-4">
+              <div className="flex-col text-left text-lg font-bold text-green-600">
+                Price: ₹{tender.minimumPrice} - {tender.maximumPrice}
               </div>
-              <button className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">
+              <button className="flex-col bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-md mt-3">
                 View Details
               </button>
             </div>
 
-            <div className="text-xs text-orange-600 mt-3 bg-orange-100 p-2 rounded">
+            {/* <div className="text-xs text-orange-600 mt-3 bg-orange-100 p-2 rounded">
               🔥 Get up to 10% off on online bids using UPI payment!
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
