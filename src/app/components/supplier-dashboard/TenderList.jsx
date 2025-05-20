@@ -2,7 +2,7 @@
 
 export default function TenderList({ tenders, setCreateBid, setActiveSection }) {
     return (
-        <div className="space-y-4 pb-8">
+        <div className="space-y-4 pb-20">
             {tenders.length === 0 ? (
                 <p className="text-center text-gray-500">No tenders match the filters.</p>
             ) : (

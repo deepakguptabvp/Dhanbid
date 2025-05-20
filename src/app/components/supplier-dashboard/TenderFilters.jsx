@@ -1,54 +1,129 @@
+import { useState } from "react";
 import { businessCategories } from "../../data/categories";
+import { FaSearch, FaFilter, FaRedo } from "react-icons/fa";
 
-export default function TenderFilters({ filters, setFilters }) {
+export default function TenderFilters({ filters, setFilters, tenderCount }) {
+  const [showAdvanced, setShowAdvanced] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  return (
-    <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm rounded-xl px-6 py-4 mb-2">
-      <div className="flex flex-wrap gap-4">
-        {/* Search */}
-        <input
-          name="search"
-          type="text"
-          placeholder="🔍 Search tenders..."
-          className="w-full sm:w-64 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          value={filters.search}
-          onChange={handleChange}
-        />
+  const resetFilters = () => {
+    setFilters({
+      search: "",
+      category: "",
+      minPrice: "",
+      maxPrice: "",
+      company: "",
+      expiryFrom: "",
+      expiryTo: "",
+      sortBy: "",
+    });
+  };
 
-        {/* Category */}
+  return (
+    <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg shadow-xl border border-gray-200 rounded-xl px-6 py-4 mb-4 transition-all duration-300">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-gray-800">Find Your Tender</h2>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-600">Showing: <strong>{tenderCount}</strong> tenders</span>
+          <button onClick={() => setShowAdvanced(!showAdvanced)} className="text-sm text-blue-600 cursor-pointer hover:underline">
+            <FaFilter className="inline mr-1" /> {showAdvanced ? "Hide" : "Advanced Filters"}
+          </button>
+          <button onClick={resetFilters} className="text-sm cursor-pointer text-red-500 hover:underline">
+            <FaRedo className="inline mr-1" /> Reset
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-4 items-center">
+        <div className="relative w-full sm:w-64">
+          <FaSearch className="absolute top-3.5 left-3 text-gray-400" />
+          <input
+            name="search"
+            type="text"
+            placeholder="Search by tender title..."
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
+            value={filters.search}
+            onChange={handleChange}
+          />
+        </div>
+
         <select
           name="category"
-          className="w-full sm:w-48 px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="w-full sm:w-48 px-4 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-blue-400 outline-none transition"
           value={filters.category}
           onChange={handleChange}
         >
           <option value="">All Categories</option>
-          {businessCategories.map((cat)=><option value={cat.value}>{cat.label}</option>)}
+          {businessCategories.map((cat, idx) => (
+            <option key={idx} value={cat.value}>
+              {cat.label}
+            </option>
+          ))}
         </select>
 
-        {/* Min Price */}
         <input
           name="minPrice"
           type="number"
-          placeholder="Min ₹"
-          className="w-28 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          placeholder="Min Budget"
+          className="w-40 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
           value={filters.minPrice}
           onChange={handleChange}
         />
 
-        {/* Max Price */}
         <input
           name="maxPrice"
           type="number"
-          placeholder="Max ₹"
-          className="w-28 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          placeholder="Max Budget"
+          className="w-40 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
           value={filters.maxPrice}
           onChange={handleChange}
         />
+
+        {showAdvanced && (
+          <>
+            <input
+              name="company"
+              type="text"
+              placeholder="Company name"
+              className="w-full sm:w-48 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
+              value={filters.company}
+              onChange={handleChange}
+            />
+
+            <input
+              name="expiryFrom"
+              type="date"
+              className="w-full sm:w-44 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
+              value={filters.expiryFrom}
+              onChange={handleChange}
+            />
+
+            <input
+              name="expiryTo"
+              type="date"
+              className="w-full sm:w-44 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
+              value={filters.expiryTo}
+              onChange={handleChange}
+            />
+
+            <select
+              name="sortBy"
+              className="w-full sm:w-48 px-4 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-blue-400 outline-none transition"
+              value={filters.sortBy}
+              onChange={handleChange}
+            >
+              <option value="">Sort By</option>
+              <option value="priceLowHigh">Price: Low to High</option>
+              <option value="priceHighLow">Price: High to Low</option>
+              <option value="expirySoon">Expiry Soonest</option>
+              <option value="expiryLate">Expiry Latest</option>
+            </select>
+          </>
+        )}
       </div>
     </div>
   );
