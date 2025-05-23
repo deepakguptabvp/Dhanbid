@@ -8,7 +8,7 @@ export const metadata = {
 export default function BuyerDashboardLayout({ children }) {
   return (
     <html lang="en" className="dark">
-      <body className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <body className="flex flex-col min-h-screen bg-gray-900 text-gray-900 dark:text-gray-100">
         {/* Navbar component */}
 
         <div className="flex flex-1">
