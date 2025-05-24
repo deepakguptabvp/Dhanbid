@@ -21,14 +21,9 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
   }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
-    const filteredTenders = sampleTenders?.filter((t) => {
-        return (
-=======
     const filteredTenders = sampleTenders
-      .filter(
+      ?.filter(
         (t) =>
->>>>>>> parent of 0ca8c2a (Merge remote-tracking branch 'origin/supplier-dashboard')
           (!filters.search ||
             t.name.toLowerCase().includes(filters.search.toLowerCase())) &&
           (!filters.category || t.category === filters.category) &&
