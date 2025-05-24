@@ -27,27 +27,22 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
     <div
       className="
         sticky top-0 z-30
-        bg-[rgba(20,20,30,0.6)]
         backdrop-blur-lg
         border border-gray-700
         rounded-xl
-        px-6 py-5 mb-6
+        px-6 py-5 mx-2 my-3
         shadow-lg
         transition-all duration-300
-        text-gray-300
       "
-      style={{
-        backgroundImage:
-          "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0))",
-        boxShadow:
-          "inset 0 0 15px rgba(255,255,255,0.1), 0 8px 30px rgba(0,0,0,0.7)",
-      }}
     >
       <div className="flex flex-col sm:flex-row justify-between items-center mb-5 gap-3">
-        <h2 className="text-2xl font-semibold drop-shadow-md">Find Your Tender</h2>
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+        <h2 className="text-2xl font-semibold drop-shadow-md">
+          Find Your Tender
+        </h2>
+        <div className="flex flex-wrap items-center gap-4 text-sm text-black/80">
           <span>
-            Showing: <strong className="text-gray-200">{tenderCount}</strong> tenders
+            Showing: <strong className="text-black/80">{tenderCount}</strong>{" "}
+            tenders
           </span>
           <button
             onClick={() => setShowAdvanced(!showAdvanced)}
@@ -73,10 +68,9 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             placeholder="Search by tender title..."
             className="
               w-full pl-10 pr-4 py-2 rounded-lg
-              bg-[rgba(255,255,255,0.07)] 
               border border-gray-600
-              text-gray-200
-              placeholder-gray-400
+              text-black
+              placeholder-black/80
               focus:outline-none focus:ring-2 focus:ring-blue-500
               transition
             "
@@ -89,9 +83,9 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           name="category"
           className="
             w-full sm:w-48 px-4 py-2 rounded-lg
-            bg-[rgba(255,255,255,0.07)]
+           
             border border-gray-600
-            text-gray-200
+            text-black/80
             focus:outline-none focus:ring-2 focus:ring-blue-500
             transition
           "
@@ -112,10 +106,10 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           placeholder="Min Budget"
           className="
             w-40 px-4 py-2 rounded-lg
-            bg-[rgba(255,255,255,0.07)]
+          
             border border-gray-600
-            text-gray-200
-            placeholder-gray-400
+            text-black
+            placeholder-black/80
             focus:outline-none focus:ring-2 focus:ring-blue-500
             transition
           "
@@ -129,10 +123,10 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           placeholder="Max Budget"
           className="
             w-40 px-4 py-2 rounded-lg
-            bg-[rgba(255,255,255,0.07)]
-            border border-gray-600
-            text-gray-200
-            placeholder-gray-400
+           
+             border border-gray-600
+            text-black
+            placeholder-black/80
             focus:outline-none focus:ring-2 focus:ring-blue-500
             transition
           "
