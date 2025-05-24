@@ -37,7 +37,6 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           </button>
         </div>
       </div>
-
       <div className="flex flex-wrap gap-4 items-center">
         <div className="relative w-full sm:w-64">
           <FaSearch className="absolute top-3.5 left-3 text-gray-400" />
