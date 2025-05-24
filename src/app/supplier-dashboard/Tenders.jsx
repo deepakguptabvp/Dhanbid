@@ -21,8 +21,7 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
   }, []);
 
   useEffect(() => {
-    const filteredTenders = sampleTenders
-      ?.filter(
+    const filteredTenders = sampleTenders?.filter(
         (t) =>
           (!filters.search ||
             t.name.toLowerCase().includes(filters.search.toLowerCase())) &&
