@@ -6,7 +6,7 @@ const MyBids = ({ bids }) => {
   const handleClose = () => setSelectedBid(null);
 
   return (
-    <div className="max-w-6xl mx-auto p-4 pb-6">
+    <div className="max-w-6xl mx-auto px-4 pb-6">
       <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
         My Bids
       </h2>

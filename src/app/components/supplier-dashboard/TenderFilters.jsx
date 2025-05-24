@@ -24,56 +24,28 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
   };
 
   return (
-    <div
-      className="
-        sticky top-0 z-30
-        backdrop-blur-lg
-        border border-gray-700
-        rounded-xl
-        px-6 py-5 mx-2 my-3
-        shadow-lg
-        transition-all duration-300
-      "
-    >
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-5 gap-3">
-        <h2 className="text-2xl font-semibold drop-shadow-md">
-          Find Your Tender
-        </h2>
-        <div className="flex flex-wrap items-center gap-4 text-sm text-black/80">
-          <span>
-            Showing: <strong className="text-black/80">{tenderCount}</strong>{" "}
-            tenders
-          </span>
-          <button
-            onClick={() => setShowAdvanced(!showAdvanced)}
-            className="flex items-center gap-1 text-blue-400 hover:text-blue-500 transition underline cursor-pointer select-none"
-          >
-            <FaFilter /> {showAdvanced ? "Hide" : "Advanced Filters"}
+    <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg shadow-xl border border-gray-200 rounded-xl px-6 py-4 mb-4 transition-all duration-300">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-gray-800">Find Your Tender</h2>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-600">Showing: <strong>{tenderCount}</strong> tenders</span>
+          <button onClick={() => setShowAdvanced(!showAdvanced)} className="text-sm text-blue-600 cursor-pointer hover:underline">
+            <FaFilter className="inline mr-1" /> {showAdvanced ? "Hide" : "Advanced Filters"}
           </button>
-          <button
-            onClick={resetFilters}
-            className="flex items-center gap-1 text-red-500 hover:text-red-600 transition underline cursor-pointer select-none"
-          >
-            <FaRedo /> Reset
+          <button onClick={resetFilters} className="text-sm cursor-pointer text-red-500 hover:underline">
+            <FaRedo className="inline mr-1" /> Reset
           </button>
         </div>
       </div>
 
       <div className="flex flex-wrap gap-4 items-center">
         <div className="relative w-full sm:w-64">
-          <FaSearch className="absolute top-3.5 left-3 text-gray-500" />
+          <FaSearch className="absolute top-3.5 left-3 text-gray-400" />
           <input
             name="search"
             type="text"
             placeholder="Search by tender title..."
-            className="
-              w-full pl-10 pr-4 py-2 rounded-lg
-              border border-gray-600
-              text-black
-              placeholder-black/80
-              focus:outline-none focus:ring-2 focus:ring-blue-500
-              transition
-            "
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
             value={filters.search}
             onChange={handleChange}
           />
@@ -81,14 +53,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
 
         <select
           name="category"
-          className="
-            w-full sm:w-48 px-4 py-2 rounded-lg
-           
-            border border-gray-600
-            text-black/80
-            focus:outline-none focus:ring-2 focus:ring-blue-500
-            transition
-          "
+          className="w-full sm:w-48 px-4 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-blue-400 outline-none transition"
           value={filters.category}
           onChange={handleChange}
         >
@@ -104,15 +69,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           name="minPrice"
           type="number"
           placeholder="Min Budget"
-          className="
-            w-40 px-4 py-2 rounded-lg
-          
-            border border-gray-600
-            text-black
-            placeholder-black/80
-            focus:outline-none focus:ring-2 focus:ring-blue-500
-            transition
-          "
+          className="w-40 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
           value={filters.minPrice}
           onChange={handleChange}
         />
@@ -121,15 +78,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           name="maxPrice"
           type="number"
           placeholder="Max Budget"
-          className="
-            w-40 px-4 py-2 rounded-lg
-           
-             border border-gray-600
-            text-black
-            placeholder-black/80
-            focus:outline-none focus:ring-2 focus:ring-blue-500
-            transition
-          "
+          className="w-40 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
           value={filters.maxPrice}
           onChange={handleChange}
         />
@@ -140,15 +89,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
               name="company"
               type="text"
               placeholder="Company name"
-              className="
-                w-full sm:w-48 px-4 py-2 rounded-lg
-                bg-[rgba(255,255,255,0.07)]
-                border border-gray-600
-                text-gray-200
-                placeholder-gray-400
-                focus:outline-none focus:ring-2 focus:ring-blue-500
-                transition
-              "
+              className="w-full sm:w-48 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.company}
               onChange={handleChange}
             />
@@ -156,14 +97,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             <input
               name="expiryFrom"
               type="date"
-              className="
-                w-full sm:w-44 px-4 py-2 rounded-lg
-                bg-[rgba(255,255,255,0.07)]
-                border border-gray-600
-                text-gray-200
-                focus:outline-none focus:ring-2 focus:ring-blue-500
-                transition
-              "
+              className="w-full sm:w-44 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.expiryFrom}
               onChange={handleChange}
             />
@@ -171,28 +105,14 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             <input
               name="expiryTo"
               type="date"
-              className="
-                w-full sm:w-44 px-4 py-2 rounded-lg
-                bg-[rgba(255,255,255,0.07)]
-                border border-gray-600
-                text-gray-200
-                focus:outline-none focus:ring-2 focus:ring-blue-500
-                transition
-              "
+              className="w-full sm:w-44 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.expiryTo}
               onChange={handleChange}
             />
 
             <select
               name="sortBy"
-              className="
-                w-full sm:w-48 px-4 py-2 rounded-lg
-                bg-[rgba(255,255,255,0.07)]
-                border border-gray-600
-                text-gray-200
-                focus:outline-none focus:ring-2 focus:ring-blue-500
-                transition
-              "
+              className="w-full sm:w-48 px-4 py-2 rounded-lg border border-gray-300 bg-white focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.sortBy}
               onChange={handleChange}
             >
