@@ -39,7 +39,7 @@ const page = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full dark:text-black ">
+    <div className="flex min-h-screen w-full text-black">
       {/* Sidebar navigation panel */}
       <div className="w-64 bg-white shadow-md p-4">
         <h1 className="text-xl font-bold mb-4">Dhanbid Portal</h1>

@@ -1,23 +1,63 @@
-import React from "react";
-// import dummyTender from "./../data/dummyTenderData.json";
+import React, { useEffect, useState } from "react";
+import TenderFilters from "../components/supplier-dashboard/TenderFilters";
 
 const MyTenders = ({ emptyArray }) => {
+  const [filters, setFilters] = useState({
+    search: "",
+    category: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+  const [height, setHeight] = useState(0);
+  const [tenders, setTenders] = useState(emptyArray);
+
+  useEffect(() => {
+    // Adjust dynamically if needed based on header height
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    const headerHeight = 200; // estimate filter height
+    setHeight(window.innerHeight - headerHeight);
+  }, []);
+  useEffect(() => {
+    const filteredTenders = emptyArray
+      .filter(
+        (t) =>
+          (!filters.search ||
+            t.name.toLowerCase().includes(filters.search.toLowerCase())) &&
+          (!filters.category || t.category === filters.category) &&
+          (!filters.company ||
+            t.company.toLowerCase().includes(filters.company.toLowerCase())) &&
+          (!filters.minPrice || t.minPrice >= Number(filters.minPrice)) &&
+          (!filters.maxPrice || t.maxPrice <= Number(filters.maxPrice)) &&
+          (!filters.expiryFrom ||
+            new Date(t.expiryDate) >= new Date(filters.expiryFrom)) &&
+          (!filters.expiryTo ||
+            new Date(t.expiryDate) <= new Date(filters.expiryTo))
+      )
+      .sort((a, b) => {
+        if (filters.sortBy === "priceLowHigh") return a.minPrice - b.minPrice;
+        if (filters.sortBy === "priceHighLow") return b.maxPrice - a.maxPrice;
+        if (filters.sortBy === "expirySoon")
+          return new Date(a.expiryDate) - new Date(b.expiryDate);
+        if (filters.sortBy === "expiryLate")
+          return new Date(b.expiryDate) - new Date(a.expiryDate);
+        return 0;
+      });
+    setTenders(filteredTenders);
+  }, [filters]);
+
   return (
     <div className=" bg-gray-100">
-      {/* <h1 className="text-3xl font-bold text-center mt-2 mb-8 text-blue-800">
-        My Tenders
-      </h1> */}
+      {/* Sticky filters */}
+      <TenderFilters
+        filters={filters}
+        setFilters={setFilters}
+        tenderCount={emptyArray?.length}
+      />
 
-      {/* Searching and Filtering buttons */}
-      <div className="gap-4">
-        <input
-          type="text"
-          className="bg-gray-200 rounded-xl text-center mt-2 mb-8 p-2 border-gray-300"
-        />
-        <button className=""> Filter </button>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 overflow-y-auto max-h-screen">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 overflow-y-auto max-h-screen"
+        style={{ height: `${height}px` }}
+      >
         {emptyArray.map((tender, index) => (
           <div
             key={index}
@@ -62,10 +102,6 @@ const MyTenders = ({ emptyArray }) => {
                 View Details
               </button>
             </div>
-
-            {/* <div className="text-xs text-orange-600 mt-3 bg-orange-100 p-2 rounded">
-              🔥 Get up to 10% off on online bids using UPI payment!
-            </div> */}
           </div>
         ))}
       </div>
@@ -74,102 +110,3 @@ const MyTenders = ({ emptyArray }) => {
 };
 
 export default MyTenders;
-
-// import { MdEventNote } from "react-icons/md";
-// import { IoMdCloseCircle } from "react-icons/io";
-// import { TiTick } from "react-icons/ti";
-
-// useEffect
-// const [tenders, setTenders] = useState([]);
-
-//    useEffect(() => {
-//   fetch("/data/dummyTenderData.json")
-//     .then((res) => res.json())
-//     .then((data) => setTenders(data))
-//     .catch((error) => console.error("Error fetching tender data:", error));
-// }, []);
-
-{
-  /* <div className="grid md:grid-cols-3">
-        <div className="flex flex-row p-6">
-          <MdEventNote size={60} className="mx-3" />
-          <div className="flex flex-col">
-            <h1 className="text-3xl font-bold">12</h1>
-            <span>Open Tenders</span>
-          </div>
-        </div>
-        <div className="flex flex-row p-6">
-          <TiTick size={60} className="mx-3" />
-          <div className="flex flex-col">
-            <h1 className="text-3xl font-bold">8</h1>
-            <span>Submitted Tenders</span>
-          </div>
-        </div>
-        <div className="flex flex-row p-6">
-          <IoMdCloseCircle size={60} className="mx-3" />
-          <div className="flex flex-col">
-            <h1 className="text-3xl font-bold">3</h1>
-            <span>Closed Tenders</span>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col">
-        <h1 className="text-2xl font-semibold p-4">Open Tenders</h1>
-
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Tender ID
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Title
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Submission Deadline
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  1
-                </th>
-                <td className="px-6 py-4">Supplies</td>
-                <td className="px-6 py-4">open</td>
-                <td className="px-6 py-4">May 27, 2025</td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  2
-                </th>
-                <td className="px-6 py-4">Construction Services</td>
-                <td className="px-6 py-4">Open</td>
-                <td className="px-6 py-4">April 12, 2025</td>
-              </tr>
-              <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  3
-                </th>
-                <td className="px-6 py-4">IT Equipment</td>
-                <td className="px-6 py-4">Closed</td>
-                <td className="px-6 py-4">Jun 7, 2025</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> */
-}
