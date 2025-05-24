@@ -32,7 +32,11 @@ export default function TenderList({ tenders, setCreateBid, setActiveSection }) 
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold drop-shadow-md">{tender.name}</h2>
               <span className="text-xs text-gray-400">
-                Expires: {new Date(tender.expiryDate).toLocaleDateString()}
+                Expires: {new Date(tender.expiryDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })}
               </span>
             </div>
             <p className="text-gray-300 mt-3 leading-relaxed">{tender.description}</p>
