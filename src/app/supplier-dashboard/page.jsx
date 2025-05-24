@@ -67,14 +67,13 @@ const Page = () => {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen w-full">
-      {/* Hamburger for mobile */}
       <div className="md:hidden flex justify-between items-center bg-white p-4 shadow-md">
         <h1 className="text-xl font-bold">Dhanbid Portal</h1>
         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           <FiMenu size={24} />
+          
         </button>
       </div>
-      {/* Sidebar */}
       <div
         className={`
           fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
