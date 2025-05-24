@@ -46,6 +46,7 @@ const NotificationsPage = () => {
                 <div className="bg-blue-600 text-white p-2 rounded-full shadow">
                   <CgBell className="h-6 w-6" />
                 </div>
+                
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-800">
                     {tender.title}

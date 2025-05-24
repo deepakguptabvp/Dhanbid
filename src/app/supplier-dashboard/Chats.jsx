@@ -64,7 +64,6 @@ export default function ChatInterface() {
 
       {/* Main Chat Window */}
       <div className="flex-1 flex flex-col relative">
-        {/* Header */}
         <div className="border-b border-gray-700 px-4 py-4 bg-gray-800/60 backdrop-blur-md flex items-center justify-between lg:justify-start gap-4">
           <button className="lg:hidden text-white" onClick={() => setShowSidebar(true)}>
             <FiMenu size={24} />
