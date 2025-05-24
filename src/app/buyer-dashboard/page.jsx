@@ -8,13 +8,14 @@ import AddTender from "./AddTender";
 import MyTenders from "./MyTenders";
 import LiveTender from "./LiveTender";
 import Profile from "./Profile";
-import dummyTender from "./../data/dummyTenderData.json";
+// import dummyTender from "./../data/dummyTenderData.json";
+import { sampleTenders } from "../data/categories";
 
 // Main component for dashboard page
 const page = () => {
   // State to track which section is currently active
   const [activeSection, setActiveSection] = useState("my-tenders");
-  const [emptyArray, setEmptyArray] = useState(dummyTender.dummyTenderData);
+  const [emptyArray, setEmptyArray] = useState(sampleTenders);
 
   // Function to render the content based on active section
   const renderContent = () => {
@@ -101,7 +102,7 @@ const page = () => {
       </div>
 
       {/* Main content area which renders selected section */}
-      <div className="flex-1 p-6">{renderContent()}</div>
+      <div className="flex-1">{renderContent()}</div>
     </div>
   );
 };

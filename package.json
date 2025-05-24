@@ -2,20 +2,33 @@
   "name": "dhanbid",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "back": "nodemon src/server/server.js",
+    "dev:frontend": "next dev -p 3000",
+    "dev:backend": "nodemon src/server/server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "bootstrap-icons": "^1.11.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "framer-motion": "^12.12.1",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.15.0",
+    "morgan": "^1.10.0",
     "next": "15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
-    "react-tooltip": "^5.28.1"
+    "react-tooltip": "^5.28.1",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
