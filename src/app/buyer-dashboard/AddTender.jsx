@@ -3,28 +3,28 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
-  const [tenderName, setTenderName] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [tenderCategory, setTenderCategory] = useState("");
-  const [tenderDescription, setTenderDescription] = useState("");
-  const [bidSubmissionDate, setBidSubmissionDate] = useState("");
-  const [tenderOpeningDate, setTenderOpeningDate] = useState("");
-  const [minimumPrice, setMinimumPrice] = useState("");
-  const [maximumPrice, setMaximumPrice] = useState("");
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  // const [bidSubmissionDate, setBidSubmissionDate] = useState("");
+  // const [tenderOpeningDate, setTenderOpeningDate] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Check for required fields (you can add more validation as needed)
     if (
-      !tenderName ||
-      !companyName ||
-      !tenderCategory ||
-      !tenderDescription ||
-      !bidSubmissionDate ||
-      !tenderOpeningDate ||
-      !minimumPrice ||
-      !maximumPrice
+      !name ||
+      !company ||
+      !category ||
+      !description ||
+      !expiryDate ||
+      !minPrice ||
+      !maxPrice
     ) {
       toast.error("Please fill in all required fields.");
       return;
@@ -32,14 +32,13 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
 
     // Simulate saving the tender
     const tenderData = {
-      tenderName,
-      companyName,
-      tenderCategory,
-      tenderDescription,
-      bidSubmissionDate,
-      tenderOpeningDate,
-      minimumPrice,
-      maximumPrice,
+      name,
+      company,
+      category,
+      description,
+      expiryDate,
+      minPrice,
+      maxPrice,
     };
 
     console.log("Tender submitted:", tenderData);
@@ -50,14 +49,13 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
     setActiveSection("my-tenders");
 
     // Reset the form (optional)
-    setTenderName("");
-    setCompanyName("");
-    setTenderCategory("");
-    setTenderDescription("");
-    setBidSubmissionDate("");
-    setTenderOpeningDate("");
-    setMinimumPrice("");
-    setMaximumPrice("");
+    setName("");
+    setCompany("");
+    setCategory("");
+    setDescription("");
+    setExpiryDate("");
+    setMinPrice("");
+    setMaxPrice("");
   };
 
   return (
@@ -69,14 +67,14 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
         <form className="space-y-5" onSubmit={handleSubmit}>
           {/* Tender Name */}
           <div className="flex flex-col">
-            <label htmlFor="tenderName" className="pb-1 font-semibold text-sm">
+            <label htmlFor="name" className="pb-1 font-semibold text-sm">
               Tender Name
             </label>
             <input
-              id="tenderName"
+              id="name"
               type="text"
-              value={tenderName}
-              onChange={(e) => setTenderName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="border rounded-md pl-2 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
               required
             />
@@ -84,14 +82,14 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
 
           {/* Company Name */}
           <div className="flex flex-col">
-            <label htmlFor="companyName" className="text-sm font-semibold pb-1">
+            <label htmlFor="company" className="text-sm font-semibold pb-1">
               Company / Organization Name
             </label>
             <input
               type="text"
-              id="companyName"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
+              id="company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
               className="border rounded-md pl-2 py-2"
               required
             />
@@ -99,17 +97,14 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
 
           {/* Tender Category */}
           <div className="flex flex-col">
-            <label
-              htmlFor="tenderCategory"
-              className="pb-1 font-semibold text-sm"
-            >
+            <label htmlFor="category" className="pb-1 font-semibold text-sm">
               Tender Category
             </label>
             <input
               type="text"
-              id="tenderCategory"
-              value={tenderCategory}
-              onChange={(e) => setTenderCategory(e.target.value)}
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
               className="border rounded-md pl-2 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
               required
             />
@@ -117,17 +112,14 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
 
           {/* Tender Description */}
           <div className="flex flex-col">
-            <label
-              htmlFor="tenderDescription"
-              className="pb-1 font-semibold text-sm"
-            >
+            <label htmlFor="description" className="pb-1 font-semibold text-sm">
               Tender Description
             </label>
             <input
               type="text"
-              id="tenderDescription"
-              value={tenderDescription}
-              onChange={(e) => setTenderDescription(e.target.value)}
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="border rounded-md pl-2 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
               required
             />
@@ -137,21 +129,21 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="flex flex-col flex-1 pb-4 md:pb-0">
               <label
-                htmlFor="bidSubmissionDeadline"
+                htmlFor="expiryDate"
                 className="text-sm font-semibold pb-1"
               >
-                Bid Submission Deadline
+                Expiry Date
               </label>
               <input
                 type="date"
-                id="bidSubmissionDeadline"
-                value={bidSubmissionDate}
-                onChange={(e) => setBidSubmissionDate(e.target.value)}
+                id="expiryDate"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
                 className="border rounded-md pl-2 py-2"
                 required
               />
             </div>
-            <div className="flex flex-col flex-1">
+            {/* <div className="flex flex-col flex-1">
               <label
                 htmlFor="tenderOpeningDate"
                 className="text-sm font-semibold pb-1"
@@ -166,39 +158,33 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
                 className="border rounded-md pl-2 py-2"
                 required
               />
-            </div>
+            </div> */}
           </div>
 
           {/* Price Range */}
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="flex flex-col flex-1 pb-4 md:pb-0">
-              <label
-                htmlFor="minimumPrice"
-                className="pb-1 font-semibold text-sm"
-              >
+              <label htmlFor="minPrice" className="pb-1 font-semibold text-sm">
                 Minimum Price
               </label>
               <input
-                id="minimumPrice"
+                id="minPrice"
                 type="number"
-                value={minimumPrice}
-                onChange={(e) => setMinimumPrice(e.target.value)}
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
                 className="rounded-md pl-3 py-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
                 required
               />
             </div>
             <div className="flex flex-col flex-1">
-              <label
-                htmlFor="maximumPrice"
-                className="pb-1 font-semibold text-sm"
-              >
+              <label htmlFor="maxPrice" className="pb-1 font-semibold text-sm">
                 Maximum Price
               </label>
               <input
-                id="maximumPrice"
+                id="maxPrice"
                 type="number"
-                value={maximumPrice}
-                onChange={(e) => setMaximumPrice(e.target.value)}
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
                 className="rounded-md pl-3 py-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
                 required
               />
