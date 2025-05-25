@@ -66,12 +66,12 @@ const Page = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen w-full">
-      <div className="md:hidden flex justify-between items-center bg-white p-4 shadow-md">
+    <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full">
+      <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
         <h1 className="text-xl font-bold">Dhanbid Portal</h1>
         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           <FiMenu size={24} />
-          
+
         </button>
       </div>
       <div
@@ -107,4 +107,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Page;

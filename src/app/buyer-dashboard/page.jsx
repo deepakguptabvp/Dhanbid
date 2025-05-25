@@ -102,7 +102,7 @@ const page = () => {
       </div>
 
       {/* Main content area which renders selected section */}
-      <div className="flex-1">{renderContent()}</div>
+      <div className="flex-1 p-3 ">{renderContent()}</div>
     </div>
   );
 };

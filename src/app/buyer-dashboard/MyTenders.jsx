@@ -46,7 +46,7 @@ const MyTenders = ({ emptyArray }) => {
   }, [filters]);
 
   return (
-    <div className=" bg-gray-100 min-h-screen">
+    <div className=" min-h-screen">
       {/* Sticky filters */}
       <TenderFilters
         filters={filters}
