@@ -1,8 +1,6 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -78,7 +76,7 @@ function Login() {
   const handleOtpVerification = async () => {
     // const router = useRouter();
     try {
-      // // const { data } = await axios.post("user/otp-verified", { phone });
+      // const { data } = await axios.post("user/otp-verified", { phone });
       // setUser(data.user);
       // localStorage.setItem("BidA2ZUser", data.token);
       setError("");
