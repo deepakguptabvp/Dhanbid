@@ -95,9 +95,9 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           value={filters.category}
           onChange={handleChange}
         >
-          <option value="">All Categories</option>
+          <option className="bg-black" value="">All Categories</option>
           {businessCategories.map((cat, idx) => (
-            <option key={idx} value={cat.value}>
+            <option key={idx} className="bg-black" value={cat.value}>
               {cat.label}
             </option>
           ))}
