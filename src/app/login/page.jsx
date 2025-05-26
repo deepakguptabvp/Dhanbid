@@ -1,12 +1,14 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
 
 function Login() {
+  const router = useRouter();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
@@ -77,12 +79,12 @@ function Login() {
   // const navigate = useNavigate();
   const handleOtpVerification = async () => {
     try {
-      const { data } = await axios.post("user/otp-verified", { phone });
-      setUser(data.user);
-      localStorage.setItem("BidA2ZUser", data.token);
+      // // const { data } = await axios.post("user/otp-verified", { phone });
+      // setUser(data.user);
+      // localStorage.setItem("BidA2ZUser", data.token);
       setError("");
       // navigate to buyer / supplier page.
-     <Link href="/dashboard-selector"></Link>
+     router.push("/dashboard-selector")
      
     } catch {
       setError("Something went wrong! Try Again");
