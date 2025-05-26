@@ -88,6 +88,6 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
           setActiveSection={setActiveSection}
         />
       </div>
-    </div>
-  );
+    </div>
+  );
 }

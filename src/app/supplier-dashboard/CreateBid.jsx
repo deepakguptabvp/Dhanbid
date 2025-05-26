@@ -27,27 +27,23 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
 
       // Update local bids state (demo only)
       setBids((prev) => [bidData, ...prev]);
-      setActiveSection("my-biddings");
+      setActiveSection('my-biddings');
       toast.success(`Submitted bid for ${tender?.tenderId} at ₹${amount}`);
 
-      // Clear the form fields after submission
+      // Optionally clear the form
       setBidderName("");
       setAmount("");
       setDescription("");
-      setCompanyName("");
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
   };
-
   return (
     <div className="flex flex-col max-w-3xl mx-auto p-6 min-h-screen dark:text-white">
       <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         {/* Tender Details */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">
-            Tender Overview
-          </h2>
+          <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Tender Overview</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 text-sm text-gray-700 dark:text-gray-200">
             <p><strong>ID:</strong> {tender?.tenderId}</p>
             <p><strong>Title:</strong> {tender?.name}</p>
@@ -80,9 +76,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
 
         {/* Submit Bid Form */}
         <div className="p-6">
-          <h2 className="text-xl font-bold text-center text-gray-800 dark:text-white mb-6">
-            Place Your Bid
-          </h2>
+          <h2 className="text-xl font-bold text-center text-gray-800 dark:text-white mb-6">Place Your Bid</h2>
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="bidderName" className="block text-sm font-medium mb-1">
@@ -142,7 +136,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                 onChange={(e) => setDescription(e.target.value)}
                 required
                 className="w-full border rounded-md px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-              />
+              ></textarea>
             </div>
 
             <div className="pt-4 flex justify-end">

@@ -68,6 +68,6 @@ export default function TenderList({ tenders, setCreateBid, setActiveSection }) 
           </div>
         ))
       )}
-    </div>
-  );
+    </div>
+  );
 }
