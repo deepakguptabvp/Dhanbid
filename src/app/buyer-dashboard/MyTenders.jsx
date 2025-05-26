@@ -17,6 +17,7 @@ const MyTenders = ({ emptyArray }) => {
     const headerHeight = 200; // estimate filter height
     setHeight(window.innerHeight - headerHeight);
   }, []);
+  
   useEffect(() => {
     const filteredTenders = emptyArray
       .filter(

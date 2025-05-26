@@ -1,12 +1,12 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 
 function Login() {
+  const router = useRouter();
+
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
@@ -74,17 +74,15 @@ function Login() {
     startResendTimer();
   };
 
-  // const navigate = useNavigate();
   const handleOtpVerification = async () => {
+    // const router = useRouter();
     try {
       const { data } = await axios.post("user/otp-verified", { phone });
-      setUser(data.user);
+      // setUser(data.user);
       localStorage.setItem("BidA2ZUser", data.token);
       setError("");
-      // navigate to buyer / supplier page.
-     <Link href="/dashboard-selector"></Link>
-     
-    } catch {
+      router.push("/dashboard-selector");
+    } catch (error) {
       setError("Something went wrong! Try Again");
     } finally {
       setLoading(false);
@@ -102,8 +100,6 @@ function Login() {
 
     if (res.success) {
       handleOtpVerification();
-  
-      //  <Link href='/dashboard-selector'>Dashboard Selector</Link>
     } else {
       setError(
         res.statusCode === 400 ? "Invalid OTP!" : "Something went wrong!"
@@ -177,7 +173,7 @@ function Login() {
                     type="button"
                     onClick={verifyOTP}
                     disabled={loading}
-                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                    className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition cursor-pointer"
                   >
                     {loading ? "Verifying..." : "Verify OTP"}
                   </button>
@@ -186,7 +182,7 @@ function Login() {
                 <button
                   type="button"
                   onClick={initiateAuth}
-                  className="w-full bg-teal-600 text-white py-2 rounded-md hover:bg-teal-700 transition"
+                  className="w-full bg-teal-600 text-white py-2 rounded-md hover:bg-teal-700 transition cursor-pointer"
                 >
                   Request OTP
                 </button>
@@ -207,15 +203,6 @@ function Login() {
                 </div>
               )}
             </div>
-
-            {/* <div className="text-center space-y-4">
-              <p className="text-black/90">Don't have an account?</p>
-              <button className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium  group  hover:bg-black text-white rounded-lg  bg-black/70 ">
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-transparent rounded-md group-hover:bg-transparent cursor-pointer">
-                  SIGN UP
-                </span>
-              </button>
-            </div> */}
           </div>
         </div>
       </div>

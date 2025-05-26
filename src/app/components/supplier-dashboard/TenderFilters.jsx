@@ -27,7 +27,6 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
     <div
       className="
         sticky top-0 z-30
-       
         backdrop-blur-lg
         border border-gray-700
         rounded-xl
@@ -70,7 +69,6 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             placeholder="Search by tender title..."
             className="
               w-full pl-10 pr-4 py-2 rounded-lg
-            
               border border-gray-600
               text-gray-700
               placeholder-gray-700
