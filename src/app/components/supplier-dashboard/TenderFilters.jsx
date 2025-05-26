@@ -37,13 +37,13 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
         text-gray-300
       "
     >
-      <div className="flex flex-col sm:flex-row justify-between items-center text-black mb-5 gap-3">
+      <div className="flex flex-col sm:flex-row justify-between items-center text-white mb-5 gap-3">
         <h2 className="text-2xl font-semibold drop-shadow-md">
           Find Your Tender
         </h2>
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-white">
           <span>
-            Showing: <strong className="text-gray-700">{tenderCount}</strong>{" "}
+            Showing: <strong className="text-white">{tenderCount}</strong>{" "}
             tenders
           </span>
           <button
@@ -63,7 +63,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
 
       <div className="flex flex-wrap gap-4 items-center">
         <div className="relative w-full sm:w-64">
-          <FaSearch className="absolute top-3.5 left-3 text-gray-700" />
+          <FaSearch className="absolute top-3.5 left-3 text-white" />
           <input
             name="search"
             type="text"
@@ -72,8 +72,8 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
               w-full pl-10 pr-4 py-2 rounded-lg
             
               border border-gray-600
-              text-gray-700
-              placeholder-gray-700
+             text-white
+              placeholder-gray-100
               focus:outline-none focus:ring-2 focus:ring-blue-500
               transition
             "
@@ -88,7 +88,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             w-full sm:w-48 px-4 py-2 rounded-lg
             
             border border-gray-600
-            text-gray-700
+           text-white
             focus:outline-none focus:ring-2 focus:ring-blue-500
             transition
           "
@@ -111,8 +111,8 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             w-40 px-4 py-2 rounded-lg
       
             border border-gray-600
-            text-gray-700
-            placeholder-gray-700
+           text-white
+            placeholder-gray-100
             focus:outline-none focus:ring-2 focus:ring-blue-500
             transition
           "
@@ -128,8 +128,8 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             w-40 px-4 py-2 rounded-lg
            
             border border-gray-600
-            text-gray-700
-            placeholder-gray-700
+           text-white
+            placeholder-gray-100
             focus:outline-none focus:ring-2 focus:ring-blue-500
             transition
           "
@@ -143,8 +143,8 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
               name="company"
               type="text"
               placeholder="Company name"
-              className="w-full sm:w-48 px-4 py-2  text-gray-700
-            placeholder-gray-700 border-gray-600 rounded-lg border  focus:ring-2 focus:ring-blue-400 outline-none transition"
+              className="w-full sm:w-48 px-4 py-2 text-white
+            placeholder-gray-100 border-gray-600 rounded-lg border  focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.company}
               onChange={handleChange}
             />
@@ -152,8 +152,8 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             <input
               name="expiryFrom"
               type="date"
-              className="w-full sm:w-44 px-4 py-2  text-gray-700
-            placeholder-gray-700 border-gray-600 rounded-lg border  focus:ring-2 focus:ring-blue-400 outline-none transition"
+              className="w-full sm:w-44 px-4 py-2 text-white
+            placeholder-gray-100 border-gray-600 rounded-lg border  focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.expiryFrom}
               onChange={handleChange}
             />
@@ -161,16 +161,16 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             <input
               name="expiryTo"
               type="date"
-              className="w-full sm:w-44 px-4 py-2  text-gray-700
-            placeholder-gray-700 border-gray-600 rounded-lg border  focus:ring-2 focus:ring-blue-400 outline-none transition"
+              className="w-full sm:w-44 px-4 py-2 text-white
+            placeholder-gray-100 border-gray-600 rounded-lg border  focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.expiryTo}
               onChange={handleChange}
             />
 
             <select
               name="sortBy"
-              className="w-full sm:w-48 px-4 py-2  text-gray-700
-            placeholder-gray-700 border-gray-600 rounded-lg border  bg-white focus:ring-2 focus:ring-blue-400 outline-none transition"
+              className="w-full sm:w-48 px-4 py-2 text-white
+            placeholder-gray-100 border-gray-600 rounded-lg border  bg-white focus:ring-2 focus:ring-blue-400 outline-none transition"
               value={filters.sortBy}
               onChange={handleChange}
             >
