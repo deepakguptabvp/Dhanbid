@@ -36,13 +36,13 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
         text-gray-300
       "
     >
-      <div className="flex flex-col sm:flex-row justify-between items-center text-black mb-5 gap-3">
+      <div className="flex flex-col sm:flex-row justify-between items-center text-white mb-5 gap-3">
         <h2 className="text-2xl font-semibold drop-shadow-md">
           Your Requirements
         </h2>
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-white">
           <span>
-            Showing: <strong className="text-gray-700">{tenderCount}</strong>{" "}
+            Showing: <strong className="text-white">{tenderCount}</strong>{" "}
             tenders
           </span>
 
