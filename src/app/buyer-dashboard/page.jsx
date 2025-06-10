@@ -8,7 +8,6 @@ import AddTender from "./AddTender";
 import MyTenders from "./MyTenders";
 import LiveTender from "./LiveTender";
 import Profile from "./Profile";
-// import dummyTender from "./../data/dummyTenderData.json";
 import { sampleTenders } from "../data/categories";
 
 // Main component for dashboard page
@@ -16,6 +15,11 @@ const page = () => {
   // State to track which section is currently active
   const [activeSection, setActiveSection] = useState("my-tenders");
   const [emptyArray, setEmptyArray] = useState(sampleTenders);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () =>{
+    setIsMenuOpen(!isMenuOpen);
+  }
 
   // Function to render the content based on active section
   const renderContent = () => {
@@ -29,7 +33,7 @@ const page = () => {
             setEmptyArray={setEmptyArray}
             setActiveSection={setActiveSection}
           />
-        );
+        );  
       case "live-tender":
         return <LiveTender />;
       case "profile":
@@ -40,14 +44,15 @@ const page = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full text-black">
+    <div className="flex min-h-screen w-full text-black dark:bg-white  ">
       {/* Sidebar navigation panel */}
-      <div className="w-64 bg-white shadow-md p-4">
-        <h1 className="text-xl font-bold mb-4">Dhanbid Portal</h1>
+      <aside className="w-64 bg-gray-50 shadow-md p-4">
+        <h1 className="text-xl font-bold mb-4">Buyer Dashboard</h1>
 
         {/* Sidebar menu items */}
-        <div className="space-y-2">
+        <nav className="space-y-2">
           {/* My tender button */}
+
           <button
             onClick={() => setActiveSection("my-tenders")}
             className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
@@ -98,8 +103,8 @@ const page = () => {
               <span className="m-1">Profile</span>
             </div>
           </button>
-        </div>
-      </div>
+        </nav>
+      </aside>
 
       {/* Main content area which renders selected section */}
       <div className="flex-1 p-3 ">{renderContent()}</div>

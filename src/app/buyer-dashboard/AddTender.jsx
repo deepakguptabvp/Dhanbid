@@ -1,222 +1,458 @@
+// "use client";
+// import React, { useState } from "react";
+// import toast from "react-hot-toast";
+// import { businessCategories } from "../data/categories";
+
+// const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
+//   const [name, setName] = useState("");
+//   const [company, setCompany] = useState("");
+//   const [category, setCategory] = useState("");
+//   const [description, setDescription] = useState("");
+//   const [expiryDate, setExpiryDate] = useState("");
+//   const [minPrice, setMinPrice] = useState("");
+//   const [maxPrice, setMaxPrice] = useState("");
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+
+//     // Check for required fields (you can add more validation as needed)
+//     if (
+//       !name ||
+//       !company ||
+//       !category ||
+//       !description ||
+//       !expiryDate ||
+//       !minPrice ||
+//       !maxPrice
+//     ) {
+//       toast.error("Please fill in all required fields.");
+//       return;
+//     }
+
+//     // Simulate saving the tender
+//     const tenderData = {
+//       name,
+//       company,
+//       category,
+//       description,
+//       expiryDate,
+//       minPrice,
+//       maxPrice,
+//     };
+
+//     console.log("Tender submitted:", tenderData);
+
+//     setEmptyArray([tenderData, ...emptyArray]);
+
+//     toast.success("Tender submitted successfully!");
+//     setActiveSection("my-tenders");
+
+//     // Reset the form (optional)
+//     setName("");
+//     setCompany("");
+//     setCategory("");
+//     setDescription("");
+//     setExpiryDate("");
+//     setMinPrice("");
+//     setMaxPrice("");
+//   };
+
+//   return (
+//     <div className="flex flex-col mx-auto p-2 max-w-2xl min-h-screen text-black dark:bg-white">
+//       <h1 className="text-2xl py-3 font-bold text-center">Add New Tender</h1>
+//       <div className="w-full p-6 rounded-xl shadow-lg border">
+//         {/* tender form */}
+//         <form className="space-y-5" onSubmit={handleSubmit}>
+//           {/* Tender Name */}
+//           <div className="flex flex-col md:flex-row md:space-x-4">
+//             <div className="flex flex-col flex-1 pb-4 md:pb-0">
+//               <label htmlFor="name" className="pb-1 font-semibold text-sm">
+//                 Tender Name
+//               </label>
+//               <input
+//                 id="name"
+//                 type="text"
+//                 value={name}
+//                 onChange={(e) => setName(e.target.value)}
+//                 className="border rounded-md pl-2 py-2  text-sm"
+//                 required
+//               />
+//             </div>
+
+//             {/* Company Name */}
+//             <div className="flex flex-col flex-1 pb-4 md:pb-0">
+//               <label htmlFor="company" className="text-sm font-semibold pb-1">
+//                 Company / Organization Name
+//               </label>
+//               <input
+//                 type="text"
+//                 id="company"
+//                 value={company}
+//                 placeholder="e.g.: XYZ Pvt. Ltd. "
+//                 onChange={(e) => setCompany(e.target.value)}
+//                 className="border rounded-md pl-2 py-2"
+//                 required
+//               />
+//             </div>
+//           </div>
+
+//           {/* Tender Category */}
+//           <div className="flex flex-col md:flex-row md:space-x-4">
+//             <div className="flex flex-col flex-1 pb-4 md:pb-0">
+//               <label htmlFor="company" className="text-sm font-semibold pb-1">
+//                 Category
+//               </label>
+//               <select
+//                 name="category"
+//                 className="border rounded-md p-2 h-10"
+//                 value={category}
+//                 onChange={(e) => setCategory(e.target.value)}
+//               >
+//                 <option value="">All Categories</option>
+//                 {businessCategories.map((cat, idx) => (
+//                   <option key={idx} value={cat.value}>
+//                     {cat.label}
+//                   </option>
+//                 ))}
+//               </select>
+//             </div>
+
+//             {/* Expiry Date */}
+//             <div className="flex flex-col flex-1 pb-4 md:pb-0">
+//               <label
+//                 htmlFor="expiryDate"
+//                 className="text-sm font-semibold pb-1"
+//               >
+//                 Expiry Date
+//               </label>
+//               <input
+//                 type="date"
+//                 id="expiryDate"
+//                 value={expiryDate}
+//                 onChange={(e) => setExpiryDate(e.target.value)}
+//                 className="border rounded-md pl-2 py-2"
+//                 required
+//               />
+//             </div>
+//           </div>
+
+//           {/* Tender Description */}
+//           <div className="flex flex-col">
+//             <label htmlFor="description" className="pb-1 font-semibold text-sm">
+//               Tender Description
+//             </label>
+//             <input
+//               type="text"
+//               id="description"
+//               value={description}
+//               onChange={(e) => setDescription(e.target.value)}
+//               className="border rounded-md pl-2 py-2  text-sm"
+//               required
+//             />
+//           </div>
+
+//           {/* Price Range */}
+//           <div className="flex flex-col md:flex-row md:space-x-4">
+//             <div className="flex flex-col flex-1 pb-4 md:pb-0">
+//               <label htmlFor="minPrice" className="pb-1 font-semibold text-sm">
+//                 Minimum Price
+//               </label>
+//               <input
+//                 id="minPrice"
+//                 type="number"
+//                 value={minPrice}
+//                 placeholder="Min Budget"
+//                 onChange={(e) => setMinPrice(e.target.value)}
+//                 className="rounded-md pl-3 py-2 border  text-sm"
+//                 required
+//               />
+//             </div>
+//             <div className="flex flex-col flex-1">
+//               <label htmlFor="maxPrice" className="pb-1 font-semibold text-sm">
+//                 Maximum Price
+//               </label>
+//               <input
+//                 id="maxPrice"
+//                 type="number"
+//                 value={maxPrice}
+//                 placeholder="Max Budget"
+//                 onChange={(e) => setMaxPrice(e.target.value)}
+//                 className="rounded-md pl-3 py-2 border  text-sm"
+//                 required
+//               />
+//             </div>
+//           </div>
+
+//           {/* Terms */}
+//           <div className="flex items-center space-x-2">
+//             <input type="checkbox" className="w-4 h-4" required />
+//             <label htmlFor="termsConditions" className="text-md">
+//               I agree to the terms & conditions. *
+//             </label>
+//           </div>
+
+//           {/* Buttons */}
+//           <div className="flex justify-end space-x-4 pt-4">
+//             <button
+//               type="submit"
+//               className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition cursor-pointer"
+//             >
+//               Submit Tender
+//             </button>
+//             <button
+//               type="button"
+//               onClick={() => toast("Saved as Draft")}
+//               className="bg-white text-gray-800 border border-gray-300 hover:bg-gray-100 dark:bg-gray-700 dark:text-white cursor-pointer px-5 py-2 rounded-lg font-semibold text-sm transition"
+//             >
+//               Save as Draft
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddTender;
+
 "use client";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { businessCategories } from "../data/categories";
 
 const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  // const [bidSubmissionDate, setBidSubmissionDate] = useState("");
-  // const [tenderOpeningDate, setTenderOpeningDate] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    requirement: "",
+    category: "",
+    location: "",
+    quantity: "",
+    timeline: "",
+    minPrice: "",
+    maxPrice: "",
+    files: null,
+    agreed: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : type === "file" ? files : value,
+    }));
+  };
+
+  const nextStep = () => {
+    if (step < 6) setStep(step + 1);
+  };
+
+  const prevStep = () => {
+    if (step > 1) setStep(step - 1);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check for required fields (you can add more validation as needed)
     if (
-      !name ||
-      !company ||
-      !category ||
-      !description ||
-      !expiryDate ||
-      !minPrice ||
-      !maxPrice
+      !formData.requirement ||
+      !formData.category ||
+      !formData.location ||
+      !formData.quantity ||
+      !formData.timeline ||
+      !formData.agreed
     ) {
-      toast.error("Please fill in all required fields.");
+      toast.error("Please complete all required fields.");
       return;
     }
 
-    // Simulate saving the tender
-    const tenderData = {
-      name,
-      company,
-      category,
-      description,
-      expiryDate,
-      minPrice,
-      maxPrice,
-    };
-
-    console.log("Tender submitted:", tenderData);
-
+    const tenderData = { ...formData };
     setEmptyArray([tenderData, ...emptyArray]);
-
     toast.success("Tender submitted successfully!");
     setActiveSection("my-tenders");
-
-    // Reset the form (optional)
-    setName("");
-    setCompany("");
-    setCategory("");
-    setDescription("");
-    setExpiryDate("");
-    setMinPrice("");
-    setMaxPrice("");
+    setFormData({
+      requirement: "",
+      category: "",
+      location: "",
+      quantity: "",
+      timeline: "",
+      minPrice: "",
+      maxPrice: "",
+      files: null,
+      agreed: false,
+    });
+    setStep(1);
   };
 
   return (
-    <div className="flex flex-col mx-auto p-4 max-w-2xl min-h-screen text-black">
-      <div className="w-full bg-gray-200 p-6 rounded-xl shadow-lg border">
-        <h1 className="text-2xl py-3 font-bold text-center">Add New Tender</h1>
-
-        {/* tender form */}
-        <form className="space-y-5" onSubmit={handleSubmit}>
-          {/* Tender Name */}
-          <div className="flex flex-col">
-            <label htmlFor="name" className="pb-1 font-semibold text-sm">
-              Tender Name
+    <div className="max-w-2xl mx-auto p-4 text-black dark:bg-white min-h-screen">
+      <h2 className="text-2xl font-bold text-center py-4">
+        Submit Tender Requirement
+      </h2>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 border rounded-xl p-6 shadow-md"
+      >
+        {step === 1 && (
+          <div>
+            <label className="block font-semibold mb-1">
+              What do you need? *
             </label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="border rounded-md pl-2 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
+            <textarea
+              name="requirement"
+              rows="3"
+              value={formData.requirement}
+              onChange={handleChange}
+              className="w-full border rounded-md p-2 text-sm"
               required
             />
           </div>
+        )}
 
-          {/* Company Name */}
-          <div className="flex flex-col">
-            <label htmlFor="company" className="text-sm font-semibold pb-1">
-              Company / Organization Name
-            </label>
-            <input
-              type="text"
-              id="company"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-              className="border rounded-md pl-2 py-2"
-              required
-            />
-          </div>
-
-          {/* Tender Category */}
-          <div className="flex flex-col">
-            <label htmlFor="category" className="pb-1 font-semibold text-sm">
-              Tender Category
-            </label>
-            <input
-              type="text"
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="border rounded-md pl-2 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
-              required
-            />
-          </div>
-
-          {/* Tender Description */}
-          <div className="flex flex-col">
-            <label htmlFor="description" className="pb-1 font-semibold text-sm">
-              Tender Description
-            </label>
-            <input
-              type="text"
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="border rounded-md pl-2 py-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
-              required
-            />
-          </div>
-
-          {/* Bid Dates */}
-          <div className="flex flex-col md:flex-row md:space-x-4">
-            <div className="flex flex-col flex-1 pb-4 md:pb-0">
-              <label
-                htmlFor="expiryDate"
-                className="text-sm font-semibold pb-1"
+        {step === 2 && (
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block font-semibold mb-1">Category *</label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2 text-sm"
+                required
               >
-                Expiry Date
-              </label>
+                <option value="">Select Category</option>
+                {businessCategories.map((cat, idx) => (
+                  <option key={idx} value={cat.value}>
+                    {cat.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block font-semibold mb-1">Location *</label>
+              <input
+                type="text"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2 text-sm"
+                required
+              />
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block font-semibold mb-1">Quantity *</label>
+              <input
+                type="text"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2 text-sm"
+                required
+              />
+            </div>
+            <div>
+              <label className="block font-semibold mb-1">Timeline *</label>
               <input
                 type="date"
-                id="expiryDate"
-                value={expiryDate}
-                onChange={(e) => setExpiryDate(e.target.value)}
-                className="border rounded-md pl-2 py-2"
+                name="timeline"
+                value={formData.timeline}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2 text-sm"
                 required
               />
             </div>
-            {/* <div className="flex flex-col flex-1">
-              <label
-                htmlFor="tenderOpeningDate"
-                className="text-sm font-semibold pb-1"
-              >
-                Tender Opening Date
-              </label>
-              <input
-                type="date"
-                id="tenderOpeningDate"
-                value={tenderOpeningDate}
-                onChange={(e) => setTenderOpeningDate(e.target.value)}
-                className="border rounded-md pl-2 py-2"
-                required
-              />
-            </div> */}
           </div>
+        )}
 
-          {/* Price Range */}
-          <div className="flex flex-col md:flex-row md:space-x-4">
-            <div className="flex flex-col flex-1 pb-4 md:pb-0">
-              <label htmlFor="minPrice" className="pb-1 font-semibold text-sm">
-                Minimum Price
-              </label>
+        {step === 4 && (
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block font-semibold mb-1">Minimum Budget</label>
               <input
-                id="minPrice"
                 type="number"
-                value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
-                className="rounded-md pl-3 py-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
-                required
+                name="minPrice"
+                value={formData.minPrice}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2 text-sm"
               />
             </div>
-            <div className="flex flex-col flex-1">
-              <label htmlFor="maxPrice" className="pb-1 font-semibold text-sm">
-                Maximum Price
-              </label>
+            <div>
+              <label className="block font-semibold mb-1">Maximum Budget</label>
               <input
-                id="maxPrice"
                 type="number"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                className="rounded-md pl-3 py-2 border dark:bg-gray-700 dark:border-gray-600 dark:text-white text-sm"
-                required
+                name="maxPrice"
+                value={formData.maxPrice}
+                onChange={handleChange}
+                className="w-full border rounded-md p-2 text-sm"
               />
             </div>
           </div>
+        )}
 
-          {/* Terms */}
-          <div className="flex items-center space-x-2">
-            <input type="checkbox" className="w-4 h-4" required />
-            <label htmlFor="termsConditions" className="text-md">
-              I agree to the terms & conditions. *
-            </label>
+        {step === 5 && (
+          <div>
+            <label className="block font-semibold mb-1">Upload Files</label>
+            <input
+              type="file"
+              name="files"
+              onChange={handleChange}
+              multiple
+              className="w-full border rounded-md p-2 text-sm"
+            />
           </div>
+        )}
 
-          {/* Buttons */}
-          <div className="flex justify-end space-x-4 pt-4">
+        {step === 6 && (
+          <div>
+            <div className="flex items-center space-x-2 mb-4">
+              <input
+                type="checkbox"
+                name="agreed"
+                checked={formData.agreed}
+                onChange={handleChange}
+                className="w-4 h-4"
+                required
+              />
+              <label className="text-sm">
+                I agree to the terms & conditions *
+              </label>
+            </div>
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition cursor-pointer"
+              title="Suppliers will soon place their DhanBids"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md cursor-pointer"
             >
-              Submit Tender
-            </button>
-            <button
-              type="button"
-              onClick={() => toast("Saved as Draft")}
-              className="bg-white text-gray-800 border border-gray-300 hover:bg-gray-100 dark:bg-gray-700 dark:text-white cursor-pointer px-5 py-2 rounded-lg font-semibold text-sm transition"
-            >
-              Save as Draft
+              Submit Requirement
             </button>
           </div>
-        </form>
-      </div>
+        )}
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between pt-4">
+          {step > 1 && (
+            <button
+              type="button"
+              onClick={prevStep}
+              className="px-4 py-2 border rounded-md cursor-pointer"
+            >
+              Back
+            </button>
+          )}
+          {step < 6 && (
+            <button
+              type="button"
+              onClick={nextStep}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer"
+            >
+              Next
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

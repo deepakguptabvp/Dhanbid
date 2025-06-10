@@ -1,6 +1,5 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -176,7 +175,7 @@ function Login() {
                     disabled={loading}
                     className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition cursor-pointer"
                   >
-                    {loading ? "Verifying..." : "Verify OTP"}
+                    {loading ? "Verifying... " : "Verify OTP"}
                   </button>
                 </>
               ) : (

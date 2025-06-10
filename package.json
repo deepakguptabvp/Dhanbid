@@ -21,6 +21,7 @@
     "express-rate-limit": "^7.5.0",
     "framer-motion": "^12.12.1",
     "helmet": "^8.1.0",
+    "lucide-react": "^0.513.0",
     "mongoose": "^8.15.0",
     "morgan": "^1.10.0",
     "next": "15.3.0",

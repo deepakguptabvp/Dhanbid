@@ -5,7 +5,10 @@ const businessCategories = [
   { value: "Manufacturing & Industrial", label: "Manufacturing & Industrial" },
   { value: "Textiles & Garments", label: "Textiles & Garments" },
   { value: "Electronics & Hardware", label: "Electronics & Hardware" },
-  { value: "Pharmaceuticals & Chemicals", label: "Pharmaceuticals & Chemicals" },
+  {
+    value: "Pharmaceuticals & Chemicals",
+    label: "Pharmaceuticals & Chemicals",
+  },
   { value: "Professional Services", label: "Professional Services" },
   { value: "IT & Software Development", label: "IT & Software Development" },
   { value: "Marketing & Advertising", label: "Marketing & Advertising" },
@@ -17,14 +20,23 @@ const businessCategories = [
   { value: "Real Estate & Property", label: "Real Estate & Property" },
   { value: "Transportation & Logistics", label: "Transportation & Logistics" },
   { value: "Hospitality & Tourism", label: "Hospitality & Tourism" },
-  { value: "Construction & Infrastructure", label: "Construction & Infrastructure" },
+  {
+    value: "Construction & Infrastructure",
+    label: "Construction & Infrastructure",
+  },
   { value: "Agriculture & Farming", label: "Agriculture & Farming" },
-  { value: "Automotive & Vehicle Services", label: "Automotive & Vehicle Services" },
+  {
+    value: "Automotive & Vehicle Services",
+    label: "Automotive & Vehicle Services",
+  },
   { value: "Media & Entertainment", label: "Media & Entertainment" },
-  { value: "Energy & Renewable Resources", label: "Energy & Renewable Resources" },
+  {
+    value: "Energy & Renewable Resources",
+    label: "Energy & Renewable Resources",
+  },
   { value: "Food & Beverage", label: "Food & Beverage" },
   { value: "Event Management", label: "Event Management" },
-  { value: "Other", label: "Other" }
+  { value: "Other", label: "Other" },
 ];
 const sampleTenders = [
   {
@@ -32,10 +44,12 @@ const sampleTenders = [
     tenderId: "TND-RTL-0001",
     name: "POS Systems for Retail Chain",
     company: "MegaMart Retailers",
-    description: "Need 100 POS systems with software integration for new retail outlets.",
+    description:
+      "Need 100 POS systems with software integration for new retail outlets.",
     expiryDate: "2025-06-30",
     minPrice: 500000,
     maxPrice: 800000,
+    status: "Active",
     category: "Retail",
     bids: [
       { supplier: "RetailTech Solutions", amount: 750000, date: "2025-05-15" },
@@ -47,10 +61,12 @@ const sampleTenders = [
     tenderId: "TND-WHL-0002",
     name: "Bulk Supply of Grocery Items",
     company: "FreshSource Distributors",
-    description: "Require bulk delivery of packaged grocery items for wholesale distribution.",
+    description:
+      "Require bulk delivery of packaged grocery items for wholesale distribution.",
     expiryDate: "2025-07-05",
     minPrice: 1000000,
     maxPrice: 1500000,
+    status: "Active",
     category: "Wholesale",
     bids: [
       { supplier: "AgroWholesales", amount: 1350000, date: "2025-05-16" },
@@ -62,10 +78,12 @@ const sampleTenders = [
     tenderId: "TND-ECM-0003",
     name: "E-commerce Website Development",
     company: "StyleMart Online",
-    description: "Looking to build a scalable e-commerce platform with mobile support.",
-    expiryDate: "2025-06-25",
+    description:
+      "Looking to build a scalable e-commerce platform with mobile support.",
+    expiryDate: "2025-06-15",
     minPrice: 250000,
     maxPrice: 500000,
+    status: "Closing Soon",
     category: "E-commerce",
     bids: [
       { supplier: "WebKart Pvt Ltd", amount: 480000, date: "2025-05-12" },
@@ -77,10 +95,12 @@ const sampleTenders = [
     tenderId: "TND-MFG-0004",
     name: "CNC Machines for Production",
     company: "Delta Fabricators",
-    description: "Need 5 advanced CNC machines for industrial-grade manufacturing.",
+    description:
+      "Need 5 advanced CNC machines for industrial-grade manufacturing.",
     expiryDate: "2025-07-12",
     minPrice: 3000000,
     maxPrice: 5000000,
+    status: "Urgent",
     category: "Manufacturing & Industrial",
     bids: [
       { supplier: "MachinaTech", amount: 4700000, date: "2025-05-14" },
@@ -92,10 +112,12 @@ const sampleTenders = [
     tenderId: "TND-TXL-0005",
     name: "Supply of Cotton Fabric Rolls",
     company: "TrendWeave Textiles",
-    description: "Looking for 1000 rolls of 100% cotton fabric for garment production.",
-    expiryDate: "2025-07-08",
+    description:
+      "Looking for 1000 rolls of 100% cotton fabric for garment production.",
+    expiryDate: "2025-10-08",
     minPrice: 600000,
     maxPrice: 900000,
+    status: "Active",
     category: "Textiles & Garments",
     bids: [
       { supplier: "CottonKings", amount: 850000, date: "2025-05-10" },
@@ -107,10 +129,12 @@ const sampleTenders = [
     tenderId: "TND-ELH-0006",
     name: "Supply of Microcontrollers & Sensors",
     company: "IoTech Devices",
-    description: "Require microcontrollers and sensors for IoT device manufacturing.",
+    description:
+      "Require microcontrollers and sensors for IoT device manufacturing.",
     expiryDate: "2025-06-28",
     minPrice: 400000,
     maxPrice: 700000,
+    status: "Closing Soon",
     category: "Electronics & Hardware",
     bids: [
       { supplier: "ChipHub", amount: 680000, date: "2025-05-11" },
@@ -122,10 +146,12 @@ const sampleTenders = [
     tenderId: "TND-PHC-0007",
     name: "Supply of Industrial Chemicals",
     company: "ChemCare Industries",
-    description: "Looking to procure bulk quantities of industrial cleaning chemicals.",
+    description:
+      "Looking to procure bulk quantities of industrial cleaning chemicals.",
     expiryDate: "2025-07-01",
     minPrice: 900000,
     maxPrice: 1200000,
+    status: "Urgent",
     category: "Pharmaceuticals & Chemicals",
     bids: [
       { supplier: "SafeChem Co.", amount: 1150000, date: "2025-05-09" },
@@ -208,4 +234,4 @@ const myBids = [
   },
 ];
 
-export {businessCategories,sampleTenders, myBids};
+export { businessCategories, sampleTenders, myBids };

@@ -17,7 +17,7 @@ const MyTenders = ({ emptyArray }) => {
     const headerHeight = 200; // estimate filter height
     setHeight(window.innerHeight - headerHeight);
   }, []);
-  
+
   useEffect(() => {
     const filteredTenders = emptyArray
       .filter(
@@ -55,20 +55,31 @@ const MyTenders = ({ emptyArray }) => {
         tenderCount={emptyArray?.length}
       />
 
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6 overflow-y-auto"
-        style={{ height: `${height}px` }}
-      >
+      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3  gap-6">
         {tenders.map((tender, index) => (
           <div
             key={index}
-            className="bg-white border rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+            className="bg-white p-6 rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg hover:bg-gray-100  transition-shadow duration-200"
           >
             {/* Logo / Icon placeholder */}
             <div className="flex items-center justify-between mb-3">
-              <div className="text-orange-500 bg-orange-100 p-3 rounded-xl font-semibold text-md">
+              <div className="text-blue-500 bg-blue-100 px-2 py-1 rounded-xl font-semibold text-sm">
                 {tender.category}
               </div>
+              <span
+                className={`
+            px-3 py-1 rounded-xl text-sm font-semibold
+            ${
+              tender.status === "Urgent"
+                ? "bg-red-50 text-red-600"
+                : tender.status === "Closing Soon"
+                ? "bg-orange-50 text-orange-600"
+                : "bg-green-50 text-green-600"
+            }
+          `}
+              >
+                {tender.status}
+              </span>
             </div>
 
             <h2 className="text-xl font-bold text-gray-800 mb-2">
@@ -82,24 +93,19 @@ const MyTenders = ({ emptyArray }) => {
               <strong>Description:</strong> {tender.description}
             </p>
 
-            <div className="flex justify-between items-center mt-3 text-sm text-gray-600">
+            <div className="flex justify-between  items-center mt-3 text-sm text-gray-600">
               <p>
-                <strong>Bid Date:</strong>
-                <br />
+                <strong>Expiry Date: </strong>
+
                 {tender.expiryDate}
               </p>
-              {/* <p>
-                <strong>Opening:</strong>
-                <br />
-                {tender.e}
-              </p> */}
             </div>
 
             <div className="flex flex-col mt-4">
               <div className="flex-col text-left text-lg font-bold text-green-600">
-                Price: ₹{tender.minPrice} - {tender.maxPrice}
+                Budget: ₹{tender.minPrice} - {tender.maxPrice}
               </div>
-              <button className="flex-col bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-md mt-3">
+              <button className="flex-col bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-md mt-3 cursor-pointer">
                 View Details
               </button>
             </div>
