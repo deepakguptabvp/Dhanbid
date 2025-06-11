@@ -14,7 +14,8 @@ const ProductCategories = () => {
               key={item.id}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-3 border border-gray-100"
             >
-              <div className="h-48 w-full overflow-hidden bg-gradient-to-br  flex items-center justify-center transform transition-transform duration-300 hover:scale-125">
+              <div className="h-48 w-full overflow-hidden bg-gradient-to-br  flex items-center 
+              justify-center transform transition-transform duration-300 hover:scale-110">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -22,13 +23,16 @@ const ProductCategories = () => {
                 />
               </div>
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-3 text-gray-800 hover:text-blue-600 transition-colors duration-300">
+                <u>
+
+                <h2 className="text-xl font-semibold mb-3 text-gray-800  transition-colors duration-300">
                   {item.title}
                 </h2>
+                </u>
                 <p className="text-gray-600 leading-relaxed">
                   {item.description}
                 </p>
-                <div className="mt-4">
+                {/* <div className="mt-4">
                   <button className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2 transition-colors duration-300 cursor-pointer">
                     Learn More
                     <svg
@@ -46,7 +50,7 @@ const ProductCategories = () => {
                       ></path>
                     </svg>
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           );

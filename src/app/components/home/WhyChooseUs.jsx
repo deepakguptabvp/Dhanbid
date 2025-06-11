@@ -8,7 +8,7 @@ const WhyChooseUs = () => {
         className="text-white"
         style={{
           background:
-            "linear-gradient(to right, rgb(252, 74, 26), rgb(247, 183, 51))",
+            "linear-gradient(to right, rgb(58, 123, 213), rgb(58, 96, 115))"
         }}
       >
         <div className="text-center justify-center p-4 md:p-10">
@@ -19,21 +19,21 @@ const WhyChooseUs = () => {
             {/* Statistics Data */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-0">
               <div className="p-6 md:p-12">
-                <span className="text-3xl md:text-4xl lg:text-5xl">10,920</span>
+                <span className="text-3xl md:text-4xl lg:text-5xl">7,220</span>
                 <p className="font-bold mt-2 text-sm md:text-base">
                   Product Categories
                 </p>
               </div>
               <div className="relative p-6 md:p-12 border-t md:border-t-0 md:border-l border-white/30">
                 <span className="text-3xl md:text-4xl lg:text-5xl">
-                  1,348,907
+                  48,907
                 </span>
                 <p className="font-bold mt-2 text-sm md:text-base">
                   Order Value (Cr.)
                 </p>
               </div>
               <div className="relative p-6 md:p-12 border-t md:border-t-0 md:border-l border-white/30">
-                <span className="text-3xl md:text-4xl lg:text-5xl">334</span>
+                <span className="text-3xl md:text-4xl lg:text-5xl">134</span>
                 <p className="font-bold mt-2 text-sm md:text-base">
                   Service Categories
                 </p>

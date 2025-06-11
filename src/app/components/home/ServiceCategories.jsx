@@ -125,7 +125,7 @@ const ServiceCategories = () => {
           </h2>
         </div>
 
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 -mt-6 md:mb-26">
           <div className="bg-white rounded-lg shadow-2xl p-8">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 ">
               {services.map((service) => (
@@ -145,11 +145,11 @@ const ServiceCategories = () => {
           </div>
         </div>
 
-        <div className="text-center py-20">
+        {/* <div className="text-center py-20">
           <button className="bg-[#FF6B4A] text-white px-8 py-3 rounded-full font-medium hover:bg-[#ff5a36] transition-colors duration-300">
             VIEW ALL SERVICES
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
