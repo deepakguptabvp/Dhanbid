@@ -55,7 +55,7 @@ const MyTenders = ({ emptyArray }) => {
         tenderCount={emptyArray?.length}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3  gap-6">
+      <div className="grid grid-cols-1 2xl:grid-cols-3  gap-6">
         {tenders.map((tender, index) => (
           <div
             key={index}
@@ -105,7 +105,7 @@ const MyTenders = ({ emptyArray }) => {
               <div className="flex-col text-left text-lg font-bold text-green-600">
                 Budget: ₹{tender.minPrice} - {tender.maxPrice}
               </div>
-              <button className="flex-col bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-md mt-3 cursor-pointer">
+              <button className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-indigo-400 hover:bg-indigo-500 md:w-30 md:mx-auto">
                 View Details
               </button>
             </div>

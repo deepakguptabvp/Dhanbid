@@ -1,14 +1,23 @@
 "use client";
 import React, { useState } from "react";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
-import { CgNotes, CgTimelapse } from "react-icons/cg";
+import { CgNotes, CgProfile, CgTimelapse } from "react-icons/cg";
 
 // Importing content components for each sidebar section
 import AddTender from "./AddTender";
 import MyTenders from "./MyTenders";
-import LiveTender from "./LiveTender";
 import Profile from "./Profile";
 import { sampleTenders } from "../data/categories";
+import { MenuIcon, XIcon } from "lucide-react";
+
+const SampleBuyer = {
+  name: "Dinesh Kumar",
+  email: "dinesh@steelcorp.com",
+  number: "+91 8683827635",
+  address: "Phase -2, Mayur Vihar, India",
+  category: "Manufacturing & Industrial",
+  isVerified: true,
+};
 
 // Main component for dashboard page
 const page = () => {
@@ -16,10 +25,11 @@ const page = () => {
   const [activeSection, setActiveSection] = useState("my-tenders");
   const [emptyArray, setEmptyArray] = useState(sampleTenders);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [buyerProfile, setBuyerProfile] = useState(SampleBuyer);
 
-  const toggleMobileMenu = () =>{
+  const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  }
+  };
 
   // Function to render the content based on active section
   const renderContent = () => {
@@ -33,30 +43,51 @@ const page = () => {
             setEmptyArray={setEmptyArray}
             setActiveSection={setActiveSection}
           />
-        );  
-      case "live-tender":
-        return <LiveTender />;
+        );
+      // case "live-tender":
+      //   return <LiveTender />;
       case "profile":
-        return <Profile />;
+        return <Profile buyerProfile={buyerProfile} />;
       default:
         return <div>Select an option from the sidebar.</div>;
     }
   };
 
   return (
-    <div className="flex min-h-screen w-full text-black dark:bg-white  ">
+    <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full">
+      {/* Mobile Menu */}
+      <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
+        <h1 className="text-xl font-bold">Buyer Portal</h1>
+        <button onClick={toggleMobileMenu} className="flex cursor-pointer">
+          {isMenuOpen ? (
+            <XIcon className="h-6 w-6" />
+          ) : (
+            <MenuIcon className="h-6 w-6" />
+          )}
+        </button>
+      </div>
       {/* Sidebar navigation panel */}
-      <aside className="w-64 bg-gray-50 shadow-md p-4">
-        <h1 className="text-xl font-bold mb-4">Buyer Dashboard</h1>
+      <aside
+        className={`
+          fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
+          ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:relative lg:translate-x-0 lg:block
+        `}
+      >
+        <div className="h-40 bg-indigo-100 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
+          {/* Toggle Menu Button */}
+          <CgProfile size={48} className="text-indigo-500" />
+          <h1 className="text-lg text-left font-bold p-3">Buyer Dashboard</h1>
+        </div>
 
         {/* Sidebar menu items */}
-        <nav className="space-y-2">
+        <nav className="space-y-2 mt-4">
           {/* My tender button */}
 
           <button
             onClick={() => setActiveSection("my-tenders")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
-              activeSection === "my-tenders" ? "bg-gray-200" : ""
+            className={`w-full text-left px-4 py-2 rounded-xl hover:bg-indigo-200 ${
+              activeSection === "my-tenders" ? "bg-indigo-200" : ""
             }`}
           >
             <div className="inline-flex items-center justify-center">
@@ -68,34 +99,21 @@ const page = () => {
           {/* Create Tender button */}
           <button
             onClick={() => setActiveSection("create-tender")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
-              activeSection === "create-tender" ? "bg-gray-200" : ""
+            className={`w-full text-left px-4 py-2 rounded-xl hover:bg-indigo-200 ${
+              activeSection === "create-tender" ? "bg-indigo-200" : ""
             }`}
           >
             <div className="inline-flex items-center justify-center">
               <CgNotes size={20} className="m-1" />
-              <span className="m-1">Create Tender</span>
-            </div>
-          </button>
-
-          {/* Live Tender button */}
-          <button
-            onClick={() => setActiveSection("live-tender")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
-              activeSection === "live-tender" ? "bg-gray-200" : ""
-            }`}
-          >
-            <div className="inline-flex items-center justify-center">
-              <CgNotes size={20} className="m-1" />
-              <span className="m-1">Live Tenders</span>
+              <span className="m-1">Post</span>
             </div>
           </button>
 
           {/* Profile Button */}
           <button
             onClick={() => setActiveSection("profile")}
-            className={`w-full text-left px-4 py-2 rounded hover:bg-gray-200 ${
-              activeSection === "profile" ? "bg-gray-200" : ""
+            className={`w-full text-left px-4 py-2 rounded-xl hover:bg-indigo-200 ${
+              activeSection === "profile" ? "bg-indigo-200" : ""
             }`}
           >
             <div className="inline-flex items-center justify-center">

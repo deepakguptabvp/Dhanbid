@@ -25,7 +25,8 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
   }, []);
 
   useEffect(() => {
-    const filteredTenders = sampleTenders?.filter((t) => {
+    const filteredTenders = sampleTenders
+      ?.filter((t) => {
         return (
           (!filters.search ||
             t.name.toLowerCase().includes(filters.search.toLowerCase())) &&
@@ -54,33 +55,16 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
   }, [filters]);
 
   return (
-    <div
-      className="max-h-screen flex flex-col py-6 p-4 max-w-full mx-auto
-                 bg-black backdrop-blur-md
-                 border border-gray-700 shadow-lg
-                 text-gray-200"
-      style={{
-        boxShadow:
-          "0 4px 30px rgba(0, 0, 0, 0.6), inset 0 0 60px rgba(255, 255, 255, 0.1)",
-      }}
-    >
+    <div className="max-h-screen ">
       <TenderFilters
         filters={filters}
         setFilters={setFilters}
         tenderCount={sampleTenders.length}
-        className="mb-4"
+       
       />
-
       {/* Scrollable list */}
       <div
-        className="overflow-y-auto pr-3 rounded-lg"
-        style={{
-          height: height,
-          background:
-            "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0))",
-          border: "1px solid rgba(255, 255, 255, 0.12)",
-          backdropFilter: "blur(12px)",
-        }}
+        className=" pr-3 rounded-lg"
       >
         <TenderList
           tenders={tenders}
@@ -88,6 +72,7 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
           setActiveSection={setActiveSection}
         />
       </div>
-    </div>
-  );
+         
+    </div>
+  );
 }

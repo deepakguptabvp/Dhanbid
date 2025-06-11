@@ -26,17 +26,10 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
   return (
     <div
       className="
-        sticky top-0 z-30
-        backdrop-blur-lg
-        border border-gray-700
-        rounded-xl
-        px-6 py-5 mb-6
-        shadow-lg
-        transition-all duration-300
-        text-gray-300
-      "
+        sticky top-0 bg-white z-30 border border-gray-700 rounded-xl px-6 py-5 mb-6 shadow-lg 
+        transition-all duration-300"
     >
-      <div className="flex flex-col sm:flex-row justify-between items-center text-white mb-5 gap-3">
+      <div className="flex flex-col sm:flex-row justify-between items-center text-black mb-5 gap-3">
         <h2 className="text-2xl font-semibold drop-shadow-md">
           Your Requirements
         </h2>
@@ -90,11 +83,9 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
               <button
                 onClick={() => setShowAdvanced(!showAdvanced)}
                 className=" inline-flex items-center px-4 py-2.5 border border-gray-300 rounded-lg
-                 bg-white text-sm font-medium hover:bg-gray-50
-                      text-gray-700
-            placeholder-gray-500
-            focus:outline-none focus:ring-2 focus:ring-blue-500
-            transition"
+                bg-white text-sm font-medium hover:bg-gray-50
+                text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 
+                focus:ring-blue-500 transition"
               >
                 <FaFilter /> {showAdvanced ? "Hide" : "Filters"}
               </button>

@@ -60,7 +60,7 @@ const NotificationsPage = () => {
                   <p className="text-xs text-gray-400 mt-1">
                     Posted on: {tender.date}
                   </p>
-                  <button className="mt-3 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition">
+                  <button className="mt-3 flex items-center bg-blue-600 hover:bg-blue-700 text-white text-center px-4 py-2 rounded-lg text-sm transition">
                     View Tender
                   </button>
                 </div>

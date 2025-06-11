@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { LuClipboardList } from "react-icons/lu";
-import { CgNotes } from "react-icons/cg";
+import { CgNotes, CgProfile } from "react-icons/cg";
 import { FaBell, FaCoins, FaUserAlt } from "react-icons/fa";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 // Import content components
@@ -14,7 +14,7 @@ import TendersPage from "./Tenders";
 import SupplierProfile from "./Profile";
 import ChatInterface from "./Chats";
 import { myBids } from "../data/categories";
-import { FiMenu } from "react-icons/fi";
+import { MenuIcon, XIcon } from "lucide-react";
 
 const SampleSupplier = {
   name: "Ravi Kumar",
@@ -33,18 +33,38 @@ const Page = () => {
   const [createBid, setCreateBid] = useState(null);
   const [bids, setBids] = useState(myBids);
   const [supplier, setSupplier] = useState(SampleSupplier);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const renderContent = () => {
     switch (activeSection) {
       case "my-biddings":
         return <MyBiddings bids={bids} />;
       case "create-bid":
-        return <CreateBid setActiveSection={setActiveSection} createBid={createBid} setBids={setBids} />;
+        return (
+          <CreateBid
+            setActiveSection={setActiveSection}
+            createBid={createBid}
+            setBids={setBids}
+          />
+        );
       case "tenders":
-        return <TendersPage setCreateBid={setCreateBid} setActiveSection={setActiveSection} />;
+        return (
+          <TendersPage
+            setCreateBid={setCreateBid}
+            setActiveSection={setActiveSection}
+          />
+        );
       case "edit-profile":
-        return <EditProfile setSupplier={setSupplier} setActiveSection={setActiveSection} />;
+        return (
+          <EditProfile
+            setSupplier={setSupplier}
+            setActiveSection={setActiveSection}
+          />
+        );
       case "my-profile":
         return <SupplierProfile supplier={supplier} />;
       case "chats":
@@ -61,27 +81,43 @@ const Page = () => {
     { key: "tenders", label: "Tenders", icon: <LuClipboardList size={20} /> },
     { key: "edit-profile", label: "Edit Profile", icon: <CgNotes size={20} /> },
     { key: "my-profile", label: "My Profile", icon: <FaUserAlt size={20} /> },
-    { key: "chats", label: "Chats", icon: <IoChatboxEllipsesOutline size={20} /> },
-    { key: "notifications", label: "Notifications", icon: <FaBell size={20} /> },
+    {
+      key: "chats",
+      label: "Chats",
+      icon: <IoChatboxEllipsesOutline size={20} />,
+    },
+    {
+      key: "notifications",
+      label: "Notifications",
+      icon: <FaBell size={20} />,
+    },
   ];
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full">
+      {/* Mobile Menu  */}
       <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
-        <h1 className="text-xl font-bold">Dhanbid Portal</h1>
-        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-          <FiMenu size={24} />
-
+        <h1 className="text-xl font-bold">Supplier Portal</h1>
+        <button onClick={toggleMobileMenu} className="flex cursor-pointer">
+          {isMenuOpen ? (
+            <XIcon className="h-6 w-6" />
+          ) : (
+            <MenuIcon className="h-6 w-6" />
+          )}
         </button>
       </div>
       <div
         className={`
-          fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
-          ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
+          ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
           lg:relative lg:translate-x-0 lg:block
         `}
       >
-        <h1 className="text-xl text-center font-bold mb-4">Dhanbid Portal</h1>
+           <div className="h-40 bg-indigo-100 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
+                  {/* Toggle Menu Button */}
+                  <CgProfile size={48} className="text-indigo-500" />
+                  <h1 className="text-lg text-left font-bold p-3">Supplier Dashboard</h1>
+                </div>
         <div className="space-y-2">
           {menuItems.map((item) => (
             <button
@@ -90,8 +126,8 @@ const Page = () => {
                 setActiveSection(item.key);
                 setIsSidebarOpen(false); // Close sidebar on mobile after selection
               }}
-              className={`w-full text-left cursor-pointer px-4 py-2 rounded hover:bg-gray-200 flex items-center ${
-                activeSection === item.key ? "bg-gray-200" : ""
+              className={`w-full text-left cursor-pointer px-4 py-2 rounded-xl hover:bg-indigo-200 flex items-center ${
+                activeSection === item.key ? "bg-indigo-200" : ""
               }`}
             >
               <div className="mr-2">{item.icon}</div>
@@ -102,9 +138,9 @@ const Page = () => {
       </div>
 
       {/* Main content area */}
-      <div className="flex-1  max-h-[100%] overflow-y-auto">{renderContent()}</div>
+      <div className="flex-1  p-3">{renderContent()}</div>
     </div>
   );
 };
 
-export default Page;
+export default Page;

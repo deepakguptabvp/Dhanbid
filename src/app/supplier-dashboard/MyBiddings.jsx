@@ -6,7 +6,7 @@ const MyBids = ({ bids }) => {
   const handleClose = () => setSelectedBid(null);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pb-6">
+    <div className="max-w-7xl mx-auto px-4 pb-6">
       <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
         My Bids
       </h2>
@@ -16,7 +16,7 @@ const MyBids = ({ bids }) => {
           No bids placed yet. Start bidding to see them here!
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-h-[75vh] pb-8 overflow-y-auto px-2 pr-2">
+        <div className="grid grid-cols-1  gap-6 max-h-[75vh] pb-8 overflow-y-auto px-2 pr-2">
           {bids.map((bid, index) => (
             <div
               key={index}
@@ -40,7 +40,7 @@ const MyBids = ({ bids }) => {
                 </p>
               </div>
 
-              <div className="mt-4 text-right">
+              <div className="mt-4 text-center">
                 <button
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                   onClick={() => setSelectedBid(bid)}
