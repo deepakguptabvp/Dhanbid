@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { TbLayoutDashboardFilled } from "react-icons/tb";
-import { CgNotes, CgProfile, CgTimelapse } from "react-icons/cg";
+import { CgProfile } from "react-icons/cg";
 
 // Importing content components for each sidebar section
 import AddTender from "./AddTender";
@@ -9,6 +8,8 @@ import MyTenders from "./MyTenders";
 import Profile from "./Profile";
 import { sampleTenders } from "../data/categories";
 import { MenuIcon, XIcon } from "lucide-react";
+import { FaPlus, FaUserTie } from "react-icons/fa";
+import { LuClipboardList } from "react-icons/lu";
 
 const SampleBuyer = {
   name: "Dinesh Kumar",
@@ -44,8 +45,6 @@ const page = () => {
             setActiveSection={setActiveSection}
           />
         );
-      // case "live-tender":
-      //   return <LiveTender />;
       case "profile":
         return <Profile buyerProfile={buyerProfile} />;
       default:
@@ -54,7 +53,7 @@ const page = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full">
+    <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full bg-white">
       {/* Mobile Menu */}
       <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
         <h1 className="text-xl font-bold">Buyer Portal</h1>
@@ -83,7 +82,6 @@ const page = () => {
         {/* Sidebar menu items */}
         <nav className="space-y-2 mt-4">
           {/* My tender button */}
-
           <button
             onClick={() => setActiveSection("my-tenders")}
             className={`w-full text-left px-4 py-2 rounded-xl hover:bg-indigo-200 ${
@@ -91,8 +89,8 @@ const page = () => {
             }`}
           >
             <div className="inline-flex items-center justify-center">
-              <TbLayoutDashboardFilled size={20} className="m-1" />
-              <span className="m-1">My Tenders</span>
+              <LuClipboardList size={20} className="m-1" />
+              <span className="m-1">My Orders</span>
             </div>
           </button>
 
@@ -104,8 +102,8 @@ const page = () => {
             }`}
           >
             <div className="inline-flex items-center justify-center">
-              <CgNotes size={20} className="m-1" />
-              <span className="m-1">Post</span>
+              <FaPlus size={20} className="m-1" />
+              <span className="m-1">Create order</span>
             </div>
           </button>
 
@@ -117,15 +115,15 @@ const page = () => {
             }`}
           >
             <div className="inline-flex items-center justify-center">
-              <CgTimelapse size={20} className="m-1" />
-              <span className="m-1">Profile</span>
+              <FaUserTie size={20} className="m-1" />
+              <span className="m-1">My Profile</span>
             </div>
           </button>
         </nav>
       </aside>
 
       {/* Main content area which renders selected section */}
-      <div className="flex-1 p-3 ">{renderContent()}</div>
+      <div className="flex-1 p-3">{renderContent()}</div>
     </div>
   );
 };

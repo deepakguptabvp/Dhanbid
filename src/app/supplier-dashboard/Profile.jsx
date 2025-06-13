@@ -23,16 +23,16 @@ export default function SupplierProfile({ supplier }) {
     totalBids > 0 ? Math.round((successfulBids / totalBids) * 100) : 0;
 
   return (
-    <div className=" bg-white px-4 flex justify-center ">
-      <div className="w-full max-w-5xl bg-white/90 backdrop-blur-md rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] p-10 border border-gray-200">
+    <div className=" bg-white md:mt-10  flex justify-center ">
+      <div className="w-full max-w-5xl bg-white/90 backdrop-blur-md rounded-3xl p-4 md:p-10 border border-gray-200">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-6">
           <div className="flex items-center gap-5">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+            <div className="w-15 h-15 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
               {name?.charAt(0)}
             </div>
             <div>
-              <h2 className="text-3xl font-semibold text-gray-800 flex items-center gap-2">
+              <h2 className="text-xl md:text-3xl font-semibold text-gray-800 flex items-center gap-2">
                 {name}
                 {isVerified ? (
                   <span

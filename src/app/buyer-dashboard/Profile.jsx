@@ -1,8 +1,5 @@
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import { MdOutlineGavel } from "react-icons/md";
+
 import { HiOutlineMail, HiPhone, HiLocationMarker } from "react-icons/hi";
-import { FiUser } from "react-icons/fi";
-import { BsClipboardCheck } from "react-icons/bs";
 import { Tooltip } from "react-tooltip";
 import { PiSealCheckFill } from "react-icons/pi";
 import { GoUnverified } from "react-icons/go";
@@ -17,16 +14,16 @@ export default function BuyerProfile({ buyerProfile }) {
   } = buyerProfile;
 
   return (
-    <div className=" bg-white px-4 flex justify-center ">
-      <div className="w-full max-w-5xl bg-white/90 backdrop-blur-md rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] p-10 border border-gray-200">
+    <div className=" bg-white md:mt-10  flex justify-center ">
+      <div className="w-full max-w-5xl bg-white/90 backdrop-blur-md rounded-3xl p-4 md:p-10 border border-gray-200">
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-6">
           <div className="flex items-center gap-5">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
+            <div className="w-15 h-15 rounded-full bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
               {name?.charAt(0)}
             </div>
             <div>
-              <h2 className="text-3xl font-semibold text-gray-800 flex items-center gap-2">
+              <h2 className="text-xl md:text-3xl font-semibold text-gray-800 flex items-center gap-2">
                 {name}
                 {isVerified ? (
                   <span
@@ -49,7 +46,7 @@ export default function BuyerProfile({ buyerProfile }) {
         </div>
 
         {/* Contact Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 ">
           <InfoRow icon={<HiOutlineMail />} label="Email" value={email} />
           <InfoRow icon={<HiPhone />} label="Phone" value={number} />
           <InfoRow

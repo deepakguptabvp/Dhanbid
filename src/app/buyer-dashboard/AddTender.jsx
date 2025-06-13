@@ -225,6 +225,7 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
   const [formData, setFormData] = useState({
     requirement: "",
     category: "",
+    subcategory: "",
     location: "",
     quantity: "",
     timeline: "",
@@ -234,16 +235,27 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
     agreed: false,
   });
 
+  const [subcategories, setSubcategories] = useState([]);
+
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : type === "file" ? files : value,
-    }));
+
+    if (name === "category") {
+      const selected = businessCategories.find(
+        (item) => item.category === value
+      );
+      setSubcategories(selected ? selected.subcategories : []);
+      setFormData((prev) => ({ ...prev, category: value, subcategory: "" }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : type === "file" ? files : value,
+      }));
+    }
   };
 
   const nextStep = () => {
-    if (step < 6) setStep(step + 1);
+    if (step < 2) setStep(step + 1);
   };
 
   const prevStep = () => {
@@ -252,10 +264,10 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (
       !formData.requirement ||
       !formData.category ||
+      !formData.subcategory ||
       !formData.location ||
       !formData.quantity ||
       !formData.timeline ||
@@ -272,6 +284,7 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
     setFormData({
       requirement: "",
       category: "",
+      subcategory: "",
       location: "",
       quantity: "",
       timeline: "",
@@ -280,53 +293,75 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
       files: null,
       agreed: false,
     });
+    setSubcategories([]);
     setStep(1);
   };
 
   return (
     <div className="max-w-2xl mx-auto p-4 text-black dark:bg-white min-h-screen">
       <h2 className="text-2xl font-bold text-center py-4">
-        Submit Tender Requirement
+        Submit Your Requirement
       </h2>
       <form
         onSubmit={handleSubmit}
         className="space-y-4 border rounded-xl p-6 shadow-md"
       >
         {step === 1 && (
-          <div>
-            <label className="block font-semibold mb-1">
-              What do you need? *
-            </label>
-            <textarea
-              name="requirement"
-              rows="3"
-              value={formData.requirement}
-              onChange={handleChange}
-              className="w-full border rounded-md p-2 text-sm"
-              required
-            />
-          </div>
-        )}
-
-        {step === 2 && (
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-4">
             <div>
-              <label className="block font-semibold mb-1">Category *</label>
-              <select
-                name="category"
-                value={formData.category}
+              <label className="block font-semibold mb-1">
+                What do you need? *
+              </label>
+              <textarea
+                name="requirement"
+                rows="3"
+                value={formData.requirement}
                 onChange={handleChange}
                 className="w-full border rounded-md p-2 text-sm"
                 required
-              >
-                <option value="">Select Category</option>
-                {businessCategories.map((cat, idx) => (
-                  <option key={idx} value={cat.value}>
-                    {cat.label}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold mb-1">Category *</label>
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                >
+                  <option value="">--- Select a Category ---</option>
+                  {businessCategories.map((cat, idx) => (
+                    <option key={idx} value={cat.category}>
+                      {cat.category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-semibold mb-1">
+                  Sub-Category *
+                </label>
+                <select
+                  name="subcategory"
+                  value={formData.subcategory}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                >
+                  <option value="">--- Select a Sub Category ---</option>
+                  {subcategories.map((subcat, idx) => (
+                    <option key={idx} value={subcat}>
+                      {subcat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <div>
               <label className="block font-semibold mb-1">Location *</label>
               <input
@@ -338,100 +373,101 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
                 required
               />
             </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold mb-1">Quantity *</label>
+                <input
+                  type="text"
+                  name="quantity"
+                  value={formData.quantity}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block font-semibold mb-1">
+                  Expiry Date *
+                </label>
+                <input
+                  type="date"
+                  name="timeline"
+                  value={formData.timeline}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                  required
+                />
+              </div>
+            </div>
           </div>
         )}
 
-        {step === 3 && (
-          <div className="grid md:grid-cols-2 gap-4">
+        {step === 2 && (
+          <div className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold mb-1">
+                  Minimum Budget
+                </label>
+                <input
+                  type="number"
+                  name="minPrice"
+                  value={formData.minPrice}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold mb-1">
+                  Maximum Budget
+                </label>
+                <input
+                  type="number"
+                  name="maxPrice"
+                  value={formData.maxPrice}
+                  onChange={handleChange}
+                  className="w-full border rounded-md p-2 text-sm"
+                />
+              </div>
+            </div>
+
             <div>
-              <label className="block font-semibold mb-1">Quantity *</label>
+              <label className="block font-semibold mb-1">Upload Files</label>
               <input
-                type="text"
-                name="quantity"
-                value={formData.quantity}
+                type="file"
+                name="files"
                 onChange={handleChange}
+                multiple
                 className="w-full border rounded-md p-2 text-sm"
-                required
               />
             </div>
+
             <div>
-              <label className="block font-semibold mb-1">Timeline *</label>
-              <input
-                type="date"
-                name="timeline"
-                value={formData.timeline}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2 text-sm"
-                required
-              />
+              <div className="flex items-center space-x-2 mb-4">
+                <input
+                  type="checkbox"
+                  name="agreed"
+                  checked={formData.agreed}
+                  onChange={handleChange}
+                  className="w-4 h-4"
+                  required
+                />
+                <label className="text-sm">
+                  I agree to the terms & conditions *
+                </label>
+              </div>
+              <button
+                type="submit"
+                title="Suppliers will soon place their DhanBids"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md cursor-pointer"
+              >
+                Submit Requirement
+              </button>
             </div>
           </div>
         )}
 
-        {step === 4 && (
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block font-semibold mb-1">Minimum Budget</label>
-              <input
-                type="number"
-                name="minPrice"
-                value={formData.minPrice}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2 text-sm"
-              />
-            </div>
-            <div>
-              <label className="block font-semibold mb-1">Maximum Budget</label>
-              <input
-                type="number"
-                name="maxPrice"
-                value={formData.maxPrice}
-                onChange={handleChange}
-                className="w-full border rounded-md p-2 text-sm"
-              />
-            </div>
-          </div>
-        )}
-
-        {step === 5 && (
-          <div>
-            <label className="block font-semibold mb-1">Upload Files</label>
-            <input
-              type="file"
-              name="files"
-              onChange={handleChange}
-              multiple
-              className="w-full border rounded-md p-2 text-sm"
-            />
-          </div>
-        )}
-
-        {step === 6 && (
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <input
-                type="checkbox"
-                name="agreed"
-                checked={formData.agreed}
-                onChange={handleChange}
-                className="w-4 h-4"
-                required
-              />
-              <label className="text-sm">
-                I agree to the terms & conditions *
-              </label>
-            </div>
-            <button
-              type="submit"
-              title="Suppliers will soon place their DhanBids"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md cursor-pointer"
-            >
-              Submit Requirement
-            </button>
-          </div>
-        )}
-
-        {/* Navigation Buttons */}
         <div className="flex justify-between pt-4">
           {step > 1 && (
             <button
@@ -442,7 +478,7 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
               Back
             </button>
           )}
-          {step < 6 && (
+          {step < 2 && (
             <button
               type="button"
               onClick={nextStep}

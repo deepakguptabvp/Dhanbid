@@ -39,12 +39,12 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
     }
   };
   return (
-    <div className="flex flex-col max-w-3xl mx-auto p-6 min-h-screen dark:text-white">
-      <div className="w-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div className="flex flex-col max-w-3xl mx-auto p-6 min-h-screen dark:text-black">
+      <div className="w-full bg-white dark:text-black rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         {/* Tender Details */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Tender Overview</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 text-sm text-gray-700 dark:text-gray-200">
+          <h2 className="text-2xl font-bold text-center mb-4  dark:text-black">Tender Overview</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 text-sm ">
             <p><strong>ID:</strong> {tender?.tenderId}</p>
             <p><strong>Title:</strong> {tender?.name}</p>
             <p><strong>Company:</strong> {tender?.company}</p>
@@ -57,7 +57,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
           {/* Other Bids */}
           {tender?.bids?.length > 0 && (
             <div className="mt-5">
-              <p className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
+              <p className="text-sm font-semibold mb-2">
                 Competing Bids:
               </p>
               <div className="flex flex-wrap gap-2">
@@ -76,7 +76,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
 
         {/* Submit Bid Form */}
         <div className="p-6">
-          <h2 className="text-xl font-bold text-center text-gray-800 dark:text-white mb-6">Place Your Bid</h2>
+          <h2 className="text-xl font-bold text-center mb-6">Place Your Bid</h2>
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="bidderName" className="block text-sm font-medium mb-1">
@@ -88,7 +88,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                 value={bidderName}
                 onChange={(e) => setBidderName(e.target.value)}
                 required
-                className="w-full border rounded-md px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
               />
             </div>
 
@@ -102,7 +102,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                 value={company}
                 onChange={(e) => setCompanyName(e.target.value)}
                 required
-                className="w-full border rounded-md px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
               />
             </div>
 
@@ -118,7 +118,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                 required
                 min={tender?.minPrice}
                 max={tender?.maxPrice}
-                className="w-full border rounded-md px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
               />
               <p className="text-xs text-gray-500 mt-1">
                 Must be between ₹{tender?.minPrice} and ₹{tender?.maxPrice}
@@ -135,7 +135,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
-                className="w-full border rounded-md px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
               ></textarea>
             </div>
 

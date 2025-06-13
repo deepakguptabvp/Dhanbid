@@ -1,13 +1,12 @@
 "use client";
-
 import React, { useState } from "react";
 import { LuClipboardList } from "react-icons/lu";
-import { CgNotes, CgProfile } from "react-icons/cg";
-import { FaBell, FaCoins, FaUserAlt } from "react-icons/fa";
+import {  CgProfile } from "react-icons/cg";
+import { FaBell, FaCoins, FaUserTie } from "react-icons/fa";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
+
 // Import content components
 import MyBiddings from "./MyBiddings";
-import EditProfile from "./EditProfile";
 import Notifications from "./Notifications";
 import CreateBid from "./CreateBid";
 import TendersPage from "./Tenders";
@@ -41,7 +40,7 @@ const Page = () => {
 
   const renderContent = () => {
     switch (activeSection) {
-      case "my-biddings":
+      case "my-offers":
         return <MyBiddings bids={bids} />;
       case "create-bid":
         return (
@@ -58,13 +57,6 @@ const Page = () => {
             setActiveSection={setActiveSection}
           />
         );
-      case "edit-profile":
-        return (
-          <EditProfile
-            setSupplier={setSupplier}
-            setActiveSection={setActiveSection}
-          />
-        );
       case "my-profile":
         return <SupplierProfile supplier={supplier} />;
       case "chats":
@@ -77,10 +69,10 @@ const Page = () => {
   };
 
   const menuItems = [
-    { key: "my-biddings", label: "My Biddings", icon: <FaCoins size={20} /> },
+    { key: "my-offers", label: "My Offers", icon: <FaCoins size={20} /> },
     { key: "tenders", label: "Tenders", icon: <LuClipboardList size={20} /> },
-    { key: "edit-profile", label: "Edit Profile", icon: <CgNotes size={20} /> },
-    { key: "my-profile", label: "My Profile", icon: <FaUserAlt size={20} /> },
+    // { key: "edit-profile", label: "Edit Profile", icon: <CgNotes size={20} /> },
+    { key: "my-profile", label: "My Profile", icon: <FaUserTie size={20} /> },
     {
       key: "chats",
       label: "Chats",
@@ -94,10 +86,10 @@ const Page = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full">
+    <div className="flex flex-col md:flex-row max-h-screen dark:text-black dark:bg-white w-full">
       {/* Mobile Menu  */}
       <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
-        <h1 className="text-xl font-bold">Supplier Portal</h1>
+        <h1 className="text-xl font-bold">Supplier Dashboard</h1>
         <button onClick={toggleMobileMenu} className="flex cursor-pointer">
           {isMenuOpen ? (
             <XIcon className="h-6 w-6" />
@@ -113,12 +105,14 @@ const Page = () => {
           lg:relative lg:translate-x-0 lg:block
         `}
       >
-           <div className="h-40 bg-indigo-100 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
-                  {/* Toggle Menu Button */}
-                  <CgProfile size={48} className="text-indigo-500" />
-                  <h1 className="text-lg text-left font-bold p-3">Supplier Dashboard</h1>
-                </div>
-        <div className="space-y-2">
+        <div className="h-40 bg-indigo-100 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
+          {/* Toggle Menu Button */}
+          <CgProfile size={48} className="text-indigo-500" />
+          <h1 className="text-lg text-left font-bold p-3">
+            Supplier Dashboard
+          </h1>
+        </div>
+        <div className="space-y-2 h-full">
           {menuItems.map((item) => (
             <button
               key={item.key}
@@ -138,7 +132,7 @@ const Page = () => {
       </div>
 
       {/* Main content area */}
-      <div className="flex-1  p-3">{renderContent()}</div>
+      <div className="flex-1 p-3">{renderContent()}</div>
     </div>
   );
 };

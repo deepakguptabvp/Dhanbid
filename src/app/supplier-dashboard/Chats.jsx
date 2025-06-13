@@ -5,13 +5,31 @@ import { FiSend, FiMenu } from "react-icons/fi";
 import { BsChatDots } from "react-icons/bs";
 
 const buyers = [
-  { id: 1, name: "John Doe", lastMessage: "Looking forward to your response", avatar: "https://i.pravatar.cc/150?img=1" },
-  { id: 2, name: "Sarah Smith", lastMessage: "Please check the bid", avatar: "https://i.pravatar.cc/150?img=2" },
-  { id: 3, name: "David Lee", lastMessage: "Any update?", avatar: "https://i.pravatar.cc/150?img=3" },
+  {
+    id: 1,
+    name: "John Doe",
+    lastMessage: "Looking forward to your response",
+    avatar: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: 2,
+    name: "Sarah Smith",
+    lastMessage: "Please check the bid",
+    avatar: "https://i.pravatar.cc/150?img=2",
+  },
+  {
+    id: 3,
+    name: "David Lee",
+    lastMessage: "Any update?",
+    avatar: "https://i.pravatar.cc/150?img=3",
+  },
 ];
 
 const messages = {
-  1: [{ from: "buyer", text: "Can you lower your bid?" }, { from: "supplier", text: "Let me check with my team." }],
+  1: [
+    { from: "buyer", text: "Can you lower your bid?" },
+    { from: "supplier", text: "Let me check with my team." },
+  ],
   2: [{ from: "buyer", text: "We are considering your bid." }],
   3: [{ from: "buyer", text: "We need faster delivery." }],
 };
@@ -25,19 +43,31 @@ export default function ChatInterface() {
 
   const handleSend = () => {
     if (!input.trim()) return;
-    messages[selectedBuyerId] = [...selectedMessages, { from: "supplier", text: input }];
+    messages[selectedBuyerId] = [
+      ...selectedMessages,
+      { from: "supplier", text: input },
+    ];
     setInput("");
   };
 
   return (
-    <div className="flex h-[80vh] bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
       {/* Sidebar - responsive */}
-      <div className={`fixed inset-y-0 left-0 z-30 w-64 bg-gray-800/70 backdrop-blur-md p-4 overflow-y-auto transform transition-transform duration-300 lg:static lg:translate-x-0 ${showSidebar ? "translate-x-0" : "-translate-x-full"}`}>
+      <div
+        className={`fixed inset-y-0 left-0 z-30 bg-gray-800/70 backdrop-blur-md p-4 overflow-y-auto transform transition-transform duration-300 lg:static lg:translate-x-0 ${
+          showSidebar ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
             <BsChatDots /> Messages
           </h2>
-          <button className="lg:hidden text-white" onClick={() => setShowSidebar(false)}>✕</button>
+          <button
+            className="lg:hidden text-white"
+            onClick={() => setShowSidebar(false)}
+          >
+            ✕
+          </button>
         </div>
         {buyers.map((buyer) => (
           <div
@@ -47,10 +77,16 @@ export default function ChatInterface() {
               setShowSidebar(false);
             }}
             className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-300 cursor-pointer mb-2 ${
-              selectedBuyerId === buyer.id ? "bg-purple-500/30" : "hover:bg-gray-700/50"
+              selectedBuyerId === buyer.id
+                ? "bg-purple-500/30"
+                : "hover:bg-gray-700/50"
             }`}
           >
-            <img src={buyer.avatar} alt={buyer.name} className="w-10 h-10 rounded-full" />
+            <img
+              src={buyer.avatar}
+              alt={buyer.name}
+              className="w-10 h-10 rounded-full"
+            />
             <div>
               <p className="font-medium">{buyer.name}</p>
               <p className="text-xs text-gray-300">{buyer.lastMessage}</p>
@@ -60,15 +96,25 @@ export default function ChatInterface() {
       </div>
 
       {/* Overlay for mobile */}
-      {showSidebar && <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={() => setShowSidebar(false)} />}
+      {showSidebar && (
+        <div
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+          onClick={() => setShowSidebar(false)}
+        />
+      )}
 
       {/* Main Chat Window */}
       <div className="flex-1 flex flex-col relative">
         <div className="border-b border-gray-700 px-4 py-4 bg-gray-800/60 backdrop-blur-md flex items-center justify-between lg:justify-start gap-4">
-          <button className="lg:hidden text-white" onClick={() => setShowSidebar(true)}>
+          <button
+            className="lg:hidden text-white"
+            onClick={() => setShowSidebar(true)}
+          >
             <FiMenu size={24} />
           </button>
-          <h3 className="text-lg font-semibold">{buyers.find(b => b.id === selectedBuyerId)?.name}</h3>
+          <h3 className="text-lg font-semibold">
+            {buyers.find((b) => b.id === selectedBuyerId)?.name}
+          </h3>
         </div>
 
         {/* Messages */}
@@ -88,7 +134,7 @@ export default function ChatInterface() {
                   : "bg-purple-600 text-white self-end ml-auto"
               }`}
             >
-                {/* {msg.from === "buyer"&&<img src={}/>} */}
+              {/* {msg.from === "buyer"&&<img src={}/>} */}
               {msg.text}
             </div>
           ))}
