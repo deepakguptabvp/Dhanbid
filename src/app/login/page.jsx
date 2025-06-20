@@ -1,122 +1,82 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useAppContext } from "../context/AppContext";
+import axiosAPI from "../api/useAxios";
 
 function Login() {
+  const {user, setUser} = useAppContext();
   const router = useRouter();
+  const axios = axiosAPI();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const [sdkLoaded, setSdkLoaded] = useState(false);
-  const [isResendDisabled, setIsResendDisabled] = useState(false);
   const [resendTimer, setResendTimer] = useState(60);
+  const [isResendDisabled, setIsResendDisabled] = useState(false);
+  const [reqId, setReqId] = useState(null);
 
   useEffect(() => {
-    if (!sdkLoaded) {
-      const script = document.createElement("script");
-      script.id = "otpless-sdk";
-      script.src = "https://otpless.com/v4/headless.js";
-      script.setAttribute("data-appid", "E3Q3X8BESP4COB9TORA6");
-      script.onload = () => {
-        setSdkLoaded(true);
-        initializeOtpless();
-      };
-      document.head.appendChild(script);
-
-      return () => {
-        document.head.removeChild(script);
-      };
+    console.log(user)
+    if (isResendDisabled) {
+      const interval = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            setIsResendDisabled(false);
+            return 60;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     }
-  }, [sdkLoaded]);
+  }, [isResendDisabled]);
 
-  const initializeOtpless = () => {
-    if (!window.OTPless) return;
+  const sendOtp = async () => {
+    if (!phone || phone.length !== 10) {
+      return toast.error("Please enter a valid 10-digit phone number.");
+    }
 
-    const callback = (event) => {
-      const handlers = {
-        OTP_AUTO_READ: () => {
-          const { otp } = event.response;
-          setOtp(otp);
-        },
-        ONETAP: () => {
-          console.log("Token:", event.response.token);
-        },
-        FAILED: () => console.error("Authentication Failed"),
-        FALLBACK_TRIGGERED: () => console.warn("Fallback Triggered"),
-      };
-
-      if (handlers[event.responseType]) handlers[event.responseType]();
-    };
-
-    window.OTPlessSignin = new window.OTPless(callback);
-  };
-
-  const initiateAuth = () => {
-    if (!window.OTPlessSignin) return;
-    if (!phone.trim()) return toast("Please enter a phone number.");
-
-    window.OTPlessSignin.initiate({
-      channel: "PHONE",
-      phone,
-      countryCode: "+91",
-    });
-
-    toast("OTP sent to your phone");
-    setOtpSent(true);
-    setIsResendDisabled(true);
-    setResendTimer(60);
-    startResendTimer();
-  };
-
-  const handleOtpVerification = async () => {
-    // const router = useRouter();
+    setLoading(true);
     try {
-      // const { data } = await axios.post("user/otp-verified", { phone });
-      // setUser(data.user);
-      // localStorage.setItem("BidA2ZUser", data.token);
-      setError("");
-      // navigate to buyer / supplier page.
-      router.push("/dashboard-selector");
-    } catch {
-      setError("Something went wrong! Try Again");
+      const res = await axios.post("/auth/send-otp", { phone });
+      if (res.data.success) {
+        setOtpSent(true);
+        setIsResendDisabled(true);
+        setReqId(res.data.reqId);
+        toast.success("OTP sent successfully");
+      } else {
+        toast.error(res.data.message || "Failed to send OTP");
+      }
+    } catch (err) {
+      toast.error("Something went wrong while sending OTP");
     } finally {
       setLoading(false);
     }
   };
 
-  const verifyOTP = async () => {
-    setLoading(true);
-    const res = await window.OTPlessSignin.verify({
-      channel: "PHONE",
-      phone,
-      otp,
-      countryCode: "+91",
-    });
+  const verifyOtp = async () => {
+    if (!otp) {
+      return toast.error("Please enter the OTP");
+    }
 
-    if (res.success) {
-      handleOtpVerification();
-    } else {
-      setError(
-        res.statusCode === 400 ? "Invalid OTP!" : "Something went wrong!"
-      );
+    setLoading(true);
+    try {
+      const res = await axios.post("/auth/verify-otp", { phone, otp });
+      if (res.data.success) {
+        toast.success("OTP verified successfully");
+        router.push("/dashboard-selector");
+      } else {
+        toast.error(res.data.message || "Invalid OTP");
+      }
+    } catch (err) {
+      toast.error("Verification failed");
+    } finally {
       setLoading(false);
     }
-  };
-
-  const startResendTimer = () => {
-    let timeLeft = 60;
-    const interval = setInterval(() => {
-      timeLeft -= 1;
-      setResendTimer(timeLeft);
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-        setIsResendDisabled(false);
-      }
-    }, 1000);
   };
 
   return (
@@ -159,7 +119,6 @@ function Login() {
 
               {otpSent ? (
                 <>
-                
                   <input
                     type="text"
                     placeholder="Enter OTP *"
@@ -169,30 +128,31 @@ function Login() {
                   />
                   <button
                     type="button"
-                    onClick={verifyOTP}
+                    onClick={verifyOtp}
                     disabled={loading}
                     className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition cursor-pointer"
                   >
-                    {loading ? "Verifying... " : "Verify OTP"}
+                    {loading ? "Verifying..." : "Verify OTP"}
                   </button>
                 </>
               ) : (
                 <button
                   type="button"
-                  onClick={initiateAuth}
+                  onClick={sendOtp}
+                  disabled={loading}
                   className="mt-2 w-full bg-indigo-600 text-white py-2 rounded-full hover:bg-indigo-700 transition cursor-pointer"
                 >
-                  Request OTP
+                  {loading ? "Sending..." : "Request OTP"}
                 </button>
               )}
 
               {otpSent && (
                 <div className="text-center mt-2">
                   {isResendDisabled ? (
-                    <p className="text-gray-500">{`Resend OTP in ${resendTimer}s`}</p>
+                    <p className="text-gray-500">Resend OTP in {resendTimer}s</p>
                   ) : (
                     <button
-                      onClick={initiateAuth}
+                      onClick={sendOtp}
                       className="text-blue-500 underline bg-gray-100 px-2 py-1 rounded"
                     >
                       Resend OTP
