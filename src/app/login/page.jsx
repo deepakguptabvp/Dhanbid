@@ -152,13 +152,14 @@ function Login() {
                   }}
                   className="w-full border border-gray-300 px-4 py-2 rounded-full pl-12 focus:ring-2 focus:ring-blue-500 outline-none"
                 />
-                <span className="absolute left-0 px-2 h-full rounded-l-full py-2 bg-indigo-600 text-white">
+                <span className="absolute left-0 px-2 h-full rounded-l-full py-2 bg-blue-600 text-white">
                   +91
                 </span>
               </div>
 
               {otpSent ? (
                 <>
+                
                   <input
                     type="text"
                     placeholder="Enter OTP *"

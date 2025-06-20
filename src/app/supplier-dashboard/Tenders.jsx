@@ -60,19 +60,15 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
         filters={filters}
         setFilters={setFilters}
         tenderCount={sampleTenders.length}
-       
       />
       {/* Scrollable list */}
-      <div
-        className=" pr-3 rounded-lg"
-      >
+      <div className=" pr-3 rounded-lg">
         <TenderList
           tenders={tenders}
           setCreateBid={setCreateBid}
           setActiveSection={setActiveSection}
         />
       </div>
-         
     </div>
   );
 }

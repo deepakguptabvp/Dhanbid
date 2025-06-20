@@ -68,7 +68,7 @@ const page = () => {
       {/* Sidebar navigation panel */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
+          fixed top-0 inset-y-0 left-0 z-20 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
           ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
           lg:relative lg:translate-x-0 lg:block
         `}

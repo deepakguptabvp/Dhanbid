@@ -94,7 +94,7 @@ const InfoRow = ({ icon, label, value }) => (
 );
 
 const StatCard = ({ title, value, icon }) => (
-  <div className="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-md p-6 transition-all duration-300 text-center">
+  <div className="bg-purple-200 border border-gray-200 rounded-2xl shadow hover:shadow-md p-6 transition-all duration-300 text-center">
     <div className="flex justify-center mb-3">{icon}</div>
     <p className="text-2xl font-bold text-gray-900">{value}</p>
     <p className="text-sm text-gray-500 mt-1">{title}</p>

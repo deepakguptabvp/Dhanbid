@@ -54,8 +54,8 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
             <p className="md:col-span-2"><strong>Description:</strong> {tender?.description}</p>
           </div>
 
-          {/* Other Bids */}
-          {tender?.bids?.length > 0 && (
+          {/* Other Bids status */}
+          {/* {tender?.bids?.length > 0 && (
             <div className="mt-5">
               <p className="text-sm font-semibold mb-2">
                 Competing Bids:
@@ -71,7 +71,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Submit Bid Form */}

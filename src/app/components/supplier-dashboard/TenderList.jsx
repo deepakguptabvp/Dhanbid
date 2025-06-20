@@ -30,7 +30,7 @@ export default function TenderList({
                 })}
               </span>
             </div>
-     
+
             <p className="text-sm mb-1 text-gray-700">
               <strong>Company:</strong> {tender.company}
             </p>
@@ -42,7 +42,7 @@ export default function TenderList({
             </p>
 
             <div className="flex flex-col mt-4">
-               <div className="flex-col text-left text-lg font-bold text-green-600">
+              <div className="flex-col text-left text-lg font-bold text-green-600">
                 ₹{tender.minPrice} - ₹{tender.maxPrice}
               </div>
               <button
@@ -50,7 +50,7 @@ export default function TenderList({
                   setCreateBid(tender);
                   setActiveSection("create-bid");
                 }}
-              className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-indigo-400 hover:bg-indigo-500 md:w-30 md:mx-auto"
+                className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-indigo-400 hover:bg-indigo-500 md:w-30 md:mx-auto"
               >
                 Bid Now
               </button>
@@ -58,7 +58,6 @@ export default function TenderList({
           </div>
         ))
       )}
-         
     </div>
   );
 }
