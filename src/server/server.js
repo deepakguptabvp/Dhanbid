@@ -8,13 +8,15 @@ import { Server } from 'socket.io';
 import rateLimit from 'express-rate-limit';
 import { connectDB } from './utils/db.js';
 import http from 'http';
-// import authRoutes from './routes/authRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 import { errorHandler } from './middlewares/errorMiddleware.js';
 import chatRoutes from './routes/chatRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 dotenv.config({ path: './src/server/.env' });
 
 const app = express();
+app.use(cors())
+app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -26,6 +28,7 @@ const io = new Server(server, {
 
 // Connect to DB
 connectDB();
+app.use('/api/auth', authRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/messages', messageRoutes);
 
