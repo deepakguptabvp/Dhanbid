@@ -239,7 +239,6 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-
     if (name === "category") {
       const selected = businessCategories.find(
         (item) => item.category === value

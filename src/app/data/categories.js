@@ -204,121 +204,122 @@ const sampleTenders = [
     tenderId: "TND-RTL-0001",
     name: "POS Systems for Retail Chain",
     company: "MegaMart Retailers",
-    description:
-      "Need 100 POS systems with software integration for new retail outlets.",
+    description: "Need 100 POS systems with software integration for new retail outlets.",
     expiryDate: "2025-06-30",
     minPrice: 500000,
     maxPrice: 800000,
     status: "Active",
-    category: "Retail",
+    category: "Retail Infrastructure & Display (Non-Grocery)",
+    subcategory: "POS Machines & Billing Terminals",
     bids: [
       { supplier: "RetailTech Solutions", amount: 750000, date: "2025-05-15" },
-      { supplier: "POS Central", amount: 720000, date: "2025-05-18" },
-    ],
+      { supplier: "POS Central", amount: 720000, date: "2025-05-18" }
+    ]
   },
   {
     id: 2,
     tenderId: "TND-WHL-0002",
-    name: "Bulk Supply of Grocery Items",
-    company: "FreshSource Distributors",
-    description:
-      "Require bulk delivery of packaged grocery items for wholesale distribution.",
+    name: "Hotel Room Furniture Supply",
+    company: "Royal Inn Group",
+    description: "Supply beds, tables and sofas for newly constructed hotel rooms.",
     expiryDate: "2025-07-05",
     minPrice: 1000000,
     maxPrice: 1500000,
     status: "Active",
-    category: "Wholesale",
+    category: "Hotels & Hospitality Supplies",
+    subcategory: "Hotel Furniture (Beds, Sofas, Tables)",
     bids: [
-      { supplier: "AgroWholesales", amount: 1350000, date: "2025-05-16" },
-      { supplier: "FarmBulk Traders", amount: 1280000, date: "2025-05-17" },
-    ],
+      { supplier: "LuxuryFurnishers", amount: 1350000, date: "2025-05-16" },
+      { supplier: "EliteWood", amount: 1280000, date: "2025-05-17" }
+    ]
   },
   {
     id: 3,
     tenderId: "TND-ECM-0003",
-    name: "E-commerce Website Development",
-    company: "StyleMart Online",
-    description:
-      "Looking to build a scalable e-commerce platform with mobile support.",
+    name: "Website for Event Equipment Rentals",
+    company: "StagePro Events",
+    description: "Build a responsive site to list and book event rental items.",
     expiryDate: "2025-06-15",
     minPrice: 250000,
     maxPrice: 500000,
     status: "Closing Soon",
-    category: "E-commerce",
+    category: "Event & Rental Supplies",
+    subcategory: "LED Screens & Stage Setup",
     bids: [
       { supplier: "WebKart Pvt Ltd", amount: 480000, date: "2025-05-12" },
-      { supplier: "Shopify Devs India", amount: 450000, date: "2025-05-13" },
-    ],
+      { supplier: "Shopify Devs India", amount: 450000, date: "2025-05-13" }
+    ]
   },
   {
     id: 4,
     tenderId: "TND-MFG-0004",
     name: "CNC Machines for Production",
     company: "Delta Fabricators",
-    description:
-      "Need 5 advanced CNC machines for industrial-grade manufacturing.",
+    description: "Need 5 advanced CNC machines for industrial-grade manufacturing.",
     expiryDate: "2025-07-12",
     minPrice: 3000000,
     maxPrice: 5000000,
     status: "Urgent",
-    category: "Manufacturing & Industrial",
+    category: "Industrial Equipment & Machinery",
+    subcategory: "Precision Cutting & Grinding Tools",
     bids: [
       { supplier: "MachinaTech", amount: 4700000, date: "2025-05-14" },
-      { supplier: "IndusMachinery", amount: 4600000, date: "2025-05-16" },
-    ],
+      { supplier: "IndusMachinery", amount: 4600000, date: "2025-05-16" }
+    ]
   },
   {
     id: 5,
     tenderId: "TND-TXL-0005",
     name: "Supply of Cotton Fabric Rolls",
     company: "TrendWeave Textiles",
-    description:
-      "Looking for 1000 rolls of 100% cotton fabric for garment production.",
+    description: "Looking for 1000 rolls of 100% cotton fabric for garment production.",
     expiryDate: "2025-10-08",
     minPrice: 600000,
     maxPrice: 900000,
     status: "Active",
-    category: "Textiles & Garments",
+    category: "Textiles & Fabrics (Wholesale)",
+    subcategory: "Cotton Fabric Rolls (Dyed, Printed, Plain)",
     bids: [
       { supplier: "CottonKings", amount: 850000, date: "2025-05-10" },
-      { supplier: "TexMart", amount: 820000, date: "2025-05-12" },
-    ],
+      { supplier: "TexMart", amount: 820000, date: "2025-05-12" }
+    ]
   },
   {
     id: 6,
     tenderId: "TND-ELH-0006",
-    name: "Supply of Microcontrollers & Sensors",
-    company: "IoTech Devices",
-    description:
-      "Require microcontrollers and sensors for IoT device manufacturing.",
+    name: "Supply of Electrical Fixtures",
+    company: "SmartBuild Corp",
+    description: "Need LED panels, switches and wiring for 5 apartment buildings.",
     expiryDate: "2025-06-28",
     minPrice: 400000,
     maxPrice: 700000,
     status: "Closing Soon",
-    category: "Electronics & Hardware",
+    category: "Electrical, Hardware & Tools",
+    subcategory: "LED Lights, Panels, Bulbs",
     bids: [
       { supplier: "ChipHub", amount: 680000, date: "2025-05-11" },
-      { supplier: "ElectroStore", amount: 650000, date: "2025-05-13" },
-    ],
+      { supplier: "ElectroStore", amount: 650000, date: "2025-05-13" }
+    ]
   },
   {
     id: 7,
-    tenderId: "TND-PHC-0007",
-    name: "Supply of Industrial Chemicals",
-    company: "ChemCare Industries",
-    description:
-      "Looking to procure bulk quantities of industrial cleaning chemicals.",
+    tenderId: "TND-FCL-0007",
+    name: "Office Cleaning Services - Monthly Contract",
+    company: "FinCore Business Park",
+    description: "Need trained staff and materials for office cleaning and sanitation.",
     expiryDate: "2025-07-01",
     minPrice: 900000,
     maxPrice: 1200000,
     status: "Urgent",
-    category: "Pharmaceuticals & Chemicals",
+    category: "Facility Management & Housekeeping",
+    subcategory: "Corporate Cleaning Service Packages",
     bids: [
-      { supplier: "SafeChem Co.", amount: 1150000, date: "2025-05-09" },
-      { supplier: "CleanX Solutions", amount: 1100000, date: "2025-05-11" },
-    ],
-  },
+      { supplier: "CleanX Solutions", amount: 1150000, date: "2025-05-09" },
+      { supplier: "Sparkle Services", amount: 1100000, date: "2025-05-11" }
+    ]
+  }
 ];
+
 
 const myBids = [
   // Tender 1 - Plastic Bottles

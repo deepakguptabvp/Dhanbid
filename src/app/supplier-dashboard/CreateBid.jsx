@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
-  const [bidderName, setBidderName] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [amount, setAmount] = useState("");
+  const [totalAmount, setTotalAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [company, setCompanyName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,25 +13,22 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
     const confirmed = window.confirm(
       `Are you sure you want to submit a bid of ₹${amount} for Tender ID: ${tender?.tenderId}?`
     );
-
     if (!confirmed) return;
-
     try {
       const bidData = {
         tenderId: tender?.tenderId,
-        bidderName,
-        company,
+        quantity: tender.quantity,
         amount: parseFloat(amount),
         description,
       };
 
       // Update local bids state (demo only)
       setBids((prev) => [bidData, ...prev]);
-      setActiveSection('my-biddings');
+      setActiveSection("my-biddings");
       toast.success(`Submitted bid for ${tender?.tenderId} at ₹${amount}`);
 
       // Optionally clear the form
-      setBidderName("");
+      setQuantity("");
       setAmount("");
       setDescription("");
     } catch (e) {
@@ -43,90 +40,106 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
       <div className="w-full bg-white dark:text-black rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         {/* Tender Details */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-center mb-4  dark:text-black">Tender Overview</h2>
+          <h2 className="text-2xl font-bold text-center mb-4  dark:text-black">
+            Tender Overview
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 text-sm ">
-            <p><strong>ID:</strong> {tender?.tenderId}</p>
-            <p><strong>Title:</strong> {tender?.name}</p>
-            <p><strong>Company:</strong> {tender?.company}</p>
-            <p><strong>Category:</strong> {tender?.category}</p>
-            <p><strong>Expiry:</strong> {tender?.expiryDate}</p>
-            <p><strong>Budget:</strong> ₹{tender?.minPrice} - ₹{tender?.maxPrice}</p>
-            <p className="md:col-span-2"><strong>Description:</strong> {tender?.description}</p>
+            <p>
+              <strong>ID:</strong> {tender?.tenderId}
+            </p>
+            <p>
+              <strong>Title:</strong> {tender?.name}
+            </p>
+            <p>
+              <strong>Company:</strong> {tender?.company}
+            </p>
+            <p>
+              <strong>Category:</strong> {tender?.category}
+            </p>
+            <p>
+              <strong>Expiry:</strong> {tender?.expiryDate}
+            </p>
+            <p>
+              <strong>Budget:</strong> ₹{tender?.minPrice} - ₹{tender?.maxPrice}
+            </p>
+            <p className="md:col-span-2">
+              <strong>Description:</strong> {tender?.description}
+            </p>
           </div>
-
-          {/* Other Bids status */}
-          {/* {tender?.bids?.length > 0 && (
-            <div className="mt-5">
-              <p className="text-sm font-semibold mb-2">
-                Competing Bids:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {tender.bids.map((bid, index) => (
-                  <span
-                    key={index}
-                    className="bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100 px-3 py-1 rounded-full text-xs font-medium"
-                  >
-                    ₹{bid.amount.toLocaleString("en-IN")}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )} */}
         </div>
 
         {/* Submit Bid Form */}
-        <div className="p-6">
+        <div className="flex flex-col p-6">
           <h2 className="text-xl font-bold text-center mb-6">Place Your Bid</h2>
+
           <form className="space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="bidderName" className="block text-sm font-medium mb-1">
-                Bidder Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="bidderName"
-                type="text"
-                value={bidderName}
-                onChange={(e) => setBidderName(e.target.value)}
-                required
-                className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
-              />
+            <div className="flex flex-col md:flex-row  justify-evenly space-y-4">
+              {/* quantity */}
+              <div>
+                <label
+                  htmlFor="quantity"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Quantity<span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="quantity"
+                  type="text"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  required
+                  className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
+                />
+              </div>
+
+              {/* <span className="inline md:mt-8"> x </span> */}
+              {/* amount per pcs */}
+              <div>
+                <label
+                  htmlFor="amount"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Bid Amount (INR) <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="amount"
+                  type="text"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="enter price per quantiy"
+                  required
+                  min={tender?.minPrice}
+                  max={tender?.maxPrice}
+                  className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Must be between ₹{tender?.minPrice} and ₹{tender?.maxPrice}
+                </p>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="totalAmount"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Total Amount (INR)
+                </label>
+                <input
+                  id="totalAmount"
+                  type="text"
+                  value={totalAmount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  required
+                  className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
+                />
+              </div>
             </div>
 
             <div>
-              <label htmlFor="company" className="block text-sm font-medium mb-1">
-                Company Name <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="company"
-                type="text"
-                value={company}
-                onChange={(e) => setCompanyName(e.target.value)}
-                required
-                className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="amount" className="block text-sm font-medium mb-1">
-                Bid Amount (INR) <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="amount"
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                required
-                min={tender?.minPrice}
-                max={tender?.maxPrice}
-                className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Must be between ₹{tender?.minPrice} and ₹{tender?.maxPrice}
-              </p>
-            </div>
-
-            <div>
-              <label htmlFor="description" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium mb-1"
+              >
                 Bid Description <span className="text-red-500">*</span>
               </label>
               <textarea
