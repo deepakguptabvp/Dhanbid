@@ -7,11 +7,10 @@ export const metadata = {
 
 export default function BuyerDashboardLayout({ children }) {
   return (
-    <html lang="en" className="dark">
-      <body className="flex flex-col min-h-screen bg-white text-gray-900 dark:text-gray-100">
+    <div className="flex flex-1">
         {/* Navbar component */}
 
-        <div className="flex flex-1">
+        
           {/* Sidebar for navigation */}
           {/* <Sidebar role="buyer" /> */}
 
@@ -20,8 +19,5 @@ export default function BuyerDashboardLayout({ children }) {
             {children}
           </main>
         </div>
-        {/* Footer Component */}
-      </body>
-    </html>
   );
 }

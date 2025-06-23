@@ -9,6 +9,7 @@ import rateLimit from 'express-rate-limit';
 import { connectDB } from './utils/db.js';
 import http from 'http';
 import authRoutes from './routes/authRoutes.js';
+import tenderRoutes from './routes/tenders.js';
 import { errorHandler } from './middlewares/errorMiddleware.js';
 import chatRoutes from './routes/chatRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
@@ -29,6 +30,7 @@ const io = new Server(server, {
 // Connect to DB
 connectDB();
 app.use('/api/auth', authRoutes);
+app.use('/api/tenders', tenderRoutes);
 app.use('/api/chats', chatRoutes);
 app.use('/api/messages', messageRoutes);
 
