@@ -3,8 +3,8 @@ import axios from "axios";
 const axiosAPI = () => {
   const token = localStorage.getItem("DBToken");
   const baseURL =
-    window.location.hostname.includes("nip.io") || window.location.hostname.includes(".com")
-      ? "/api"
+    window.location.hostname!=="localhost"
+      ? "https://dhanbid-server.vercel.app/"
       : "http://localhost:5000/api";
 
   return axios.create({
