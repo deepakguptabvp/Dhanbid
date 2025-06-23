@@ -10,6 +10,7 @@ import { sampleTenders } from "../data/categories";
 import { MenuIcon, XIcon } from "lucide-react";
 import { FaPlus, FaUserTie } from "react-icons/fa";
 import { LuClipboardList } from "react-icons/lu";
+import EditTender from "./EditTender";
 
 const SampleBuyer = {
   name: "Dinesh Kumar",
@@ -26,6 +27,7 @@ const page = () => {
   const [activeSection, setActiveSection] = useState("my-tenders");
   const [emptyArray, setEmptyArray] = useState(sampleTenders);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [id, setId] = useState(null);
   const [buyerProfile, setBuyerProfile] = useState(SampleBuyer);
 
   const toggleMobileMenu = () => {
@@ -36,7 +38,7 @@ const page = () => {
   const renderContent = () => {
     switch (activeSection) {
       case "my-tenders":
-        return <MyTenders emptyArray={emptyArray} />;
+        return <MyTenders emptyArray={emptyArray} setId={setId} setActiveSection={setActiveSection}/>;
       case "create-tender":
         return (
           <AddTender
@@ -47,6 +49,8 @@ const page = () => {
         );
       case "profile":
         return <Profile buyerProfile={buyerProfile} />;
+      case "edit-tender":
+        return <EditTender id={id} setActiveSection={setActiveSection} />;
       default:
         return <div>Select an option from the sidebar.</div>;
     }
@@ -73,7 +77,7 @@ const page = () => {
           lg:relative lg:translate-x-0 lg:block
         `}
       >
-        <div className="h-40 bg-indigo-100 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
+        <div className="h-40 bg-indigo-100 mt-32 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
           {/* Toggle Menu Button */}
           <CgProfile size={48} className="text-indigo-500" />
           <h1 className="text-lg text-left font-bold p-3">Buyer Dashboard</h1>

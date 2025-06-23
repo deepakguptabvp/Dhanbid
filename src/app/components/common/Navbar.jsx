@@ -2,10 +2,25 @@
 import { FaSearch } from "react-icons/fa";
 import { BellIcon, MenuIcon, XIcon } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAppContext } from "../../context/AppContext";
+import axiosAPI from "../../api/useAxios";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const {user, setUser} = useAppContext();
+  const axios = axiosAPI();
+  const getUser = async()=>{
+    try{
+      const {data} = await axios.get('/auth/check-user');
+      setUser(data);
+    }catch(e){
+      console.log(e);
+    }
+  }
+  useEffect(()=>{
+    getUser();
+  },[])
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   return (
@@ -45,11 +60,16 @@ const Navbar = () => {
             <BellIcon size={23} />
             <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
           </button>
-          <Link href="/login">
+          {!user?<Link href="/login">
             <button className="absolute top-4 right-8 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200 cursor-pointer">
               Login
             </button>
           </Link>
+          :<Link href="/Profile">
+            <button className="absolute top-4 right-8 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200 cursor-pointer">
+              {user?.name||"Profile"}
+            </button>
+          </Link>}
         </div>
 
         {/* Hamburger Button */}

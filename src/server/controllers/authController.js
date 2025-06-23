@@ -5,7 +5,7 @@ import Otp from "../models/Otp.js";
 import User from "../models/User.js";
 const generateToken = (user) => {
     return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "7d",
+        expiresIn: "30d",
     });
 };
 const generateReqId = () => {
@@ -73,9 +73,15 @@ export const verifyOtp = async (req, res) => {
         if (!phone) {
             return res.status(400).json({ success: false, message: "Phone number is required." });
         }
-
+        let user = await User.findOne({phone});
+        if(!user){
+            user = await User.create({phone})
+        }
+        let token = generateToken(user);
 
         return res.json({
+            user,
+            token,
             success: true,
             message: "Login successful",
         });

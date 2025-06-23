@@ -219,9 +219,13 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { businessCategories } from "../data/categories";
+import axiosAPI from "../api/useAxios";
+import { useAppContext } from "../context/AppContext";
 
 const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
   const [step, setStep] = useState(1);
+  const {setMyTenders} = useAppContext();
+  const axios = axiosAPI();
   const [formData, setFormData] = useState({
     requirement: "",
     category: "",
@@ -261,8 +265,9 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
     if (step > 1) setStep(step - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!confirm('Are you sure creating the tender?')) return;
     if (
       !formData.requirement ||
       !formData.category ||
@@ -276,25 +281,63 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
       return;
     }
 
-    const tenderData = { ...formData };
-    setEmptyArray([tenderData, ...emptyArray]);
-    toast.success("Tender submitted successfully!");
-    setActiveSection("my-tenders");
-    setFormData({
-      requirement: "",
-      category: "",
-      subcategory: "",
-      location: "",
-      quantity: "",
-      timeline: "",
-      minPrice: "",
-      maxPrice: "",
-      files: null,
-      agreed: false,
-    });
-    setSubcategories([]);
-    setStep(1);
+    try {
+      const formPayload = new FormData();
+
+      // Append all form fields
+      formPayload.append("requirement", formData.requirement);
+      formPayload.append("category", formData.category);
+      formPayload.append("subcategory", formData.subcategory);
+      formPayload.append("location", formData.location);
+      formPayload.append("quantity", formData.quantity);
+      formPayload.append("timeline", formData.timeline);
+      formPayload.append("minPrice", formData.minPrice || "");
+      formPayload.append("maxPrice", formData.maxPrice || "");
+      formPayload.append("agreed", formData.agreed);
+
+      // Append files (if any)
+      if (formData.files && formData.files.length > 0) {
+        for (let i = 0; i < formData.files.length; i++) {
+          formPayload.append("files", formData.files[i]);
+        }
+      }
+
+      const res = await axios.post("tenders",formPayload);
+
+      const data = await res.json();
+
+      // if (!res.ok) {
+      //   toast.error(data?.error || "Failed to submit tender.");
+      //   return;
+      // }
+
+      // Update local state after successful submission
+      setEmptyArray([data, ...emptyArray]);
+      setMyTenders((prev)=>[data, ...prev])
+      toast.success("Tender submitted successfully!");
+      setActiveSection("my-tenders");
+
+      // Reset form
+      setFormData({
+        requirement: "",
+        category: "",
+        subcategory: "",
+        location: "",
+        quantity: "",
+        timeline: "",
+        minPrice: "",
+        maxPrice: "",
+        files: null,
+        agreed: false,
+      });
+      setSubcategories([]);
+      setStep(1);
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong.");
+    }
   };
+
 
   return (
     <div className="max-w-2xl mx-auto p-4 text-black dark:bg-white min-h-screen">

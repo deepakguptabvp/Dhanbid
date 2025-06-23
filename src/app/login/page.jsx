@@ -45,7 +45,6 @@ function Login() {
       const res = await axios.post("/auth/send-otp", { phone });
       if (res.data.success) {
         setOtpSent(true);
-        setIsResendDisabled(true);
         setReqId(res.data.reqId);
         toast.success("OTP sent successfully");
       } else {
@@ -68,6 +67,8 @@ function Login() {
       const res = await axios.post("/auth/verify-otp", { phone, otp });
       if (res.data.success) {
         toast.success("OTP verified successfully");
+        localStorage.setItem('DBToken',res.data?.token)
+        setIsResendDisabled(true);
         router.push("/dashboard-selector");
       } else {
         toast.error(res.data.message || "Invalid OTP");
