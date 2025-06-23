@@ -81,7 +81,7 @@ function Login() {
 
   return (
     <div className="flex items-center justify-center text-black max-h-screen dark:bg-white">
-      <div className="flex flex-col md:flex-row w-full max-w-7xl shadow-2xl overflow-hidden">
+      <div className="flex flex-col md:flex-row w-full overflow-hidden">
         {/* Left Side - Image */}
         <div className="w-full md:w-3/5 p-2 md:py-16 md:p-8 flex items-center justify-center">
           <img
@@ -92,9 +92,9 @@ function Login() {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="w-full md:w-2/5 px-12 py-18 md:p-16 flex flex-col justify-center rounded-xl">
+        <div className="w-full md:w-2/5 px-6 py-14 md:p-16 flex flex-col justify-center rounded-xl">
           <div className="space-y-4 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-black">
+            <h1 className="text-2xl md:text-4xl font-bold text-black">
               Welcome To Dhanbid
             </h1>
             <p className="text-black/70 text-base md:text-lg">
@@ -105,12 +105,12 @@ function Login() {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Phone Number *"
+                  placeholder="Phone Number*"
                   value={phone}
                   onChange={(e) => {
                     if (e.target.value.length <= 10) setPhone(e.target.value);
                   }}
-                  className="w-full border border-gray-300 px-4 py-2 rounded-full pl-12 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full border border-gray-300  py-2 rounded-full pl-14 focus:ring-2 focus:ring-blue-500 outline-none"
                 />
                 <span className="absolute left-0 px-2 h-full rounded-l-full py-2 bg-blue-600 text-white">
                   +91

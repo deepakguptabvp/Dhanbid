@@ -6,12 +6,14 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const Slider = () => {
   // Banner images from public folder
   const banners = [
-    "/banners/banner-1.png",
-    "/banners/banner-2.jpg",
-    "/banners/banner-3.jpeg",
-    "/banners/banner-4.png",
-    "/banners/banner-5.jpg",
-    "/banners/banner-6.jpg",
+    // "/banners/banner-1.png",
+    // "/banners/banner-2.jpg",
+    // "/banners/banner-3.jpeg",
+    // "/banners/banner-4.png",
+    // "/banners/banner-5.jpg",
+    // "/banners/banner-6.jpg",
+    "/banners/banner-7.png",
+    "/banners/banner-8.png",
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -42,7 +44,7 @@ const Slider = () => {
 
   const goToSlide = (index) => {
     setIsTransitioning(true);
-    setCurrentSlide(index); 
+    setCurrentSlide(index);
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
@@ -50,7 +52,7 @@ const Slider = () => {
     <div className="relative w-full overflow-hidden rounded-xs shadow-lg lg:my-2">
       {/* Carousel container */}
       <div
-        className="relative h-[200px] sm:h-[300px] md:h-[400px] lg:h-[400px] w-full"
+        className="relative h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] w-full"
         style={{
           transition: "transform 0.5s ease-in-out",
           transform: `translateX(-${currentSlide * 100}%)`,
@@ -94,7 +96,9 @@ const Slider = () => {
           <button
             key={index}
             className={`w-2 h-2 rounded-full transition-all cursor-pointer duration-300 border-amber-600 ${
-              currentSlide === index ? "bg-white scale-125 border border-amber-600" : "bg-white/50"
+              currentSlide === index
+                ? "bg-white scale-125 border border-amber-600"
+                : "bg-white/50"
             }`}
             onClick={() => goToSlide(index)}
             aria-label={`Go to slide ${index + 1}`}

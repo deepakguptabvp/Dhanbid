@@ -131,18 +131,18 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
         <div className="flex flex-col md:flex-row md:flex-wrap gap-4 mt-6">
           <input
             name="minPrice"
-            type="number"
+            type="text"
             placeholder="Min Budget"
-            className="w-full md:w-40 px-4 py-2 rounded-lg border border-gray-600 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="w-full md:w-50 px-4 py-2 rounded-lg border border-gray-600 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={filters.minPrice}
             onChange={handleChange}
           />
 
           <input
             name="maxPrice"
-            type="number"
+            type="text"
             placeholder="Max Budget"
-            className="w-full md:w-40 px-4 py-2 rounded-lg border border-gray-600 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="w-full md:w-50 px-4 py-2 rounded-lg border border-gray-600 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             value={filters.maxPrice}
             onChange={handleChange}
           />
@@ -151,14 +151,14 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             name="company"
             type="text"
             placeholder="Company name"
-            className="w-full md:w-48 px-4 py-2 text-gray-700 placeholder-gray-500 border-gray-600 rounded-lg border focus:ring-2 focus:ring-blue-400 outline-none transition"
+            className="w-full md:w-50 px-4 py-2 text-gray-700 placeholder-gray-500 border-gray-600 rounded-lg border focus:ring-2 focus:ring-blue-400 outline-none transition"
             value={filters.company}
             onChange={handleChange}
           />
 
           <select
             name="sortBy"
-            className="md:w-30 p-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
+            className="w-full md:w-50 p-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
             value={filters.sortBy}
             onChange={handleChange}
           >
@@ -169,8 +169,8 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
             <option value="expiryLate">Expiry Latest</option>
           </select>
 
-          <div className="flex flex-col md:flex-row gap-4 md:w-100">
-            <div className="flex flex-col flex-1">
+          {/* <div className="flex flex-col md:flex-row gap-4 md:w-100"> */}
+            <div className="flex flex-col ">
               <label
                 htmlFor="expiryFrom"
                 className="mb-1 text-sm text-gray-700"
@@ -181,13 +181,13 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
                 id="expiryFrom"
                 name="expiryFrom"
                 type="date"
-                className="w-full px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
+                className="w-full md:w-40 px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
                 value={filters.expiryFrom}
                 onChange={handleChange}
               />
             </div>
 
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-col">
               <label htmlFor="expiryTo" className="mb-1 text-sm text-gray-700">
                 Expiry To:
               </label>
@@ -195,12 +195,12 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
                 id="expiryTo"
                 name="expiryTo"
                 type="date"
-                className="w-full px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
+                className="w-full md:w-40 px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
                 value={filters.expiryTo}
                 onChange={handleChange}
               />
             </div>
-          </div>
+          {/* </div> */}
         </div>
       )}
     </div>
