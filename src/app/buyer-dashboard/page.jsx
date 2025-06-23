@@ -77,7 +77,7 @@ const page = () => {
           lg:relative lg:translate-x-0 lg:block
         `}
       >
-        <div className="h-40 bg-indigo-100 mt-32 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
+        <div className="h-40 bg-indigo-100 mt-2 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
           {/* Toggle Menu Button */}
           <CgProfile size={48} className="text-indigo-500" />
           <h1 className="text-lg text-left font-bold p-3">Buyer Dashboard</h1>
