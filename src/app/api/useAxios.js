@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const axiosAPI = () => {
-   
   if (typeof window === "undefined") return axios.create(); // SSR safeguard
 
   const token = localStorage.getItem("DBToken");
@@ -18,6 +17,3 @@ const axiosAPI = () => {
 };
 
 export default axiosAPI;
-
-
-
