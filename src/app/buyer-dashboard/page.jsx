@@ -11,6 +11,8 @@ import { MenuIcon, XIcon } from "lucide-react";
 import { FaPlus, FaUserTie } from "react-icons/fa";
 import { LuClipboardList } from "react-icons/lu";
 import EditTender from "./EditTender";
+import TenderWithBidsCard from "./TenderAndBidsDetails";
+import ChatInterface from "./BuyerChat";
 
 const SampleBuyer = {
   name: "Dinesh Kumar",
@@ -55,15 +57,19 @@ const page = () => {
         );
       case "profile":
         return <Profile buyerProfile={buyerProfile} />;
+      case "chats":
+        return <ChatInterface buyerProfile={buyerProfile} />;
       case "edit-tender":
         return <EditTender id={id} setActiveSection={setActiveSection} />;
+      case "tender-bids":
+        return <TenderWithBidsCard id={id} setActiveSection={setActiveSection} />;
       default:
         return <div>Select an option from the sidebar.</div>;
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full bg-white">
+    <div className="flex flex-col md:flex-row min-h-screen overflow-hidden dark:text-black w-full bg-white">
       {/* Mobile Menu */}
       <div className="relative md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
         <button onClick={toggleMobileMenu} className="flex cursor-pointer ml-auto">
@@ -135,7 +141,7 @@ const page = () => {
       </aside>
 
       {/* Main content area which renders selected section */}
-      <div className="flex-1 p-3">{renderContent()}</div>
+      <div className="flex-1 max-h-[90vh] overflow-auto p-3">{renderContent()}</div>
     </div>
   );
 };

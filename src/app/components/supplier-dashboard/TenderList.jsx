@@ -15,17 +15,17 @@ export default function TenderList({
         tenders.map((tender) => (
           <div
             key={tender.id}
-            className= "z-0 bg-white p-6 rounded-xl border space-y-3 border-gray-200 overflow-hidden hover:shadow-lg hover:bg-gray-100  transition-shadow duration-200"
+            className="bg-white p-6 -z-10 rounded-xl border space-y-3 border-gray-200 overflow-hidden hover:shadow-lg hover:bg-gray-100  transition-shadow duration-200"
           >
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold drop-shadow-md">
-                {tender.name}
+                {tender.requirement}
               </h2>
               <span className="text-md font-semibold text-blue-700 bg-blue-200 p-2 rounded-lg">
-                Expires:{" "}
-                {new Date(tender.expiryDate).toLocaleDateString("en-GB", {
+                Closing on:{" "}
+                {new Date(tender.timeline).toLocaleDateString("en-GB", {
                   day: "2-digit",
-                  month: "2-digit",
+                  month: "short",
                   year: "numeric",
                 })}
               </span>
@@ -38,7 +38,10 @@ export default function TenderList({
               <strong>Category:</strong> {tender.category}
             </p>
             <p className="text-sm mb-1 text-gray-700">
-              <strong>Description:</strong> {tender.description}
+              <strong>Sub Category:</strong> {tender.subcategory}
+            </p>
+            <p className="text-sm mb-1 text-gray-700">
+              <strong>Quantity:</strong> {tender.quantity}
             </p>
 
             <div className="flex flex-col mt-4">

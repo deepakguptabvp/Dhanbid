@@ -1,40 +1,55 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import axiosAPI from "../api/useAxios";
+import { useAppContext } from "../context/AppContext";
 
-const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
-  const [quantity, setQuantity] = useState("");
+const CreateBid = ({ createBid: tender, setActiveSection }) => {
+  const [quantity, setQuantity] = useState(tender?.quantity);
   const [amount, setAmount] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
   const [description, setDescription] = useState("");
+  const{bids, setBids} = useAppContext();
+  const axios = axiosAPI();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const confirmed = window.confirm(
+    `Are you sure you want to submit a bid of ₹${amount*quantity} for Tender ID: ${tender?.tenderId || tender?._id}?`
+  );
+  if (!confirmed) return;
 
-    const confirmed = window.confirm(
-      `Are you sure you want to submit a bid of ₹${amount} for Tender ID: ${tender?.tenderId}?`
-    );
-    if (!confirmed) return;
-    try {
-      const bidData = {
-        tenderId: tender?.tenderId,
-        quantity: tender.quantity,
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You must be logged in to place a bid.");
+      return;
+    }
+
+    const response = await axios.post(
+      "/bids",
+      {
+        tenderId: tender?._id ,
+        quantity: Number(quantity),
         amount: parseFloat(amount),
         description,
-      };
+      },
+    );
 
-      // Update local bids state (demo only)
-      setBids((prev) => [bidData, ...prev]);
-      setActiveSection("my-biddings");
-      toast.success(`Submitted bid for ${tender?.tenderId} at ₹${amount}`);
+    // Add the new bid to the local state
+    setBids((prev) => [response.data, ...prev]);
+    setActiveSection("my-offers");
+    toast.success(`Submitted bid for ${tender?.tenderId || tender?._id} at ₹${amount}`);
 
-      // Optionally clear the form
-      setQuantity("");
-      setAmount("");
-      setDescription("");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+    // Clear form
+    setAmount("");
+    setDescription("");
+    setTotalAmount("");
+  } catch (error) {
+    console.error("Error submitting bid:", error);
+    toast.error(error?.response?.data?.message || "Something went wrong.");
+  }
+};
+
   return (
     <div className="flex flex-col max-w-3xl mx-auto p-6 min-h-screen dark:text-black">
       <div className="w-full bg-white dark:text-black rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -87,7 +102,7 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                   type="text"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
-                  required
+                  readOnly
                   className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
                 />
               </div>
@@ -105,7 +120,9 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                   id="amount"
                   type="text"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={(e) => {setAmount(e.target.value);
+                    setTotalAmount(Number(e.target.value)*quantity)
+                  }}
                   placeholder="enter price per quantiy"
                   required
                   min={tender?.minPrice}
@@ -128,8 +145,8 @@ const CreateBid = ({ createBid: tender, setActiveSection, setBids }) => {
                   id="totalAmount"
                   type="text"
                   value={totalAmount}
-                  onChange={(e) => setAmount(e.target.value)}
                   required
+                  readOnly
                   className="w-full border rounded-md px-3 py-2 text-sm  dark:border-gray-600 dark:text-black"
                 />
               </div>

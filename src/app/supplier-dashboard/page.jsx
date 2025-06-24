@@ -86,7 +86,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row max-h-screen dark:text-black dark:bg-white w-full">
+    <div className="flex flex-col md:flex-row max-h-screen overflow-hidden dark:text-black dark:bg-white w-full">
       {/* Mobile Menu  */}
       <div className="relative md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
         {/* Toggle Menu Button */}
@@ -133,7 +133,7 @@ const Page = () => {
       </aside>
 
       {/* Main content area */}
-      <div className="flex-1 p-3">{renderContent()}</div>
+      <div className="flex-1 max-h-[90vh] overflow-auto p-3">{renderContent()}</div>
     </div>
   );
 };

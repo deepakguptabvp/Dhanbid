@@ -24,7 +24,7 @@ const Navbar = () => {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   return (
-    <nav className="bg-gray-100 shadow-md px-4 py-3 sticky top-0 z-50 dark:text-black">
+    <nav className="bg-gray-100 shadow-md px-4 py-3 sticky top-0 z-[100] dark:text-black">
       {/* Topbar */}
       <div className="flex items-center justify-between md:justify-normal gap-4">
         {/* Left: Logo */}
@@ -61,12 +61,12 @@ const Navbar = () => {
             <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
           </button>
           {!user?<Link href="/login">
-            <button className="absolute top-4 right-8 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200 cursor-pointer">
+            <button className="absolute top-4 right-8 bg-[#0200b9] hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200 cursor-pointer">
               Login
             </button>
           </Link>
-          :<Link href="/Profile">
-            <button className="absolute top-4 right-8 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200 cursor-pointer">
+          :<Link href="/dashboard-selector">
+            <button className="absolute top-4 right-8 bg-[#0200b9] hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200 cursor-pointer">
               {user?.name||"Profile"}
             </button>
           </Link>}
@@ -106,7 +106,7 @@ const Navbar = () => {
               <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
             </button>
             <Link href="/login">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200">
+              <button className="bg-[#0200b9] hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200">
                 Login
               </button>
             </Link>
