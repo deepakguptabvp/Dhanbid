@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col min-w-full h-20 bg-gray-100">
+    <div className=" flex flex-col min-w-full h-20 bg-gray-100 ">
       {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-4 md:p-6 lg:p-10">
         <div className="flex flex-col justify-start items-start p-2">
           <span className="font-bold text-lg py-2">WEB INFO</span>
@@ -125,7 +125,7 @@ const Footer = () => {
         </div>
       </div> */}
 
-      <div className="border-t border-gray-300  py-8 ">
+      <div className="border border-gray-300 dark:bg-gray-100 py-8">
         <div className="flex flex-col md:flex-row justify-evenly items-center gap-2">
           <div className="flex text-sm text-gray-500 dark:text-black">
             © 2025 Dhanbid. All rights reserved.

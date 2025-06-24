@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { LuClipboardList } from "react-icons/lu";
-import {  CgProfile } from "react-icons/cg";
+import { CgProfile } from "react-icons/cg";
 import { FaBell, FaCoins, FaUserTie } from "react-icons/fa";
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
@@ -88,9 +88,9 @@ const Page = () => {
   return (
     <div className="flex flex-col md:flex-row max-h-screen dark:text-black dark:bg-white w-full">
       {/* Mobile Menu  */}
-      <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
-        <h1 className="text-xl font-bold">Supplier Dashboard</h1>
-        <button onClick={toggleMobileMenu} className="flex cursor-pointer">
+      <div className="relative md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
+        {/* Toggle Menu Button */}
+        <button onClick={toggleMobileMenu} className="flex cursor-pointer ml-auto">
           {isMenuOpen ? (
             <XIcon className="h-6 w-6" />
           ) : (
@@ -98,27 +98,28 @@ const Page = () => {
           )}
         </button>
       </div>
-      <div
+
+      <aside
         className={`
-          fixed inset-y-0 left-0 z-20 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
+          fixed inset-y-0 left-0 z-50 md:z-20 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
           ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
           lg:relative lg:translate-x-0 lg:block
         `}
       >
         <div className="h-40 bg-indigo-100 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
-          {/* Toggle Menu Button */}
           <CgProfile size={48} className="text-indigo-500" />
           <h1 className="text-lg text-left font-bold p-3">
             Supplier Dashboard
           </h1>
         </div>
+
         <div className="space-y-2 h-full">
           {menuItems.map((item) => (
             <button
               key={item.key}
               onClick={() => {
                 setActiveSection(item.key);
-                setIsSidebarOpen(false); // Close sidebar on mobile after selection
+                setIsMenuOpen(false); // Close sidebar on mobile after selection
               }}
               className={`w-full text-left cursor-pointer px-4 py-2 rounded-xl hover:bg-indigo-200 flex items-center ${
                 activeSection === item.key ? "bg-indigo-200" : ""
@@ -129,7 +130,7 @@ const Page = () => {
             </button>
           ))}
         </div>
-      </div>
+      </aside>
 
       {/* Main content area */}
       <div className="flex-1 p-3">{renderContent()}</div>

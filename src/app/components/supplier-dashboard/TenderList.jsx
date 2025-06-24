@@ -15,7 +15,7 @@ export default function TenderList({
         tenders.map((tender) => (
           <div
             key={tender.id}
-            className="bg-white p-6 rounded-xl border space-y-3 border-gray-200 overflow-hidden hover:shadow-lg hover:bg-gray-100  transition-shadow duration-200"
+            className= "z-0 bg-white p-6 rounded-xl border space-y-3 border-gray-200 overflow-hidden hover:shadow-lg hover:bg-gray-100  transition-shadow duration-200"
           >
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold drop-shadow-md">
