@@ -1,43 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
+import { useAppContext } from "../context/AppContext";
+import axiosAPI from "../api/useAxios";
 
 const MyBids = ({ bids }) => {
   const [selectedBid, setSelectedBid] = useState(null);
+  const {myBids, setMyBids} = useAppContext();
+  const axios = axiosAPI();
 
   const handleClose = () => setSelectedBid(null);
-
+  const getMyBids = async ()=>{
+    try{
+      const {data} = await axios.get('/bids/my');
+      setMyBids(data);
+    }catch(e){
+      console.log(e)
+    }
+  }
+  useEffect(()=>{
+    getMyBids();
+  },[])
+  console.log(myBids)
   return (
     <div className="max-w-7xl mx-auto px-4 pb-6">
       <h2 className="text-3xl font-bold text-center text-gray-800 p-8">
         My Bids
       </h2>
 
-      {bids.length === 0 ? (
+      {myBids?.length === 0 ? (
         <div className="text-center text-gray-500 text-lg">
           No bids placed yet. Start bidding to see them here!
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 max-h-screen pb-0 px-2 pr-2">
-          {bids.map((bid, index) => (
+          {myBids?.map((bid, index) => (
             <div
               key={index}
               className="dark:text-black  border border-gray-200 dark:border-gray-700 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between"
             >
               <div className="space-y-2 dark:text-black">
-                <h3 className="text-xl font-semibold ">{bid.name}</h3>
+                <h3 className="text-xl font-semibold ">{bid?.tender?.requirement}</h3>
                 <p className="text-sm ">
                   <span className="font-semibold">Tender ID:</span>{" "}
-                  {bid.tenderId}
+                  {bid?.tender?.tenderId}
                 </p>
                 <p className="text-sm ">
-                  <span className="font-semibold">Company:</span> {bid.company}
+                  <span className="font-semibold">Category:</span> {bid.tender?.category}
                 </p>
                 <p className="text-sm ">
-                  <span className="font-semibold">Bidder:</span>{" "}
-                  {bid.bidderName}
+                  <span className="font-semibold">Quantity:</span>{" "}
+                  {bid.quantity}
                 </p>
                 <p className="text-sm ">
-                  <span className="font-semibold">Amount:</span> ₹{bid.amount}
+                  <span className="font-semibold">Amount:</span> ₹{bid.amount*bid?.quantity}
                 </p>
               </div>
 
@@ -63,16 +78,16 @@ const MyBids = ({ bids }) => {
             </h3>
             <div className="space-y-2 text-sm bg-white dark:text-black">
               <p>
-                <strong>Name:</strong> {selectedBid.name}
+                <strong>Name:</strong> {selectedBid.tender?.requirement}
               </p>
               <p>
-                <strong>Tender ID:</strong> {selectedBid.tenderId}
+                <strong>Tender ID:</strong> {selectedBid.tender?.tenderId}
               </p>
               <p>
-                <strong>Company:</strong> {selectedBid.company}
+                <strong>Category:</strong> {selectedBid.tender?.category}
               </p>
               <p>
-                <strong>Bidder Name:</strong> {selectedBid.bidderName}
+                <strong>Bidder Name:</strong> {selectedBid.bidderName||"Me"}
               </p>
               <p>
                 <strong>Amount:</strong> ₹{selectedBid.amount}
@@ -84,7 +99,7 @@ const MyBids = ({ bids }) => {
                 <strong>Phone:</strong> {selectedBid.phone || "+91-98768XXXXX"}
               </p>
               <p>
-                <strong>Submitted At:</strong> {new Date().toLocaleString()}
+                <strong>Submitted At:</strong> {new Date(selectedBid?.createdAt).toLocaleString()}
               </p>
             </div>
 

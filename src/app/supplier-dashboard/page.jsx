@@ -86,7 +86,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row max-h-screen dark:text-black dark:bg-white w-full">
+    <div className="flex flex-col md:flex-row max-h-screen overflow-hidden dark:text-black dark:bg-white w-full">
       {/* Mobile Menu  */}
       <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
         <h1 className="text-xl font-bold">Supplier Dashboard</h1>
@@ -99,13 +99,13 @@ const Page = () => {
         </button>
       </div>
       <div
-        className={`
-          fixed inset-y-0 left-0 z-20 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
+        className={`fixed
+           inset-y-0 left-0 z-[200] w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
           ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
           lg:relative lg:translate-x-0 lg:block
         `}
       >
-        <div className="h-40 bg-indigo-100 rounded-xl flex flex-col items-center justify-center space-y-2 mb-4">
+        <div className="h-40  bg-indigo-100 rounded-xl z-[250] flex flex-col items-center justify-center space-y-2 mb-4">
           {/* Toggle Menu Button */}
           <CgProfile size={48} className="text-indigo-500" />
           <h1 className="text-lg text-left font-bold p-3">
@@ -132,7 +132,7 @@ const Page = () => {
       </div>
 
       {/* Main content area */}
-      <div className="flex-1 p-3">{renderContent()}</div>
+      <div className="flex-1 max-h-[90vh] overflow-auto p-3">{renderContent()}</div>
     </div>
   );
 };

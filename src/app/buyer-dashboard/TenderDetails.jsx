@@ -1,9 +1,8 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 
-const TenderDetailsModal = ({ isOpen, setIsOpen, tender }) => {
+const TenderDetailsModal = ({ isOpen, setActiveSection, setIsOpen, tender, setId }) => {
   if (!isOpen || !tender) return null;
-
   const formatDate = (date) =>
     new Date(date).toLocaleDateString("en-IN", {
       year: "numeric",
@@ -15,7 +14,7 @@ const TenderDetailsModal = ({ isOpen, setIsOpen, tender }) => {
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative overflow-hidden animate-fade-in-up">
         {/* Header */}
-        <div className="flex justify-between items-center border-b px-6 py-4 bg-indigo-600 text-white rounded-t-2xl">
+        <div className="flex justify-between items-center border-b px-6 py-4 bg-[#0200b9] text-white rounded-t-2xl">
           <h2 className="text-lg font-semibold">Tender Details</h2>
           <button onClick={() => setIsOpen(false)}>
             <FaTimes className="text-xl hover:text-gray-300 transition" />
@@ -35,10 +34,18 @@ const TenderDetailsModal = ({ isOpen, setIsOpen, tender }) => {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-gray-50 flex justify-end rounded-b-2xl">
+        <div className="px-6 py-4 bg-gray-50 flex justify-end gap-3 rounded-b-2xl">
+          <button
+            onClick={() => {
+              setActiveSection('tender-bids');
+            }}
+            className="px-4 py-2 bg-[#0200b9] hover:bg-indigo-700 text-white rounded-lg transition"
+          >
+            See Bids
+          </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition"
+            className="px-4 py-2 bg-[#0200b9] hover:bg-indigo-700 text-white rounded-lg transition"
           >
             Close
           </button>

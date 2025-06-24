@@ -30,6 +30,7 @@ const MyTenders = ({ setActiveSection, setId }) => {
 
   const [height, setHeight] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [tenderToShow, setTenderToShow] = useState(null);
   const axios = axiosAPI();
   const { myTenders, setMyTenders } = useAppContext();
   const getTenders = async () => {
@@ -138,20 +139,23 @@ const MyTenders = ({ setActiveSection, setId }) => {
                 Budget: ₹{tender.minPrice} - {tender.maxPrice}
               </div>
               <div className="flex gap-1.5 mt-4">
-                <button onClick={() => setIsOpen(true)} className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-indigo-400 hover:bg-indigo-500 md:w-30 md:mx-auto">
+                <button onClick={() => {
+                  setId(tender?._id);
+                  setTenderToShow(tender)
+                  setIsOpen(true)}} className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-indigo-400 hover:bg-indigo-500 md:w-30 md:mx-auto">
                   View Details
                 </button>
                 <button onClick={() => {
                   setId(tender?._id);
                   setActiveSection('edit-tender');
-                }} className="flex items-center gap-2 px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-yellow-400 hover:bg-yellow-500 md:w-30 md:mx-auto">
+                }} className="flex justify-center items-center gap-2 px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-yellow-400 hover:bg-yellow-500 md:w-30 md:mx-auto">
                   <FiEdit2 /> Edit
                 </button>
               </div>
             </div>
-            <TenderDetailsModal isOpen={isOpen} setIsOpen={setIsOpen} tender={tender} />
           </div>
         )})}
+        <TenderDetailsModal isOpen={isOpen} setIsOpen={setIsOpen} tender={tenderToShow} setActiveSection={setActiveSection} setId={setId}/>
       </div>
     </div>
   );

@@ -11,6 +11,8 @@ import { MenuIcon, XIcon } from "lucide-react";
 import { FaPlus, FaUserTie } from "react-icons/fa";
 import { LuClipboardList } from "react-icons/lu";
 import EditTender from "./EditTender";
+import TenderWithBidsCard from "./TenderAndBidsDetails";
+import ChatInterface from "./BuyerChat";
 
 const SampleBuyer = {
   name: "Dinesh Kumar",
@@ -49,15 +51,19 @@ const page = () => {
         );
       case "profile":
         return <Profile buyerProfile={buyerProfile} />;
+      case "chats":
+        return <ChatInterface buyerProfile={buyerProfile} />;
       case "edit-tender":
         return <EditTender id={id} setActiveSection={setActiveSection} />;
+      case "tender-bids":
+        return <TenderWithBidsCard id={id} setActiveSection={setActiveSection} />;
       default:
         return <div>Select an option from the sidebar.</div>;
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen dark:text-black w-full bg-white">
+    <div className="flex flex-col md:flex-row min-h-screen overflow-hidden dark:text-black w-full bg-white">
       {/* Mobile Menu */}
       <div className="md:hidden flex justify-between items-center bg-white dark:text-black p-4 shadow-md">
         <h1 className="text-xl font-bold">Buyer Portal</h1>
@@ -72,7 +78,7 @@ const page = () => {
       {/* Sidebar navigation panel */}
       <aside
         className={`
-          fixed top-0 inset-y-0 left-0 z-20 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
+          fixed top-0 z-[200] inset-y-0 left-0 w-64 bg-white shadow-md p-4 transform transition-transform duration-300 ease-in-out
           ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
           lg:relative lg:translate-x-0 lg:block
         `}
@@ -127,7 +133,7 @@ const page = () => {
       </aside>
 
       {/* Main content area which renders selected section */}
-      <div className="flex-1 p-3">{renderContent()}</div>
+      <div className="flex-1 max-h-[90vh] overflow-auto p-3">{renderContent()}</div>
     </div>
   );
 };

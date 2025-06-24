@@ -51,7 +51,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
   };
 
   return (
-    <div className="sticky top-0 bg-white border border-gray-700 rounded-xl px-5 py-5 mb-6 shadow-lg transition-all duration-300">
+    <div className="sticky top-0 bg-white border border-gray-700 rounded-xl z-10 px-5 py-5 mb-6 shadow-lg transition-all duration-300">
       <div className="flex flex-col sm:flex-row justify-between items-center text-black mb-3 gap-3">
         <h2 className="text-2xl font-semibold drop-shadow-md">
           Your Requirements

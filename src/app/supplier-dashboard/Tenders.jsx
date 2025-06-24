@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import TenderFilters from "../components/supplier-dashboard/TenderFilters";
 import TenderList from "../components/supplier-dashboard/TenderList";
 import { sampleTenders } from "../data/categories";
+import axiosAPI from "../api/useAxios";
+import { useAppContext } from "../context/AppContext";
 
 export default function TendersPage({ setCreateBid, setActiveSection }) {
   const [filters, setFilters] = useState({
@@ -16,16 +18,25 @@ export default function TendersPage({ setCreateBid, setActiveSection }) {
   });
 
   const [height, setHeight] = useState(0);
-  const [tenders, setTenders] = useState(sampleTenders);
-
+  const axios = axiosAPI();
+  const { tenders, setTenders } = useAppContext();
+  const getTenders = async () => {
+    try {
+      const { data } = await axios.get('/tenders');
+      setTenders(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   useEffect(() => {
     const headerHeight = 200;
     setHeight(window.innerHeight - headerHeight);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    getTenders();
   }, []);
 
   useEffect(() => {
-    const filteredTenders = sampleTenders
+    const filteredTenders = tenders
       ?.filter((t) => {
         return (
           (!filters.search ||

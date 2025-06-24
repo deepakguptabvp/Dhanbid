@@ -195,7 +195,7 @@
 //           <div className="flex justify-end space-x-4 pt-4">
 //             <button
 //               type="submit"
-//               className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition cursor-pointer"
+//               className="bg-[#0200b9] hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold text-sm transition cursor-pointer"
 //             >
 //               Submit Tender
 //             </button>
@@ -502,7 +502,7 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
               <button
                 type="submit"
                 title="Suppliers will soon place their DhanBids"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md cursor-pointer"
+                className="w-full bg-[#0200b9] hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md cursor-pointer"
               >
                 Submit Requirement
               </button>
