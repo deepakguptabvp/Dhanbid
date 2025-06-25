@@ -10,6 +10,14 @@ import { TiExport } from "react-icons/ti";
 import DashboardCharts from "./DashboardCharts";
 import { sampleTenders } from "../data/categories";
 
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
 const cards = [
   {
     icon: (
@@ -82,7 +90,7 @@ const Dashboard = () => (
           className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-2"
           size={30}
         />
-        <h1>Create New Tender</h1>
+        <h1>Create New Buyer/Supplier</h1>
       </button>
       <button className="flex items-center bg-white border border-gray-200 rounded-xl p-4 shadow-sm cursor-pointer">
         <FaRegChartBar
@@ -98,7 +106,7 @@ const Dashboard = () => (
         />
         <h1>Manage Vendors</h1>
         <TiExport
-          className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-2 "
+          className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-4 "
           size={30}
         />
         <h1>Export</h1>
@@ -113,9 +121,9 @@ const Dashboard = () => (
     {/* Section-4 --*/}
     <div className="mt-8">
       <h1 className="font-bold text-xl">Tender Management</h1>
-      <div className="relative overflow-x-auto mt-4 border border-gray-300 rounded-xl">
+      <div className="relative overflow-x-auto mt-4 border border-gray-300 rounded-xl shadow-xl">
         <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-indigo-800 dark:text-white">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Tender ID
@@ -138,18 +146,18 @@ const Dashboard = () => (
             {Array.isArray(sampleTenders) && sampleTenders.map((item) => (
               <tr
                 key={item.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+                className="border-b dark:bg-white dark:text-black border-gray-200 hover:bg-indigo-100 cursor-pointer"
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                 >
                   {item.tenderId}
                 </th>
                 <td className="px-6 py-4">{item.name}</td>
                 <td className="px-6 py-4">{item.category}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{item.status}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{item.expiryDate}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{formatDate(item.expiryDate)}</td>
               </tr>
             ))}
           </tbody>
