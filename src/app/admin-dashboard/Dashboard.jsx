@@ -4,6 +4,11 @@ import { LuClipboardList } from "react-icons/lu";
 import { GiReceiveMoney } from "react-icons/gi";
 import { IoPeople } from "react-icons/io5";
 import { GoPlus } from "react-icons/go";
+import { FaRegChartBar } from "react-icons/fa";
+import { MdOutlinePeopleAlt } from "react-icons/md";
+import { TiExport } from "react-icons/ti";
+import DashboardCharts from "./DashboardCharts";
+import { sampleTenders } from "../data/categories";
 
 const cards = [
   {
@@ -24,7 +29,7 @@ const cards = [
       />
     ),
     label: "Total Bids Received",
-    value: "1.120",
+    value: "1.120 cr",
   },
   {
     icon: (
@@ -71,13 +76,86 @@ const Dashboard = () => (
     </div>
 
     {/* section-2 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-        <div className="flex items-center bg-white border border-gray-200 rounded-xl px-1 py-4 shadow-sm">
-          <GoPlus className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-4" size={30} />
-          <h1>Create New Tender</h1>
-        </div>
-      </div>
+    <div className="flex flex-col md:flex-row gap-4 mt-8">
+      <button className="flex items-center bg-white border border-gray-200 rounded-xl p-4 shadow-sm cursor-pointer">
+        <GoPlus
+          className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-2"
+          size={30}
+        />
+        <h1>Create New Tender</h1>
+      </button>
+      <button className="flex items-center bg-white border border-gray-200 rounded-xl p-4 shadow-sm cursor-pointer">
+        <FaRegChartBar
+          className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-2"
+          size={30}
+        />
+        <h1>View Bids Report</h1>
+      </button>
+      <button className="flex items-center bg-white border border-gray-200 rounded-xl p-4 shadow-sm cursor-pointer">
+        <MdOutlinePeopleAlt
+          className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-2"
+          size={30}
+        />
+        <h1>Manage Vendors</h1>
+        <TiExport
+          className="p-1 bg-indigo-100 rounded-lg text-indigo-500 mx-2 "
+          size={30}
+        />
+        <h1>Export</h1>
+      </button>
+    </div>
 
+    {/* Section -3 ---- Charts  */}
+    <div className="mt-8">
+      <DashboardCharts />
+    </div>
+
+    {/* Section-4 --*/}
+    <div className="mt-8">
+      <h1 className="font-bold text-xl">Tender Management</h1>
+      <div className="relative overflow-x-auto mt-4 border border-gray-300 rounded-xl">
+        <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Tender ID
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Tender Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Category
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Status
+              </th>
+              <th scope="col" className="px-6 py-3">
+                End Date
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.isArray(sampleTenders) && sampleTenders.map((item) => (
+              <tr
+                key={item.id}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+              >
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {item.tenderId}
+                </th>
+                <td className="px-6 py-4">{item.name}</td>
+                <td className="px-6 py-4">{item.category}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.status}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{item.expiryDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 );
 
