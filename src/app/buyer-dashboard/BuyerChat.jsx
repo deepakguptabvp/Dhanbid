@@ -1,46 +1,111 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiSend, FiMenu } from "react-icons/fi";
 import { BsChatDots } from "react-icons/bs";
+import socket from "../../../socket"; // socket.io-client setup
+import axiosAPI from "../api/useAxios";
 
-const suppliers = [
-  {
-    id: 1,
-    name: "Acme Supplies",
-    lastMessage: "Sure, I’ll check and revert.",
-    avatar: "https://i.pravatar.cc/150?img=4",
-  },
-  {
-    id: 2,
-    name: "Global Trade Co.",
-    lastMessage: "Awaiting your confirmation.",
-    avatar: "https://i.pravatar.cc/150?img=5",
-  },
-];
+export default function ChatInterface({ chat, userId, role }) {
 
-export default function ChatInterface() {
-  const [selectedSupplierId, setSelectedSupplierId] = useState(1);
+  useEffect(() => {
+    if (chat?._id) {
+      socket.emit("joinChat", chat._id);
+    }
+  }, [chat]);
+  const axios = axiosAPI();
+  const [chats, setChats] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(chat);
   const [input, setInput] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
-  const [messages, setMessages] = useState({
-    1: [{ from: "buyer", text: "Hi, could you provide a better quote?" }],
-    2: [{ from: "buyer", text: "Can you confirm delivery timelines?" }],
-  });
+  const [messages, setMessages] = useState({}); // chatId: [msg, msg]
 
-  const selectedMessages = messages[selectedSupplierId] || [];
+  // Fetch all chats based on user role
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const res = await axios.get(`/chats?userId=${userId}&role=${role}`);
+        setChats(res.data);
+      } catch (err) {
+        console.error("Error fetching chats", err);
+      }
+    };
+    fetchChats();
+  }, [userId, role]);
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
+    });
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+    socket.on("disconnect", () => {
+      console.log("Socket disconnected");
+    });
 
-    const newMessages = {
-      ...messages,
-      [selectedSupplierId]: [
-        ...selectedMessages,
-        { from: "buyer", text: input.trim() },
-      ],
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+    };
+  }, []);
+
+  // Join room and load messages
+  const handleChatSelect = async (chat) => {
+    setSelectedChat(chat);
+    socket.emit("joinChat", chat._id);
+
+    try {
+     
+      setMessages((prev) => ({
+        ...prev,
+        [chat._id]: chat.messages, // assuming this returns array of messages
+      }));
+    } catch (err) {
+      console.error("Failed to fetch messages", err);
+    }
+  };
+
+  const selectedMessages = selectedChat?._id
+    ? messages[selectedChat._id] || []
+    : [];
+
+  // Listen for incoming messages
+  useEffect(() => {
+    const handleMessage = (message) => {
+      const { chatId } = message;
+      setMessages((prev) => ({
+        ...prev,
+        [chatId]: [...(prev[chatId] || []), message],
+      }));
     };
 
-    setMessages(newMessages);
+    socket.off("newMessage", handleMessage); // clean before add
+    socket.on("newMessage", handleMessage);
+
+    return () => {
+      socket.off("newMessage", handleMessage);
+    };
+  }, []);
+
+  const handleSend = async () => {
+    if (!input.trim() || !selectedChat) return;
+
+    const message = {
+      chatId: selectedChat._id,
+      message: {
+        sender: userId,
+        text: input.trim(),
+        timestamp: new Date(),
+      },
+    };
+
+    console.log(message)
+    // Emit socket event
+    socket.emit("sendMessage", message);
+    const { data } = await axios.post(`messages/${selectedChat._id}`, { senderId: userId, text: input.trim() });
+    // Update local UI immediately
+    setMessages((prev) => ({
+      ...prev,
+      [selectedChat._id]: [...(prev[selectedChat._id] || []), message.message],
+    }));
+
     setInput("");
   };
 
@@ -48,9 +113,8 @@ export default function ChatInterface() {
     <div className="flex min-h-screen bg-gray-100 text-gray-800">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-[200] bg-white shadow-md p-4 overflow-y-auto transform transition-transform duration-300 lg:static lg:translate-x-0 ${
-          showSidebar ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-[200] bg-white shadow-md p-4 overflow-y-auto transform transition-transform duration-300 lg:static lg:translate-x-0 ${showSidebar ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
@@ -61,33 +125,39 @@ export default function ChatInterface() {
           </button>
         </div>
 
-        {suppliers.map((supplier) => (
-          <div
-            key={supplier.id}
-            onClick={() => {
-              setSelectedSupplierId(supplier.id);
-              setShowSidebar(false);
-            }}
-            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer mb-2 transition ${
-              selectedSupplierId === supplier.id
+        {chats.map((chat) => {
+          const otherUser =
+            role === "buyer" ? chat.supplierId : chat.buyerId;
+
+          return (
+            <div
+              key={chat._id}
+              onClick={() => {
+                handleChatSelect(chat);
+                setShowSidebar(false);
+              }}
+              className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer mb-2 transition ${selectedChat?._id === chat._id
                 ? "bg-blue-100"
                 : "hover:bg-gray-200"
-            }`}
-          >
-            <img
-              src={supplier.avatar}
-              alt={supplier.name}
-              className="w-10 h-10 rounded-full"
-            />
-            <div>
-              <p className="font-medium">{supplier.name}</p>
-              <p className="text-xs text-gray-500">{supplier.lastMessage}</p>
+                }`}
+            >
+              <img
+                src={
+                  otherUser?.avatar || `https://i.pravatar.cc/150?u=${otherUser._id}`
+                }
+                alt={otherUser?.name}
+                className="w-10 h-10 rounded-full"
+              />
+              <div>
+                <p className="font-medium">{otherUser?.name}</p>
+                <p className="text-xs text-gray-500">Tender: {chat.tenderId?.requirement}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Mobile Overlay */}
       {showSidebar && (
         <div
           className="fixed inset-0 bg-black/20 z-[150] lg:hidden"
@@ -96,22 +166,24 @@ export default function ChatInterface() {
       )}
 
       {/* Main Chat Window */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 max-h-[90vh] overflow-auto flex flex-col">
         {/* Header */}
         <div className="border-b bg-white px-4 py-4 flex items-center gap-4 shadow-sm">
           <button className="lg:hidden" onClick={() => setShowSidebar(true)}>
             <FiMenu size={24} />
           </button>
           <h3 className="text-lg font-semibold">
-            {
-              suppliers.find((s) => s.id === selectedSupplierId)?.name
-            }
+            {selectedChat
+              ? (role === "buyer"
+                ? selectedChat.supplierId?.name
+                : selectedChat.buyerId?.name)
+              : "Select a Chat"}
           </h3>
         </div>
 
         {/* Messages */}
         <motion.div
-          key={selectedSupplierId}
+          key={selectedChat?._id}
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3 }}
@@ -120,36 +192,37 @@ export default function ChatInterface() {
           {selectedMessages.map((msg, idx) => (
             <div
               key={idx}
-              className={`max-w-xs px-4 py-2 rounded-xl text-sm shadow-md ${
-                msg.from === "buyer"
-                  ? "bg-blue-600 text-white self-end ml-auto"
-                  : "bg-gray-200 text-gray-800 self-start"
-              }`}
+              className={`max-w-xs px-4 py-2 rounded-xl text-sm shadow-md ${msg.sender === userId
+                ? "bg-blue-600 text-white self-end ml-auto"
+                : "bg-gray-200 text-gray-800 self-start"
+                }`}
             >
-              {msg.text}
+              {msg.text||msg.content}
             </div>
           ))}
         </motion.div>
 
-        {/* Input Box */}
-        <div className="p-4 border-t bg-white shadow-inner">
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Type your message..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            />
-            <button
-              onClick={handleSend}
-              className="p-2 bg-blue-600 hover:bg-blue-700 rounded-full text-white"
-            >
-              <FiSend />
-            </button>
+        {/* Input */}
+        {selectedChat && (
+          <div className="p-4 border-t bg-white shadow-inner">
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Type your message..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+              />
+              <button
+                onClick={handleSend}
+                className="p-2 bg-blue-600 hover:bg-blue-700 rounded-full text-white"
+              >
+                <FiSend />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

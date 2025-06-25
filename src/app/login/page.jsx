@@ -81,7 +81,7 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center text-black max-h-screen dark:bg-white">
+    <div className="flex items-center justify-center text-black min-h-screen dark:bg-white">
       <div className="flex flex-col md:flex-row w-full overflow-hidden">
         {/* Left Side - Image */}
         <div className="w-full md:w-3/5 p-2 md:py-16 md:p-8 flex items-center justify-center">
