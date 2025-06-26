@@ -16,9 +16,11 @@ export default function SupplierProfile({ supplier }) {
   const axios = axiosAPI();
   const { user } = useAppContext();
   const [form, setForm] = useState({ ...user });
-  console.log(user)
+  console.log(user);
   const successRate =
-    form.totalBids > 0 ? Math.round((form.successfulBids / form.totalBids) * 100) : 0;
+    form.totalBids > 0
+      ? Math.round((form.successfulBids / form.totalBids) * 100)
+      : 0;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -121,7 +123,6 @@ export default function SupplierProfile({ supplier }) {
                   {form.category} {form.subcategory ? `— ${form.subcategory}` : ""}
                 </span>
               )} */}
-
             </div>
           </div>
 

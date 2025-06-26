@@ -58,8 +58,7 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
         </h2>
         <div className="flex flex-wrap items-center gap-8 text-sm text-white ">
           <span className="text-black/90">
-            Showing: <strong>{tenderCount}</strong>{" "}
-            tenders
+            Showing: <strong>{tenderCount}</strong> tenders
           </span>
           <button
             onClick={resetFilters}
@@ -170,36 +169,33 @@ export default function TenderFilters({ filters, setFilters, tenderCount }) {
           </select>
 
           {/* <div className="flex flex-col md:flex-row gap-4 md:w-100"> */}
-            <div className="flex flex-col ">
-              <label
-                htmlFor="expiryFrom"
-                className="mb-1 text-sm text-gray-700"
-              >
-                Expiry From:
-              </label>
-              <input
-                id="expiryFrom"
-                name="expiryFrom"
-                type="date"
-                className="w-full md:w-40 px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
-                value={filters.expiryFrom}
-                onChange={handleChange}
-              />
-            </div>
+          <div className="flex flex-col ">
+            <label htmlFor="expiryFrom" className="mb-1 text-sm text-gray-700">
+              Expiry From:
+            </label>
+            <input
+              id="expiryFrom"
+              name="expiryFrom"
+              type="date"
+              className="w-full md:w-40 px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
+              value={filters.expiryFrom}
+              onChange={handleChange}
+            />
+          </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="expiryTo" className="mb-1 text-sm text-gray-700">
-                Expiry To:
-              </label>
-              <input
-                id="expiryTo"
-                name="expiryTo"
-                type="date"
-                className="w-full md:w-40 px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
-                value={filters.expiryTo}
-                onChange={handleChange}
-              />
-            </div>
+          <div className="flex flex-col">
+            <label htmlFor="expiryTo" className="mb-1 text-sm text-gray-700">
+              Expiry To:
+            </label>
+            <input
+              id="expiryTo"
+              name="expiryTo"
+              type="date"
+              className="w-full md:w-40 px-4 py-2 text-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none transition"
+              value={filters.expiryTo}
+              onChange={handleChange}
+            />
+          </div>
           {/* </div> */}
         </div>
       )}

@@ -15,7 +15,7 @@ const DashboardSelector = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full max-w-4xl p-6 pb-20">
         {/* Buyer Dashboard */}
-        <Link href="/buyer-dashboard">
+        <Link href="/buyer-dashboard" passHref>
           <div
             className="cursor-pointer backdrop-blur-lg bg-white/70 border border-blue-400/40
            hover:border-blue-600/60 hover:shadow-blue-500/30 shadow-lg hover:scale-[1.03] 
@@ -36,7 +36,7 @@ const DashboardSelector = () => {
         </Link>
 
         {/* Supplier Dashboard */}
-        <Link href="/supplier-dashboard">
+        <Link href="/supplier-dashboard" passHref>
           <div className="cursor-pointer backdrop-blur-md bg-white/30 border border-green-400/40 hover:border-green-600/60 hover:shadow-green-500/30 shadow-lg hover:scale-[1.03] transition-all duration-300 ease-in-out rounded-2xl p-8 text-center">
             <div className="flex flex-col items-center gap-3">
               <img

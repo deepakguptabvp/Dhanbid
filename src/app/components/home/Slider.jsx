@@ -26,7 +26,6 @@ const Slider = () => {
         goToNextSlide();
       }
     }, 3000);
-
     return () => clearInterval(timer);
   }, [currentSlide, isTransitioning]);
 
