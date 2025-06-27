@@ -14,6 +14,7 @@ import EditTender from "./EditTender";
 import TenderWithBidsCard from "./TenderAndBidsDetails";
 import ChatInterface from "./BuyerChat";
 import { useAppContext } from "../context/AppContext";
+import { BsChat } from "react-icons/bs";
 
 const SampleBuyer = {
   name: "Dinesh Kumar",
@@ -106,6 +107,17 @@ const page = () => {
             </div>
           </button>
 
+          {/* Create Tender button */}
+          <button
+            onClick={() => setActiveSection("chats")}
+            className={`w-full text-left px-4 py-2 rounded-xl hover:bg-indigo-200 ${activeSection === "chats" ? "bg-indigo-200" : ""
+              }`}
+          >
+            <div className="inline-flex items-center justify-center">
+              <BsChat size={20} className="m-1" />
+              <span className="m-1">Chats</span>
+            </div>
+          </button>
           {/* Create Tender button */}
           <button
             onClick={() => setActiveSection("create-tender")}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FiSend, FiMenu } from "react-icons/fi";
 import { BsChatDots } from "react-icons/bs";
@@ -18,13 +18,15 @@ export default function ChatInterface({ chat, userId, role }) {
   const [input, setInput] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const [messages, setMessages] = useState({}); // chatId: [msg, msg]
-
+const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   // Fetch all chats based on user role
   useEffect(() => {
     const fetchChats = async () => {
       try {
         const res = await axios.get(`/chats?userId=${userId}&role=${role}`);
         setChats(res.data);
+        setSelectedChat(chat);
       } catch (err) {
         console.error("Error fetching chats", err);
       }
@@ -83,6 +85,12 @@ export default function ChatInterface({ chat, userId, role }) {
       socket.off("newMessage", handleMessage);
     };
   }, []);
+ useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [chatMessages, selectedChat]);
 
   const handleSend = async () => {
     if (!input.trim() || !selectedChat) return;
@@ -182,25 +190,33 @@ export default function ChatInterface({ chat, userId, role }) {
         </div>
 
         {/* Messages */}
-        <motion.div
-          key={selectedChat?._id}
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="flex-1 p-4 md:p-6 overflow-y-auto space-y-3"
-        >
-          {selectedMessages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`max-w-xs px-4 py-2 rounded-xl text-sm shadow-md ${msg.sender === userId
-                ? "bg-blue-600 text-white self-end ml-auto"
-                : "bg-gray-200 text-gray-800 self-start"
-                }`}
-            >
-              {msg.text||msg.content}
-            </div>
-          ))}
-        </motion.div>
+        <div className="flex-1 overflow-hidden">
+          <div
+            ref={messagesContainerRef}
+            className="h-full overflow-y-auto p-4 md:p-6 space-y-3"
+          >
+            {selectedMessages.map((msg, idx) => {
+              const isSender = msg.sender === user._id;
+              return (
+                <div
+                  key={idx}
+                  className={`flex ${isSender ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`rounded-2xl px-4 py-2 max-w-[80%] text-sm shadow-md transition-all
+              ${isSender
+                        ? "bg-blue-600 text-white rounded-br-none"
+                        : "bg-gray-200 text-gray-900 rounded-bl-none"}`}
+                  >
+                    {msg.text || msg.content}
+                  </div>
+                </div>
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </div>
+        </div>
+
 
         {/* Input */}
         {selectedChat && (

@@ -9,13 +9,15 @@ import { useAppContext } from "../context/AppContext";
 export default function ChatInterface({ currentUser }) {
   const axios = axiosAPI();
   const { user } = useAppContext();
+
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [chatMessages, setChatMessages] = useState({});
   const [input, setInput] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
-  // const messagesEndRef = useRef(null);
-
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   // Fetch supplier chats
   useEffect(() => {
     if (!user?._id) return;
@@ -33,19 +35,31 @@ export default function ChatInterface({ currentUser }) {
     fetchChats();
   }, [currentUser, user]);
 
-  // Join room when chat is selected
+  // Fetch messages when a chat is selected
   useEffect(() => {
+    const fetchMessages = async () => {
+      if (!selectedChat?._id) return;
+      setLoadingMessages(true);
+      try {
+        const { data } = await axios.get(`/chats/${selectedChat._id}`);
+        setChatMessages((prev) => ({
+          ...prev,
+          [selectedChat._id]: data.messages,
+        }));
+      } catch (err) {
+        console.error("Failed to fetch messages", err);
+      } finally {
+        setLoadingMessages(false);
+      }
+    };
+
+    fetchMessages();
     if (selectedChat?._id) {
       socket.emit("joinChat", selectedChat._id);
     }
   }, [selectedChat]);
 
-  // Scroll to bottom when messages update
-  // useEffect(() => {
-  //   messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  // }, [chatMessages, selectedChat]);
-
-  // Handle incoming messages
+  // Handle incoming messages via socket
   useEffect(() => {
     const handleNewMessage = (message) => {
       setChatMessages((prev) => {
@@ -58,10 +72,17 @@ export default function ChatInterface({ currentUser }) {
     };
 
     socket.on("newMessage", handleNewMessage);
-    return () => {
-      socket.off("newMessage", handleNewMessage);
-    };
+    return () => socket.off("newMessage", handleNewMessage);
   }, []);
+
+  // Scroll to bottom on new messages
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [chatMessages, selectedChat]);
+
 
   const handleSend = async () => {
     if (!input.trim() || !selectedChat) return;
@@ -72,13 +93,13 @@ export default function ChatInterface({ currentUser }) {
       timestamp: new Date(),
     };
 
-    // Emit to socket
+    // Emit message to socket
     socket.emit("sendMessage", {
       chatId: selectedChat._id,
       message,
     });
 
-    // Add locally
+    // Show locally
     setChatMessages((prev) => ({
       ...prev,
       [selectedChat._id]: [...(prev[selectedChat._id] || []), message],
@@ -88,7 +109,7 @@ export default function ChatInterface({ currentUser }) {
     try {
       await axios.post(`/messages/${selectedChat._id}`, {
         senderId: user._id,
-        text: message.content,
+        text: message.text,
       });
     } catch (err) {
       console.error("Failed to save message", err);
@@ -97,17 +118,14 @@ export default function ChatInterface({ currentUser }) {
     setInput("");
   };
 
-  const selectedMessages = selectedChat
-    ? chatMessages[selectedChat._id] || []
-    : [];
+  const selectedMessages = selectedChat ? chatMessages[selectedChat._id] || [] : [];
 
   return (
-    <div className="flex h-full  bg-white text-gray-900 overflow-hidden relative">
+    <div className="flex h-full max-h-[80vh] bg-white text-gray-900 overflow-hidden relative">
       {/* Sidebar */}
       <div
-        className={`w-64 bg-gray-100 p-4 overflow-y-auto duration-300 ${
-          showSidebar ? "fixed z-30 top-0 left-0 h-full" : "hidden lg:block"
-        }`}
+        className={`w-64 bg-gray-100 p-4 overflow-y-auto duration-300 ${showSidebar ? "fixed z-30 top-0 left-0 h-full" : "hidden lg:block"
+          }`}
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
@@ -128,11 +146,10 @@ export default function ChatInterface({ currentUser }) {
               setSelectedChat(chat);
               setShowSidebar(false);
             }}
-            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer mb-2 transition ${
-              selectedChat?._id === chat._id
-                ? "bg-blue-100"
-                : "hover:bg-gray-200"
-            }`}
+            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer mb-2 transition ${selectedChat?._id === chat._id
+              ? "bg-blue-100"
+              : "hover:bg-gray-200"
+              }`}
           >
             <img
               src={
@@ -140,11 +157,11 @@ export default function ChatInterface({ currentUser }) {
                 `https://i.pravatar.cc/150?u=${chat.buyerId?._id}`
               }
               alt={chat.buyerId?.name}
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full object-cover"
             />
             <div>
               <p className="font-medium">{chat.buyerId?.name}</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 truncate">
                 {chat.tenderId?.requirement}
               </p>
             </div>
@@ -161,7 +178,7 @@ export default function ChatInterface({ currentUser }) {
       )}
 
       {/* Chat Window */}
-      <div className="flex-1 flex max-h-[90vh] overflow-auto flex-col ">
+      <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
         <div className="border-b bg-white px-4 py-4 flex items-center gap-4 shadow-sm">
           <button
@@ -176,35 +193,42 @@ export default function ChatInterface({ currentUser }) {
         </div>
 
         {/* Messages */}
-        <motion.div
-          key={selectedChat?._id}
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="flex-1 p-4 md:p-6 overflow-y-auto space-y-3"
-        >
-          {selectedMessages.map((msg, idx) => (
-            <div
-              key={idx*13}
-              className={`max-w-xs px-4 py-2 rounded-xl text-sm shadow-md ${
-                msg.sender === user._id
-                  ? "bg-blue-600 text-white self-end ml-auto"
-                  : "bg-gray-200 text-gray-800 self-start"
-              }`}
-            >
-              {msg.content||msg.text}
-            </div>
-          ))}
-          {/* <div ref={messagesEndRef} /> */}
-        </motion.div>
+        <div className="flex-1 overflow-hidden">
+          <div
+            ref={messagesContainerRef}
+            className="h-full overflow-y-auto p-4 md:p-6 space-y-3"
+          >
+            {selectedMessages.map((msg, idx) => {
+              const isSender = msg.sender === user._id;
+              return (
+                <div
+                  key={idx}
+                  className={`flex ${isSender ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`rounded-2xl px-4 py-2 max-w-[80%] text-sm shadow-md transition-all
+              ${isSender
+                        ? "bg-blue-600 text-white rounded-br-none"
+                        : "bg-gray-200 text-gray-900 rounded-bl-none"}`}
+                  >
+                    {msg.text || msg.content}
+                  </div>
+                </div>
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </div>
+        </div>
+
+
 
         {/* Input */}
         {selectedChat && (
           <div className="p-4 border-t bg-white shadow-inner">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full">
               <input
                 type="text"
-                className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 bg-transparent focus:outline-none text-sm"
                 placeholder="Type your message..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
