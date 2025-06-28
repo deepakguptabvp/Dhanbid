@@ -304,7 +304,7 @@ const AddTender = ({ emptyArray, setEmptyArray, setActiveSection }) => {
 
       const res = await axios.post("tenders",formPayload);
 
-      const data = await res.json();
+      const data = res.data;
 
       // if (!res.ok) {
       //   toast.error(data?.error || "Failed to submit tender.");

@@ -4,6 +4,7 @@ import { FiSend, FiMenu } from "react-icons/fi";
 import { BsChatDots } from "react-icons/bs";
 import socket from "../../../socket"; // socket.io-client setup
 import axiosAPI from "../api/useAxios";
+import { useAppContext } from "../context/AppContext";
 
 export default function ChatInterface({ chat, userId, role }) {
 
@@ -16,6 +17,7 @@ export default function ChatInterface({ chat, userId, role }) {
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(chat);
   const [input, setInput] = useState("");
+  const {user} = useAppContext();
   const [showSidebar, setShowSidebar] = useState(false);
   const [messages, setMessages] = useState({}); // chatId: [msg, msg]
 const messagesEndRef = useRef(null);
@@ -90,7 +92,7 @@ const messagesEndRef = useRef(null);
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
     }
-  }, [chatMessages, selectedChat]);
+  }, [selectedMessages, selectedChat]);
 
   const handleSend = async () => {
     if (!input.trim() || !selectedChat) return;
