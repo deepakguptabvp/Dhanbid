@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LuClipboardList } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { FaBell, FaCoins, FaUserTie } from "react-icons/fa";
@@ -14,6 +14,8 @@ import SupplierProfile from "./Profile";
 import ChatInterface from "./Chats";
 import { myBids } from "../data/categories";
 import { MenuIcon, XIcon } from "lucide-react";
+import TenderDetails from "./TenderDetails";
+import axiosAPI from "../api/useAxios";
 
 const SampleSupplier = {
   name: "Ravi Kumar",
@@ -30,10 +32,28 @@ const SampleSupplier = {
 const Page = () => {
   const [activeSection, setActiveSection] = useState("tenders");
   const [createBid, setCreateBid] = useState(null);
+  const [tender, setTender] = useState(null);
   const [bids, setBids] = useState(myBids);
   const [supplier, setSupplier] = useState(SampleSupplier);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreads, setUnreads] = useState(0);
+  const axios = axiosAPI();
+  const fetchNotifications = async () => {
+    try {
+      const res = await axios.get("/notifications");
+      setNotifications(res.data.data);
+      setUnreads(res.data?.data?.filter((d) => !d.isRead)?.length || 0);
+      console.log(res.data?.data?.filter((d) => !d.isRead)?.length)
+    } catch (error) {
+      console.error("Error fetching notifications", error);
+    }
+  };
+  useEffect(() => {
 
+
+    fetchNotifications();
+  }, []);
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -59,10 +79,12 @@ const Page = () => {
         );
       case "my-profile":
         return <SupplierProfile supplier={supplier} />;
+      case "tender":
+        return <TenderDetails tender={tender} setCreateBid={setCreateBid} setActiveSection={setActiveSection} />;
       case "chats":
         return <ChatInterface />;
       case "notifications":
-        return <Notifications />;
+        return <Notifications getNotifications={fetchNotifications} notifications={notifications} setNotifications={setNotifications} setTender={setTender} setActiveSection={setActiveSection} />;
       default:
         return <div>Select an option from the sidebar.</div>;
     }
@@ -80,7 +102,7 @@ const Page = () => {
     },
     {
       key: "notifications",
-      label: "Notifications",
+      label: `Notifications${unreads ? ` (${unreads})` : ''}`,
       icon: <FaBell size={20} />,
     },
   ];
@@ -121,9 +143,8 @@ const Page = () => {
                 setActiveSection(item.key);
                 setIsMenuOpen(false); // Close sidebar on mobile after selection
               }}
-              className={`w-full text-left cursor-pointer px-4 py-2 rounded-xl hover:bg-indigo-200 flex items-center ${
-                activeSection === item.key ? "bg-indigo-200" : ""
-              }`}
+              className={`w-full text-left cursor-pointer px-4 py-2 rounded-xl hover:bg-indigo-200 flex items-center ${activeSection === item.key ? "bg-indigo-200" : ""
+                }`}
             >
               <div className="mr-2">{item.icon}</div>
               {item.label}

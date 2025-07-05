@@ -4,23 +4,17 @@ import { CgBell } from "react-icons/cg";
 import axiosAPI from "../api/useAxios";
 import { useRouter } from "next/navigation";
 
-const NotificationsPage = () => {
-  const [notifications, setNotifications] = useState([]);
-  const navigate = useRouter();
+const NotificationsPage = ({setTender,setActiveSection,notifications, getNotifications}) => {
+  const markNotificationAsRead = async (notificationId) => {
   const axios = axiosAPI();
-
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const res = await axios.get("/notifications");
-        setNotifications(res.data.data);
-      } catch (error) {
-        console.error("Error fetching notifications", error);
-      }
-    };
-
-    fetchNotifications();
-  }, []);
+  try {
+    const res = await axios.patch(`/notifications/read/${notificationId}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to mark notification as read:", error);
+    throw error;
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -35,7 +29,7 @@ const NotificationsPage = () => {
                 border-white/20 backdrop-blur-xl rounded-xl p-5 shadow-md transition hover:shadow-lg"
             >
               <div className="flex items-start gap-4">
-                <div className="bg-blue-600 text-white p-2 rounded-full shadow">
+                <div className="bg-[#0200b9] text-white p-2 rounded-full shadow">
                   <CgBell className="h-6 w-6" />
                 </div>
 
@@ -54,8 +48,8 @@ const NotificationsPage = () => {
                     {new Date(notif.tender?.createdAt).toLocaleDateString()}
                   </p>
                   <button
-                    onClick={() => navigate.push(`/tender/${notif.tender?._id}`)}
-                    className="mt-3 flex items-center bg-blue-600 hover:bg-blue-700 text-white 
+                    onClick={() => {markNotificationAsRead(notif._id); setTender(notif.tender); setActiveSection('tender'); getNotifications()}}
+                    className="mt-3 flex items-center cursor-pointer bg-[#0200b9] hover:bg-blue-700 text-white 
                   text-center px-4 py-2 rounded-lg text-sm transition"
                   >
                     View Tender

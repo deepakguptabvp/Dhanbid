@@ -14,7 +14,7 @@ export default function TenderList({
       ) : (
         tenders.map((tender) => (
           <div
-            key={tender.id}
+            key={tender._id}
             className="bg-white p-6 -z-10 rounded-xl border space-y-3 border-gray-200 overflow-hidden hover:shadow-lg hover:bg-gray-100  transition-shadow duration-200"
           >
             <div className="flex justify-between items-center">
@@ -53,7 +53,7 @@ export default function TenderList({
                   setCreateBid(tender);
                   setActiveSection("create-bid");
                 }}
-                className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-indigo-400 hover:bg-indigo-500 md:w-30 md:mx-auto"
+                className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-[#0200b9] text-white hover:bg-indigo-500 md:w-30 md:mx-auto"
               >
                 Bid Now
               </button>

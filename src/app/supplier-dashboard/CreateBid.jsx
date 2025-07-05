@@ -49,7 +49,12 @@ const CreateBid = ({ createBid: tender, setActiveSection }) => {
     toast.error(error?.response?.data?.message || "Something went wrong.");
   }
 };
-
+const formatDate = (date) =>
+        new Date(date).toLocaleDateString("en-IN", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+        });
   return (
     <div className="flex flex-col max-w-3xl mx-auto p-6 min-h-screen dark:text-black">
       <div className="w-full bg-white dark:text-black rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -63,22 +68,22 @@ const CreateBid = ({ createBid: tender, setActiveSection }) => {
               <strong>ID:</strong> {tender?.tenderId}
             </p>
             <p>
-              <strong>Title:</strong> {tender?.name}
-            </p>
-            <p>
-              <strong>Company:</strong> {tender?.company}
+              <strong>Title:</strong> {tender?.requirement}
             </p>
             <p>
               <strong>Category:</strong> {tender?.category}
             </p>
+             <p>
+              <strong>Sub-category:</strong> {tender?.subcategory}
+            </p>
             <p>
-              <strong>Expiry:</strong> {tender?.expiryDate}
+              <strong>Expiry:</strong> {formatDate(tender?.timeline)}
             </p>
             <p>
               <strong>Budget:</strong> ₹{tender?.minPrice} - ₹{tender?.maxPrice}
             </p>
             <p className="md:col-span-2">
-              <strong>Description:</strong> {tender?.description}
+              <strong>Description:</strong> {tender?.description || "N/A"}
             </p>
           </div>
         </div>
@@ -172,7 +177,7 @@ const CreateBid = ({ createBid: tender, setActiveSection }) => {
             <div className="pt-4 flex justify-end">
               <button
                 type="submit"
-                className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition"
+                className="bg-[#0200b9] cursor-pointer hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-semibold transition"
               >
                 Submit Bid
               </button>

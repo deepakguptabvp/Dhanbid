@@ -128,7 +128,7 @@ export default function TenderWithBidsCard({
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="font-medium text-gray-800">
-                        Bid #{index + 1}
+                        Bid - {index + 1}
                       </p>
                       <p className="text-sm text-gray-600">
                         Quantity: {bid.quantity} × ₹
