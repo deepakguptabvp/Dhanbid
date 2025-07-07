@@ -142,7 +142,7 @@ const MyTenders = ({ setActiveSection, setId }) => {
                 <button onClick={() => {
                   setId(tender?._id);
                   setTenderToShow(tender)
-                  setIsOpen(true)}} className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-[#0200b9] hover:bg-indigo-500 md:w-30 md:mx-auto">
+                  setIsOpen(true)}} className="flex-col px-3 py-2 rounded-xl text-md mt-3 cursor-pointer bg-[#0200b9] text-white hover:bg-indigo-500 md:w-30 md:mx-auto">
                   View Details
                 </button>
                 <button onClick={() => {

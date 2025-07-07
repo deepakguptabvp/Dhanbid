@@ -26,7 +26,7 @@ export default function ChatInterface({ currentUser }) {
         const { data } = await axios.get(`/chats?userId=${user._id}&role=supplier`);
         setChats(data);
         if (data.length > 0) {
-          setSelectedChat(data[0]);
+          setSelectedChat({ ...data[0], isUnread: false });
         }
       } catch (err) {
         console.error("Failed to fetch chats", err);
@@ -42,10 +42,27 @@ export default function ChatInterface({ currentUser }) {
       setLoadingMessages(true);
       try {
         const { data } = await axios.get(`/chats/${selectedChat._id}`);
+
+        // ✅ Update read status
+        const { data: readData } = await axios.put(`/chats/${selectedChat._id}/read`, {
+          userId: user._id,
+        });
+        console.log(readData)
         setChatMessages((prev) => ({
           ...prev,
           [selectedChat._id]: data.messages,
         }));
+        
+        // Refresh chat list to reflect unread -> read
+        const refreshedChats = await axios.get(`/chats?userId=${user._id}&role=supplier`);
+        setChats(refreshedChats.data);
+        setChats((prevChats) =>
+          prevChats.map((chat) =>
+            chat._id === selectedChat._id
+              ? { ...chat, isUnread: false }
+              : chat
+          )
+        );
       } catch (err) {
         console.error("Failed to fetch messages", err);
       } finally {
@@ -59,9 +76,12 @@ export default function ChatInterface({ currentUser }) {
     }
   }, [selectedChat]);
 
+
   // Handle incoming messages via socket
   useEffect(() => {
     const handleNewMessage = (message) => {
+      console.log(message)
+
       setChatMessages((prev) => {
         const existing = prev[message.chatId] || [];
         return {
@@ -70,7 +90,6 @@ export default function ChatInterface({ currentUser }) {
         };
       });
     };
-
     socket.on("newMessage", handleNewMessage);
     return () => socket.off("newMessage", handleNewMessage);
   }, []);
@@ -93,10 +112,14 @@ export default function ChatInterface({ currentUser }) {
       timestamp: new Date(),
     };
 
-    // Emit message to socket
+    const receiverId = selectedChat.buyerId._id || selectedChat.buyerId; // Ensure this is a user ID
+
+    // ✅ Emit complete message with receiverId + senderId
     socket.emit("sendMessage", {
       chatId: selectedChat._id,
       message,
+      receiverId,
+      senderId: user._id,
     });
 
     // Show locally
@@ -105,7 +128,6 @@ export default function ChatInterface({ currentUser }) {
       [selectedChat._id]: [...(prev[selectedChat._id] || []), message],
     }));
 
-    // Save to DB
     try {
       await axios.post(`/messages/${selectedChat._id}`, {
         senderId: user._id,
@@ -118,13 +140,14 @@ export default function ChatInterface({ currentUser }) {
     setInput("");
   };
 
-  const selectedMessages = selectedChat ? chatMessages[selectedChat._id] || [] : [];
 
+  const selectedMessages = selectedChat ? chatMessages[selectedChat._id] || [] : [];
+  console.log(chats)
   return (
-    <div className="flex h-full max-h-[80vh] bg-white text-gray-900 overflow-hidden relative">
+    <div className="flex h-full min-h-[80vh] max-h-[85vh] bg-white text-gray-900 overflow-hidden relative">
       {/* Sidebar */}
       <div
-        className={`w-64 bg-gray-100 p-4 overflow-y-auto duration-300 ${showSidebar ? "fixed z-30 top-0 left-0 h-full" : "hidden lg:block"
+        className={`w-64 bg-gray-100 p-4 overflow-y-auto duration-300 ${showSidebar ? "fixed z-[200] top-0 left-0 h-full" : "hidden lg:block"
           }`}
       >
         <div className="flex justify-between items-center mb-4">
@@ -146,11 +169,10 @@ export default function ChatInterface({ currentUser }) {
               setSelectedChat(chat);
               setShowSidebar(false);
             }}
-            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer mb-2 transition ${selectedChat?._id === chat._id
-              ? "bg-blue-100"
-              : "hover:bg-gray-200"
-              }`}
+            className={`flex items-center z-[200] gap-3 p-3 rounded-lg cursor-pointer mb-2 transition 
+    ${selectedChat?._id === chat._id ? "bg-blue-100" : chat.isUnread ? "bg-yellow-100" : "hover:bg-gray-200"}`}
           >
+
             <img
               src={
                 chat.buyerId?.avatar ||
@@ -161,8 +183,10 @@ export default function ChatInterface({ currentUser }) {
             />
             <div>
               <p className="font-medium">{chat.buyerId?.name}</p>
-              <p className="text-xs text-gray-500 truncate">
-                {chat.tenderId?.requirement}
+              <p
+                className={`text-sm truncate ${chat.isUnread ? "font-bold text-black" : "text-light text-gray-500"}`}
+              >
+                {chat.lastMessage?.text || chat.tenderId?.requirement || "No messages yet"}
               </p>
             </div>
           </div>
@@ -172,7 +196,7 @@ export default function ChatInterface({ currentUser }) {
       {/* Overlay */}
       {showSidebar && (
         <div
-          className="fixed inset-0 bg-black/30 z-20 lg:hidden"
+          className="fixed inset-0 bg-black/30 z-[100] lg:hidden"
           onClick={() => setShowSidebar(false)}
         />
       )}

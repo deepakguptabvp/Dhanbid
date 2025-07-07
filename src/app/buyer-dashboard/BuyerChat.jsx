@@ -17,10 +17,10 @@ export default function ChatInterface({ chat, userId, role }) {
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(chat);
   const [input, setInput] = useState("");
-  const {user} = useAppContext();
+  const { user } = useAppContext();
   const [showSidebar, setShowSidebar] = useState(false);
   const [messages, setMessages] = useState({}); // chatId: [msg, msg]
-const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
   // Fetch all chats based on user role
   useEffect(() => {
@@ -35,20 +35,20 @@ const messagesEndRef = useRef(null);
     };
     fetchChats();
   }, [userId, role]);
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Socket connected:", socket.id);
-    });
+  // useEffect(() => {
+  //   socket.on("connect", () => {
+  //     console.log("Socket connected:", socket.id);
+  //   });
 
-    socket.on("disconnect", () => {
-      console.log("Socket disconnected");
-    });
+  //   socket.on("disconnect", () => {
+  //     console.log("Socket disconnected");
+  //   });
 
-    return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("connect");
+  //     socket.off("disconnect");
+  //   };
+  // }, []);
 
   // Join room and load messages
   const handleChatSelect = async (chat) => {
@@ -56,11 +56,21 @@ const messagesEndRef = useRef(null);
     socket.emit("joinChat", chat._id);
 
     try {
-     
+      const { data } = await axios.get(`/chats/${selectedChat._id}`);
+
+      // ✅ Update read status
+      const { data: readData } = await axios.put(`/chats/${selectedChat._id}/read`, {
+        userId: user._id,
+      });
+      console.log(readData)
       setMessages((prev) => ({
         ...prev,
-        [chat._id]: chat.messages, // assuming this returns array of messages
+        [selectedChat._id]: data.messages,
       }));
+console.log(user)
+      // Refresh chat list to reflect unread -> read
+      const refreshedChats = await axios.get(`/chats?userId=${user._id}&role=buyer`);
+      setChats(refreshedChats.data);
     } catch (err) {
       console.error("Failed to fetch messages", err);
     }
@@ -74,20 +84,21 @@ const messagesEndRef = useRef(null);
   useEffect(() => {
     const handleMessage = (message) => {
       const { chatId } = message;
+      console.log("Check", message)
       setMessages((prev) => ({
         ...prev,
         [chatId]: [...(prev[chatId] || []), message],
       }));
     };
 
-    socket.off("newMessage", handleMessage); // clean before add
+    // socket.off("newMessage", handleMessage); // clean before add
     socket.on("newMessage", handleMessage);
 
     return () => {
       socket.off("newMessage", handleMessage);
     };
   }, []);
- useEffect(() => {
+  useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
@@ -96,9 +107,10 @@ const messagesEndRef = useRef(null);
 
   const handleSend = async () => {
     if (!input.trim() || !selectedChat) return;
-
+    const receiverId = selectedChat.supplierId._id || selectedChat.supplierId
     const message = {
       chatId: selectedChat._id,
+      receiverId,
       message: {
         sender: userId,
         text: input.trim(),
@@ -106,7 +118,6 @@ const messagesEndRef = useRef(null);
       },
     };
 
-    console.log(message)
     // Emit socket event
     socket.emit("sendMessage", message);
     const { data } = await axios.post(`messages/${selectedChat._id}`, { senderId: userId, text: input.trim() });
@@ -136,8 +147,7 @@ const messagesEndRef = useRef(null);
         </div>
 
         {chats.map((chat) => {
-          const otherUser =
-            role === "buyer" ? chat.supplierId : chat.buyerId;
+          const otherUser = chat.supplierId;
 
           return (
             <div
@@ -146,21 +156,25 @@ const messagesEndRef = useRef(null);
                 handleChatSelect(chat);
                 setShowSidebar(false);
               }}
-              className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer mb-2 transition ${selectedChat?._id === chat._id
-                ? "bg-blue-100"
-                : "hover:bg-gray-200"
-                }`}
+              c className={`flex items-center z-[200] gap-3 p-3 rounded-lg cursor-pointer mb-2 transition 
+    ${selectedChat?._id === chat._id ? "bg-blue-100" : chat.isUnread ? "bg-yellow-100" : "hover:bg-gray-200"}`}
             >
+
               <img
                 src={
-                  otherUser?.avatar || `https://i.pravatar.cc/150?u=${otherUser._id}`
+                  chat.supplierId?.avatar ||
+                  `https://i.pravatar.cc/150?u=${chat.supplierId?._id}`
                 }
-                alt={otherUser?.name}
-                className="w-10 h-10 rounded-full"
+                alt={chat.supplierId?.name || chat.supplierId?.phone}
+                className="w-10 h-10 rounded-full object-cover"
               />
               <div>
-                <p className="font-medium">{otherUser?.name}</p>
-                <p className="text-xs text-gray-500">Tender: {chat.tenderId?.requirement}</p>
+                <p className="font-medium">{chat.supplierId?.name || chat.supplierId?.phone}</p>
+                <p
+                  className={`text-sm truncate ${chat.isUnread ? "font-bold text-black" : "text-light text-gray-500"}`}
+                >
+                  {chat.lastMessage?.text || chat.tenderId?.requirement || "No messages yet"}
+                </p>
               </div>
             </div>
           );

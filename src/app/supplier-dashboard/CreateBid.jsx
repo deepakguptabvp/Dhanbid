@@ -16,15 +16,13 @@ const CreateBid = ({ createBid: tender, setActiveSection }) => {
   const confirmed = window.confirm(
     `Are you sure you want to submit a bid of ₹${amount*quantity} for Tender ID: ${tender?.tenderId || tender?._id}?`
   );
-  if (!confirmed) return;
+  console.log(confirmed)
+  if (!confirmed) {
+    console.log("returning")
+    return};
 
   try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("You must be logged in to place a bid.");
-      return;
-    }
-
+console.log("Yha aagya")
     const response = await axios.post(
       "/bids",
       {
@@ -34,7 +32,7 @@ const CreateBid = ({ createBid: tender, setActiveSection }) => {
         description,
       },
     );
-
+console.log(response)
     // Add the new bid to the local state
     setBids((prev) => [response.data, ...prev]);
     setActiveSection("my-offers");

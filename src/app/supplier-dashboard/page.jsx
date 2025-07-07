@@ -16,6 +16,9 @@ import { myBids } from "../data/categories";
 import { MenuIcon, XIcon } from "lucide-react";
 import TenderDetails from "./TenderDetails";
 import axiosAPI from "../api/useAxios";
+import { useAppContext } from "../context/AppContext";
+import socket from "../../../socket";
+import toast from "react-hot-toast";
 
 const SampleSupplier = {
   name: "Ravi Kumar",
@@ -38,6 +41,7 @@ const Page = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreads, setUnreads] = useState(0);
+  const {user} = useAppContext();
   const axios = axiosAPI();
   const fetchNotifications = async () => {
     try {
@@ -54,6 +58,24 @@ const Page = () => {
 
     fetchNotifications();
   }, []);
+  useEffect(() => {
+    if (!user?._id) return;
+
+    // Receive unread message
+    socket.on('unreadMessage', ({ from, message, chatId }) => {
+      console.log(message)
+      toast(`📩 New message from ${from}: ${message.text}`, {
+        icon: '💬',
+        duration: 4000,
+      });
+
+      // Optionally set unread state in your app's context or Redux
+    });
+
+    return () => {
+      socket.off('unreadMessage');
+    };
+  }, [user]);
   const toggleMobileMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
